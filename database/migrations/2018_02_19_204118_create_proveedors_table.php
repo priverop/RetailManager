@@ -13,9 +13,16 @@ class CreateProveedorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('proveedors', function (Blueprint $table) {
+        Schema::create('proveedores', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->string('direccion');
+            $table->integer('codigo-postal');
+            $table->string('provincia');
+            $table->integer('telefono');
+            $table->string('nif');
             $table->timestamps();
+
         });
     }
 
