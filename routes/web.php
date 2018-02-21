@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('proveedores', 'ProveedorController');
+Route::resource('materiales', 'MaterialController');
