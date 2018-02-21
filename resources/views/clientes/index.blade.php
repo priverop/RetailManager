@@ -4,5 +4,10 @@
   {{ $value->provincia }} <br /><br />
   {{ $value->telefono }} <br /><br />
   {{ $value->nif }} <br /><br />
+  Obras:
+  @foreach($value->obras as $keys =>$values)
+    {{ $values->id }}
+  @endforeach
   <br /><br />
+  <hr />
 @endforeach
