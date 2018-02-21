@@ -14,7 +14,10 @@ class CreatePresupuestosTable extends Migration
     public function up()
     {
         Schema::create('presupuestos', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned()->unique();
+            $table->string('nombre');
+            $table->integer('obra_id')->unsigned();
+            $table->foreign('obra_id')->references('id')->on('obras')->onDelete('cascade');
             $table->timestamps();
         });
     }

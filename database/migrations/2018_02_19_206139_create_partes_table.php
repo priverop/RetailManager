@@ -14,7 +14,10 @@ class CreatePartesTable extends Migration
     public function up()
     {
         Schema::create('partes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned()->unique();
+            $table->string('nombre');
+            $table->integer('presupuesto_id')->unsigned();
+            $table->foreign('presupuesto_id')->references('id')->on('presupuestos')->onDelete('cascade');
             $table->timestamps();
         });
     }

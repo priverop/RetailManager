@@ -17,3 +17,7 @@ Route::get('/', function () {
 
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('materiales', 'MaterialController');
+Route::resource('obras', 'ObraController');
+Route::resource('partes', 'ParteController');
+Route::resource('presupuestos', 'PresupuestoController');
+Route::resource('clientes', 'ClienteController');
