@@ -44,21 +44,23 @@ class PresupuestoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Presupuesto  $proveedor
+     * @param  integer  $presupuesto_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Presupuesto $proveedor)
+    public function show(int $presupuesto_id)
     {
-        //
+        $presupuesto = Presupuesto::find($presupuesto_id);
+
+        return View::make('presupuestos.show')->with('presupuesto', $presupuesto);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Presupuesto  $proveedor
+     * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Presupuesto $proveedor)
+    public function edit(Presupuesto $presupuesto)
     {
         //
     }
@@ -67,10 +69,10 @@ class PresupuestoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Presupuesto  $proveedor
+     * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Presupuesto $proveedor)
+    public function update(Request $request, Presupuesto $presupuesto)
     {
         //
     }
@@ -78,10 +80,10 @@ class PresupuestoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Presupuesto  $proveedor
+     * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Presupuesto $proveedor)
+    public function destroy(Presupuesto $presupuesto)
     {
         //
     }
