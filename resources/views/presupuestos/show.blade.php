@@ -20,7 +20,7 @@
     <div class="col-xs-12 col-md-2"><button type="button" id="addParte" class="btn btn-secondary">Añadir Material</button></div>
     <div class="col-xs-12 col-md-10">
 
-        Concepto:{{ $value->nombre }}
+        Concepto: {{ $value->nombre }}
 
         <table class="table table-striped">
           <thead>
@@ -32,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($key->materiales as $mkey => $mvalue)
+            @foreach($value->materiales as $mkey => $mvalue)
             <tr>
               <th scope="row">{{$mkey}}</th>
               <td>{{$mvalue->nombre}}</td>
