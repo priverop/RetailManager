@@ -12,4 +12,11 @@ class Material extends Model
     public function proveedor(){
       return $this->belongsTo('App\Proveedor');
     }
+
+    /**
+    * Obtiene las Partes
+    */
+    public function partes(){
+      return $this->belongsToMany('App\Parte');
+    }
 }

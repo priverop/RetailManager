@@ -12,4 +12,11 @@ class Parte extends Model
   public function presupuesto(){
     return $this->belongsTo('App\Presupuesto');
   }
+
+  /**
+  * Obtiene los Materiales
+  */
+  public function materiales(){
+    return $this->belongsToMany('App\Material');
+  }
 }
