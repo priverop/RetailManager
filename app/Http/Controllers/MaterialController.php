@@ -38,7 +38,8 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $material = Material::create($request->all());
+      return response()->json($material);
     }
 
     /**

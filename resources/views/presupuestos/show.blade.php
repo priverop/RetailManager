@@ -10,6 +10,7 @@
     <div class="col-xs-12">
       <p>Nombre: {{ $presupuesto->nombre }}</p>
       <p>Cliente {{ $presupuesto->obra->cliente->nombre }}</p>
+      <p>ID Presupuesto: {{ $presupuesto-> id}}</p>
     </div>
   </div>
   <div class="col-xs-12">
@@ -20,7 +21,7 @@
   </div>
   @foreach($presupuesto->partes as $key => $value)
   <div class="row mt-5 p-3 border">
-    <div class="col-xs-12 col-md-2"><button type="button" id="addParte" class="btn btn-secondary">Añadir Material</button></div>
+    <div class="col-xs-12 col-md-2"><button type="button" class="addMaterial btn btn-secondary">Añadir Material</button></div>
     <div class="col-xs-12 col-md-10">
 
         Concepto: {{ $value->nombre }}
@@ -57,8 +58,18 @@ $(function() {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});
-  // STORE
+  });
+  // Create Material
+  $(".addMaterial").click(function(){
+    var tbody = $(this).parent().parent().find("tbody");
+
+    $.get('/materiales/create-small', function(data){
+        $(tbody).append(data);
+    });
+
+  });
+
+  // STORE Parte
   $('#addParteButton').click(function(){
     event.preventDefault();
 

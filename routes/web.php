@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/materiales/create-small', function () {
+    return view('materiales.create-small');
+});
+
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('materiales', 'MaterialController');
 Route::resource('obras', 'ObraController');

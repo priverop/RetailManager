@@ -19,4 +19,15 @@ class Material extends Model
     public function partes(){
       return $this->belongsToMany('App\Parte');
     }
+
+    /**
+       * The attributes that are mass assignable.
+       *
+       * @var array
+       */
+      protected $fillable = [
+
+          'nombre', 'precio', 'proveedor_id'
+
+      ];
 }
