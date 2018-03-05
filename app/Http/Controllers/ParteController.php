@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Parte;
 use Illuminate\Http\Request;
 use View;
@@ -38,7 +39,8 @@ class ParteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parte = Parte::create($request->all());
+        return response()->json($parte);
     }
 
     /**

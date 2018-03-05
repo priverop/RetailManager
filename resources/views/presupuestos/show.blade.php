@@ -13,7 +13,10 @@
     </div>
   </div>
   <div class="col-xs-12">
-    <button type="button" id="addParte" class="btn btn-primary">Añadir Parte</button>
+    <form action="{{ route('partes.store') }}" method="POST" id="addParteForm">
+      <input type="text" placeholder="Concepto" name="concepto" id="addParteConcepto" />
+      <button type="button" id="addParteButton" class="btn btn-primary">Añadir Parte</button>
+    </form>
   </div>
   @foreach($presupuesto->partes as $key => $value)
   <div class="row mt-5 p-3 border">
@@ -50,12 +53,27 @@
 
 <script>
 $(function() {
-  $('#addParte').click(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+  // STORE
+  $('#addParteButton').click(function(){
     event.preventDefault();
 
-    var bloque = '<div className="row mt-5 border"><div className="col-xs-12">Nueva Parte</div></div>';
+    var form_action = $("#addParteForm").attr("action");
+    var concepto = $("#addParteConcepto").val();
+    var presupuesto_id = {{ $presupuesto->id }};
 
-    $('#presupuestoContainer').append(bloque);
+    $.ajax({
+        dataType: 'json',
+        type:'POST',
+        url: form_action,
+        data:{nombre:concepto, presupuesto_id:presupuesto_id }
+    }).done(function(data){
+        location.reload();
+    });
   });
 });
 </script>
