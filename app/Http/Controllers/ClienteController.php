@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use Illuminate\Http\Request;
 use View;
+use Response;
 
 class ClienteController extends Controller
 {
+    protected $rules =
+    [
+        'nombre' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
+        'direccion' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
+        'provincia'=>'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
+        'telefono'=>'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
+    ];
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +38,8 @@ class ClienteController extends Controller
     public function create()
     {
         //
+        
+        return View::make('presupuestos.create')->with('presupuestos', $presupuestos);
     }
 
     /**
@@ -39,6 +51,23 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         //
+        
+         $validator = Validator::make(Input::all(), $this->rules);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $cliente = new Cliente();
+            $cliente->nombre = $request->nombre;
+            $cliente->direccion = $request->direccion;
+            $cliente->provincia = $request->provincia;
+            $cliente->telefono = $request->telefono;
+            $cliente->save();
+            return response()->json($cliente);
+        }
+        
+        
+        
+        
     }
 
     /**
@@ -47,9 +76,13 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $material)
+    public function show(int $material)
     {
         //
+        
+        $cliente = Cliente::find($material);
+
+        return View::make('clientes.show')->with('cliente', $cliente);
     }
 
     /**
