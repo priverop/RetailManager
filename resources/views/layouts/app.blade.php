@@ -21,7 +21,7 @@
               <li><a href="/proveedores">Proveedores</a></li>
             </ul>
           </div>
-          <div class="col-xs-8 p-5">@yield('content')</div>
+          <div class="col p-5">@yield('content')</div>
         </div>
       </div>
 
