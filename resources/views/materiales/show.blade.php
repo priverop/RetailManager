@@ -10,7 +10,9 @@
     <div class="col-xs-12">
       <p>Nombre: {{ $material->nombre }}</p>
       <p>Precio: {{ $material->precio }}</p>
-      <p>Proovedor id: {{ $material->proveedor_id }}</p>
+      <p>Proveedor id: {{ $material->proveedor_id }}</p>
+      <p>Proveedor: {{ $material->proveedor->nombre }}</p> 
+      <p>Material id: {{ $material->id}}</p>
       
     </div>
   </div>

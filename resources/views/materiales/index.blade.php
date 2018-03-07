@@ -1,16 +1,44 @@
 @extends('layouts.app')
 
 @section('title', 'Materiales')
-
+<div class="container">
 @section('content')
-  @foreach($materiales as $key => $value)
-    Nombre: {{ $value->nombre }} <br /><br />
-    Precio: {{ $value->precio }} <br /><br />
-    Proveedor: {{ $value->proveedor->nombre }} <br /><br />
+  
     
-<input type="button" value="Mostrar Material" onClick="window.location = 'materiales/{{ $value->id }}'"> 
-<hr />
 
-  @endforeach
 
-@endsection
+  
+
+
+  <h2>Lista de Materiales</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Proveedor</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+       
+          @foreach($materiales as $key => $value)
+        <tr>
+        <td> <a href='materiales/{{ $value->id }}'> {{ $value->nombre }}</a> </td>
+        
+        <td>{{ $value->precio }}</td>
+        
+        <td>{{ $value->proveedor->nombre }}</td>
+          
+        </tr>
+          
+          
+          @endforeach
+          @endsection
+      
+      
+    </tbody>
+  </table>
+</div>
+
+
