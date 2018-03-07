@@ -9,6 +9,8 @@
     {{ $value->provincia }} <br /><br />
     {{ $value->telefono }} <br /><br />
     {{ $value->nif }} <br /><br />
-    <br /><br />
+   
+<input type="button" value="Mostrar Proveedores" onClick="window.location = 'proveedores/{{ $value->id }}'"> 
+<hr />
   @endforeach
 @endsection
