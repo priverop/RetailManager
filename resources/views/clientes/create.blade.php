@@ -125,9 +125,15 @@
                         </div>
                     </form>
                     <div class="modal-footer">
+                        <form action="{{ route('clientes.create') }}" method="POST" id="addParteForm">
+                        
                         <button type="button" class="btn btn-success add" data-dismiss="modal">
-                            <span id="" class='glyphicon glyphicon-check'></span> Add
+                            <span id=""  id="addParteButton" class='glyphicon glyphicon-check'></span> Add
                         </button>
+                        </form>
+                        
+    
+                        
                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                             <span class='glyphicon glyphicon-remove'></span> Close
                         </button>
@@ -198,7 +204,7 @@
         $('.modal-footer').on('click', '.add', function() {
             $.ajax({
                 type: 'POST',
-                url: "/clientes",
+                url: form_action,
                 data: {
                     '_token': $('input[name=_token]').val(),
                     'nombre': $('#nombre_add').val(),

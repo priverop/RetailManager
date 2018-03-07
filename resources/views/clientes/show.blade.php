@@ -13,6 +13,9 @@
       <p>Provincia: {{ $cliente->provincia }}</p>
       <p>Telefono: {{ $cliente->telefono }}</p>
       <p>ID cliente: {{ $cliente-> id}}</p>
+      <p>Obras: @foreach($cliente->obras as $keys =>$obras)
+      {{ $cliente->id }}
+    @endforeach</p>
     </div>
   </div>
   
@@ -22,3 +25,9 @@
 
 
 @endsection
+
+
+
+
+
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Obra;
 use Illuminate\Http\Request;
+
 use View;
 
 class ObraController extends Controller
@@ -39,6 +40,8 @@ class ObraController extends Controller
     public function store(Request $request)
     {
         //
+        $name = $request->input('name');
+        
     }
 
     /**
@@ -47,9 +50,14 @@ class ObraController extends Controller
      * @param  \App\Obra  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Obra $proveedor)
+    public function show(int $proveedor)
     {
-        //
+        $proveedor = Obra::find($proveedor);
+        
+        
+        
+        
+        return View::make('obras.show')->with('proveedor', $proveedor);
     }
 
     /**

@@ -48,9 +48,12 @@ class MaterialController extends Controller
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Material $material)
+    public function show(int $material)
     {
         //
+        $material = Material::find($material);
+
+        return View::make('materiales.show')->with('material', $material);
     }
 
     /**

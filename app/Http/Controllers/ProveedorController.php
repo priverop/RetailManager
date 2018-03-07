@@ -47,9 +47,15 @@ class ProveedorController extends Controller
      * @param  \App\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $proveedor)
+    public function show(int $indice)
     {
         //
+        $proveedor = Proveedor::find($indice);
+        
+        
+        
+        
+        return View::make('proveedores.show')->with('proveedor', $proveedor);
     }
 
     /**

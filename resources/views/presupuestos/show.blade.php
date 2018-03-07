@@ -70,7 +70,7 @@ $(function() {
   });
 
   // STORE Parte
-  $('#addParteButton').click(function(){
+  $('#addParteButton').click(function(event){
     event.preventDefault();
 
     var form_action = $("#addParteForm").attr("action");
