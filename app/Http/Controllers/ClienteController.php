@@ -38,8 +38,8 @@ class ClienteController extends Controller
     public function create()
     {
         //
-        
-        return View::make('presupuestos.create')->with('presupuestos', $presupuestos);
+        $cliente = Cliente::all();
+        return View::make('clientes.create')->with('clientes', $cliente);
     }
 
     /**
@@ -52,19 +52,7 @@ class ClienteController extends Controller
     {
         //
         
-         $validator = Validator::make(Input::all(), $this->rules);
-        if ($validator->fails()) {
-            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-        } else {
-            $cliente = new Cliente();
-            $cliente->nombre = $request->nombre;
-            $cliente->direccion = $request->direccion;
-            $cliente->provincia = $request->provincia;
-            $cliente->telefono = $request->telefono;
-            $cliente->save();
-            return response()->json($cliente);
-        }
-        
+       
         
         
         

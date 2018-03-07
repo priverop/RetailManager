@@ -28,6 +28,8 @@ class PresupuestoController extends Controller
     public function create()
     {
         //
+        
+        return View::make('presupuestos.create')->with('presupuestos', $presupuestos);
     }
 
     /**
