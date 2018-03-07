@@ -1,7 +1,7 @@
+
 @extends('layouts.app')
 
 @section('title', 'Clientes')
-
 <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <!-- Bootstrap JavaScript -->
@@ -11,8 +11,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <!-- icheck checkboxes -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
-<input type="button" id ="añadir_cliente"  class="add-modal" value="Añadir Cliente" >
+    
 
     <script>
         $(window).load(function(){
@@ -121,26 +120,63 @@ $(function() {
 </script>
 
 
+
+
+
+
+
+
+
+<div class="container">
 @section('content')
+  
+    
 
-  @foreach($clientes as $key => $value)
-    {{ $value->nombre }} <br /><br />
-    {{ $value->direccion }} <br /><br />
-    {{ $value->provincia }} <br /><br />
-    {{ $value->telefono }} <br /><br />
-    {{ $value->nif }} <br /><br />
-    Obras:
-    @foreach($value->obras as $keys =>$values)
+
+  
+
+
+  <h2>Lista de Clientes</h2>
+    <br>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <input type="button" id ="añadir_cliente"  class="add-modal" value="Añadir Cliente" >
+    <br><br>
+    
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Provincia</th>
+        <th>Teléfono</th>
+        <th>Nif</th>
+        <th>Obras</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+       
+          @foreach($clientes as $key => $value)
+        <tr>
+        <td> <a href='clientes/{{ $value->id }}'> {{ $value->nombre }}</a> </td>
+        
+        <td>{{ $value->direccion }}</td>
+        
+        <td>{{ $value->provincia }}</td>
+          
+        <td>{{ $value->telefono }}</td>
+        <td>{{ $value->nif}}</td>
+            <td> @foreach($value->obras as $keys =>$values)
       {{ $values->id }}
-    @endforeach
-    <br /><br />
+    @endforeach</td>
+        </tr>
+          
+          
+          @endforeach
+          @endsection
+      
+      
+    </tbody>
+  </table>
+</div>
 
-<input type="button" value="Mostrar Cliente" onClick="window.location = 'clientes/{{ $value->id }}'"> 
-
-
-    <hr />
-
-  @endforeach
-
-
-@endsection
