@@ -8,16 +8,8 @@ use View;
 use Response;
 
 class ClienteController extends Controller
-{
-    protected $rules =
-    [
-        'nombre' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
-        'direccion' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
-        'provincia'=>'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
-        'telefono'=>'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
-    ];
-    
-    
+{    
+
     /**
      * Display a listing of the resource.
      *
@@ -50,12 +42,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        
-       
-        
-        
-        
+        $cliente = Cliente::create($request->all());
+        return response()->json($cliente);
     }
 
     /**

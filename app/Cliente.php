@@ -12,4 +12,15 @@ class Cliente extends Model
   public function obras(){
     return $this->hasMany('App\Obra');
   }
+
+  /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+
+        'nombre', 'direccion', 'provincia', 'telefono', 'codigo-postal', 'nif'
+
+    ];
 }
