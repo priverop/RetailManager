@@ -1,16 +1,47 @@
+
+
 @extends('layouts.app')
 
-@section('title', 'Proveedores')
-
+@section('title', 'Presupuestos')
+<div class="container">
 @section('content')
-  @foreach($proveedores as $key => $value)
-    {{ $value->nombre }} <br /><br />
-    {{ $value->direccion }} <br /><br />
-    {{ $value->provincia }} <br /><br />
-    {{ $value->telefono }} <br /><br />
-    {{ $value->nif }} <br /><br />
-   
-<input type="button" value="Mostrar Proveedores" onClick="window.location = 'proveedores/{{ $value->id }}'"> 
-<hr />
-  @endforeach
-@endsection
+  
+    
+
+
+  
+
+
+  <h2>Lista de Presupuestos</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Obra para el cliente</th>
+        <th>ID Presupuesto</th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+       
+          @foreach($presupuestos as $key => $value)
+        <tr>
+        <td> <a href='presupuestos/{{ $value->id }}'> {{ $value->nombre }}</a> </td>
+        
+        
+        
+        <td>{{ $value->obra->cliente->nombre }}</td>
+            
+        <td>{{ $value->id}}</td>
+          
+        </tr>
+          
+          
+          @endforeach
+          @endsection
+      
+      
+    </tbody>
+  </table>
+</div>
