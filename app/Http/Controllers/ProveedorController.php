@@ -39,6 +39,8 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         //
+         $proveedor = Proveedor::create($request->all());
+        return response()->json($proveedor);
     }
 
     /**
@@ -87,8 +89,11 @@ class ProveedorController extends Controller
      * @param  \App\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy($id)
     {
-        //
+        
+         Proveedor::find($id)->delete();
+
+        return response()->json(['done']);
     }
 }

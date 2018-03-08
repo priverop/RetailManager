@@ -41,6 +41,8 @@ class PresupuestoController extends Controller
     public function store(Request $request)
     {
         //
+         $presupuesto = Presupuesto::create($request->all());
+        return response()->json($presupuesto);
     }
 
     /**

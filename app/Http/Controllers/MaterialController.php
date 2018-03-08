@@ -27,7 +27,8 @@ class MaterialController extends Controller
      */
     public function create()
     {
-        //
+        $material = Material::all();
+        return View::make('materiales.create')->with('materiales', $material);
     }
 
     /**
@@ -39,9 +40,9 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
       $material = Material::create($request->all());
-      $material->partes()->sync($request->parte_id);
-      $material->save();
       return response()->json($material);
+        
+        
     }
 
     /**
@@ -87,8 +88,12 @@ class MaterialController extends Controller
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Material $material)
+    public function destroy($id)
     {
         //
+        
+         Material::find($id)->delete();
+
+        return response()->json(['done']);
     }
 }
