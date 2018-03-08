@@ -44,7 +44,7 @@
               <th scope="row">{{$mkey}}</th>
               <td>{{$mvalue->nombre}}</td>
               <td>{{$mvalue->precio}}</td>
-              <td>{{$mvalue->proveedor->nombre}}</td>
+              <td>Los ocultamos hasta tener clara la relación</td>
             </tr>
             @endforeach
           </tbody>
