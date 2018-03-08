@@ -17,7 +17,7 @@ class Parte extends Model
   * Obtiene los Materiales
   */
   public function materiales(){
-    return $this->belongsToMany('App\Material');
+    return $this->belongsToMany('App\Material', 'material_parte');
   }
 
   /**
