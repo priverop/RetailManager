@@ -16,14 +16,15 @@
       if(e.which == 13) {
         var nombre = $("#nuevoMaterial").val();
         var form_action = $("#actionMaterialStore").val();
+        var parte_id = $("#parte_id").val();
         var precio = 1;
         var proveedor_id = 1;
 
         $.ajax({
             dataType: 'json',
-            type:'POST',
+            type: 'POST',
             url: '/materiales',
-            data:{nombre:nombre, precio:precio, proveedor_id:proveedor_id }
+            data: { nombre:nombre, precio:precio, proveedor_id:proveedor_id, parte_id:parte_id }
         }).done(function(data){
           location.reload();
         });

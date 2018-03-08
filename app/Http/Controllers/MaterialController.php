@@ -39,6 +39,8 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
       $material = Material::create($request->all());
+      $material->partes()->sync($request->parte_id);
+      $material->save();
       return response()->json($material);
     }
 
