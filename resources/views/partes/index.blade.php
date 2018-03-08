@@ -1,4 +1,5 @@
 @foreach($partes as $key => $value)
+  ID: {{ $value->id }} <br /><br />
   Nombre: {{ $value->nombre }} <br /><br />
   Presupuesto: {{ $value->presupuesto->nombre }} ({{$value->presupuesto->id}}) <br /><br />
   Materiales:
