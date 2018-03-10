@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
         });
         App\Proveedor::all()->each(function ($proveedor) use ($materiales) {
             $proveedor->materiales()->attach(
-                $materiales->random(rand(1, 10))->pluck('id')->toArray()
+                $proveedor->id, [
+                  'material_id'  => rand(1,10),
+                  'precio'      => rand(1,100)
+                ]
             );
         });
 

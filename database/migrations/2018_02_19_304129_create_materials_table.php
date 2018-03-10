@@ -16,7 +16,6 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
             $table->string('nombre');
-            $table->integer('precio');
             $table->integer('proveedor_id')->unsigned();
             $table->foreign('proveedor_id')->references('id')->on('proveedors')->onDelete('cascade');
             $table->timestamps();
