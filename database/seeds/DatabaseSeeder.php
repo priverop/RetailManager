@@ -20,10 +20,13 @@ class DatabaseSeeder extends Seeder
 
         // Populate the pivot tables (Materiales-Partes & Materiales-Proveedores)
         $materiales = App\Material::all();
-        App\Parte::all()->each(function ($parte) use ($materiales) {
+        $proveedores = App\Proveedor::all();
+        App\Parte::all()->each(function ($parte) use ($materiales, $proveedores) {
             $parte->materiales()->attach(
-                $materiales->random(rand(1, 10))->pluck('id')->toArray()
-            );
+              $parte->id, [
+                'material_id'   => $parte->id,
+                'proveedor_id'  => $parte->id
+              ]);
         });
         App\Proveedor::all()->each(function ($proveedor) use ($materiales) {
             $proveedor->materiales()->attach(

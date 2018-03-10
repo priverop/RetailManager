@@ -21,6 +21,7 @@
   </div>
   @foreach($presupuesto->partes as $key => $value)
   <div class="row mt-5 p-3 border">
+    <?php print_r($value->proveedor); ?>
     <div class="col-xs-12 col-md-2">
       <button type="button" class="addMaterial btn btn-secondary">Añadir Material</button>
       <input type="hidden" value="{{ $value->id }}" id="parte_id">
@@ -39,12 +40,14 @@
             </tr>
           </thead>
           <tbody>
+
             @foreach($value->materiales as $mkey => $mvalue)
+
             <tr>
               <th scope="row">{{$mkey}}</th>
               <td>{{$mvalue->nombre}}</td>
               <td>{{$mvalue->precio}}</td>
-              <td>Los ocultamos hasta tener clara la relación</td>
+              <td>{{$mvalue->pivot->proveedors_nombre}}</td>
             </tr>
             @endforeach
           </tbody>

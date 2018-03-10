@@ -17,7 +17,7 @@ class Material extends Model
     * Obtiene las Partes
     */
     public function partes(){
-      return $this->belongsToMany('App\Parte', 'material_parte');
+      return $this->belongsToMany('App\Parte', 'material_parte')->withPivot('material_id', 'proveedor_id');
     }
 
     /**

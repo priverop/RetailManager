@@ -23,6 +23,10 @@ class ParteMaterial extends Migration
         $table->foreign('material_id')->references('id')
             ->on('materials')->onDelete('cascade');
 
+        $table->integer('proveedor_id')->unsigned();
+        $table->foreign('proveedor_id')->references('id')
+            ->on('proveedors')->onDelete('cascade');
+
         $table->timestamps();
       });
     }

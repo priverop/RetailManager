@@ -17,7 +17,12 @@ class Parte extends Model
   * Obtiene los Materiales
   */
   public function materiales(){
-    return $this->belongsToMany('App\Material', 'material_parte');
+    return $this->belongsToMany('App\Material', 'material_parte')
+                ->withPivot('parte_id', 'proveedor_id')
+                ->join('proveedors', 'material_parte.proveedor_id', '=', 'proveedors.id')
+                ->select('proveedors.nombre as pivot_proveedors_nombre', 'materials.*');
+
+                //SELECT * FROM `material_parte` INNER JOIN proveedors ON material_parte.proveedor_id = proveedors.id
   }
 
   /**
