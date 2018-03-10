@@ -1,18 +1,17 @@
-
-
 @extends('layouts.app')
-
 @section('title', 'Presupuestos')
-<div class="container">
 @section('content')
-  
-    
 
 
-  
+
+
+
+  <div class="container">
 
 
   <h2>Lista de Presupuestos</h2>
+      
+      
   <table class="table table-striped">
     <thead>
       <tr>
@@ -39,9 +38,11 @@
           
           
           @endforeach
-          @endsection
+          
       
       
     </tbody>
   </table>
 </div>
+
+@endsection

@@ -8,8 +8,10 @@ use View;
 use Response;
 
 class ClienteController extends Controller
-{    
-
+{
+    
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +44,13 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        //
+        
         $cliente = Cliente::create($request->all());
         return response()->json($cliente);
+        
+        
+        
     }
 
     /**
@@ -79,9 +86,11 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $material)
+    public function update(Request $request,  $id)
     {
-        //
+                 $edit = Cliente::find($id)->update($request->all());
+
+        return response()->json($edit);
     }
 
     /**
@@ -90,8 +99,10 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $material)
+    public function destroy( $id)
     {
-        //
+         Cliente::find($id)->delete();
+
+        return response()->json(['done']);
     }
 }
