@@ -19,6 +19,8 @@ Route::get('/materiales/create-small', function () {
     return view('materiales.create-small');
 });
 
+Route::get('presupuestos/{id}/refresh', 'PresupuestoController@refreshTotalPrize');
+
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('materiales', 'MaterialController');
 Route::resource('obras', 'ObraController');

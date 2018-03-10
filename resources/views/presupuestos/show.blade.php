@@ -6,6 +6,7 @@
 
 <div class="pt-5" id="presupuestoContainer">
   <h1>Presupuesto Individual</h1>
+  <h3>Precio Total: {{$presupuesto->precio_final}}</h3>
   <div class="row mt-5 p-3 border">
     <div class="col-xs-12">
       <p>Nombre: {{ $presupuesto->nombre }}</p>
