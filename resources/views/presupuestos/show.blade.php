@@ -8,10 +8,18 @@
   <h1>Presupuesto Individual</h1>
   <h3>Precio Total: {{$presupuesto->precio_final}}</h3>
   <div class="row mt-5 p-3 border">
-    <div class="col-xs-12">
-      <p>Nombre: {{ $presupuesto->nombre }}</p>
-      <p>Cliente {{ $presupuesto->obra->cliente->nombre }}</p>
-      <p>ID Presupuesto: {{ $presupuesto-> id}}</p>
+    <div class="col-md-6">
+      <p> <b>Concepto: </b>{{ $presupuesto->concepto }}</p>
+      <p> <b>Unidades: </b>{{ $presupuesto->unidades }} </p>
+      <p> <b>Obra: </b>{{ $presupuesto->obra->id}}</p>
+      <p> <b>Cliente: </b>{{ $presupuesto->obra->cliente->nombre }}</p>
+      <p> <b>ID Presupuesto: </b>{{ $presupuesto->id}}</p>
+    </div>
+    <div class="col-md-6">
+      <p> <b>Fecha: </b>{{ $presupuesto->fecha }} </p>
+      <p> <b>Estado: </b>{{ $presupuesto->estado }} </p>
+      <p> <b>Beneficio: </b>{{ $presupuesto->beneficio }} </p>
+      <p> <b>Características: </b>{{ $presupuesto->caracteristicas }} </p>
     </div>
   </div>
   <div class="col-xs-12">
