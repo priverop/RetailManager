@@ -9,7 +9,7 @@
           crossorigin="anonymous"></script>
 
           <style>
-            .infoPresupuesto:disabled{
+            input:disabled{
               outline: none !important;
               background-color: white !important;
               border: 0 !important;

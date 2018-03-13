@@ -123,8 +123,8 @@ class PresupuestoController extends Controller
      */
     public function update(Request $request, Presupuesto $presupuesto_id)
     {
-      $presupuesto = Presupuesto::find($presupuesto_id)->update($request->all());
-
+      // $presupuesto = Presupuesto::find($presupuesto_id)->update($request->all());
+      dd($request);
       return response()->json($presupuesto);
     }
 
