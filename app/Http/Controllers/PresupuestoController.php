@@ -145,8 +145,10 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Presupuesto $presupuesto)
+    public function destroy($id)
     {
-        //
+      Presupuesto::find($id)->delete();
+
+     return response()->json(['done']);
     }
 }
