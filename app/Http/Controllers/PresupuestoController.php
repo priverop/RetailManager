@@ -17,24 +17,6 @@ class PresupuestoController extends Controller
   */
   public function refreshTotalPrize(int $presupuesto_id){
 
-    // $prize = 0;
-    //
-    // $partes = Presupuesto::find($presupuesto_id)->partes();
-    //
-    // $prize += $partes->each(function($parte) use ($prize){
-    //   echo 'Parte: '. $parte->id;
-    //   $precio = $parte->materiales()->each(function($material) use($parte, $prize){
-    //     echo ' - Material: '. $material->id . '; Parte: '.$parte->id;
-    //     $proveedor_id = DB::table('material_parte')->where('material_id', $material->id)->where('parte_id', $parte->id)->value('proveedor_id');
-    //     echo ' - Proveedor elegido: '.$proveedor_id;
-    //     $prize = DB::table('material_proveedor')->where('material_id', $material->id)->where('proveedor_id', $proveedor_id)->value('precio');
-    //     echo ' - Precio: '.$prize;
-    //     return $prize;
-    //   });
-    //   echo ' - PrecioFuera: '.$precio;
-    //   echo ' || ';
-    //   return $precio;
-    // });
 
     $prizes = DB::select(DB::raw("SELECT partes.id, material_parte.*, material_proveedor.precio
     FROM material_proveedor, material_parte, partes
