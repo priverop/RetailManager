@@ -10,7 +10,7 @@ class Material extends Model
     * Obtiene el proveedor
     */
     public function proveedores(){
-      return $this->belongsToMany('App\Proveedor', 'material_proveedor');
+      return $this->belongsToMany('App\Proveedor', 'material_proveedor')->withPivot('precio');
     }
 
     /**
