@@ -18,7 +18,7 @@ class Parte extends Model
   */
   public function materiales(){
     return $this->belongsToMany('App\Material', 'material_parte')
-                ->withPivot('parte_id', 'proveedor_id', 'unidades', 'ancho', 'alto')
+                ->withPivot('parte_id', 'proveedor_id', 'unidades', 'ancho', 'alto', 'm2', 'total_m2', 'precio_total')
                 ->join('proveedors', 'material_parte.proveedor_id', '=', 'proveedors.id')
                 ->join('material_proveedor', 'material_parte.proveedor_id', '=', 'material_proveedor.proveedor_id')
                 ->select('proveedors.nombre as pivot_proveedors_nombre', 'materials.*', 'material_proveedor.precio');

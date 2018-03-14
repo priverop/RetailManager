@@ -30,7 +30,9 @@ class ParteMaterial extends Migration
         $table->integer('unidades')->default(1);
         $table->integer('ancho')->default(0);
         $table->integer('alto')->default(0);
-
+        $table->double('m2', 5, 4)->default(0);
+        $table->double('total_m2', 5, 4)->default(0);
+        $table->double('precio_total', 8, 2)->default(0);
 
         $table->timestamps();
       });

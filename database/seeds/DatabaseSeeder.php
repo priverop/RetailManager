@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Http\Controllers\MaterialController;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,19 +28,19 @@ class DatabaseSeeder extends Seeder
                 'material_id'   => $parte->id,
                 'proveedor_id'  => $parte->id,
                 'unidades'      => rand(1,3),
-                'ancho'         => rand(1,100),
-                'alto'         => rand(1,100)
+                'ancho'         => rand(100,1000),
+                'alto'         => rand(100,1000)
               ]);
         });
         App\Proveedor::all()->each(function ($proveedor) use ($materiales) {
             $proveedor->materiales()->attach(
                 $proveedor->id, [
-                  'material_id'  => rand(1,10),
+                  'material_id'  => $proveedor->id,
                   'precio'      => rand(1,100)
                 ]
             );
         });
 
-
+        MaterialController::refreshAllPropierties();
     }
 }

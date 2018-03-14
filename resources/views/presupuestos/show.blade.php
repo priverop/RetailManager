@@ -80,8 +80,8 @@
               <th scope="col">Índice</th>
               <th scope="col">Unidades</th>
               <th scope="col">Material</th>
-              <th scope="col">Ancho</th>
-              <th scope="col">Alto</th>
+              <th scope="col">Ancho (mm)</th>
+              <th scope="col">Alto (mm)</th>
               <th scope="col">M2</th>
               <th scope="col">Total M2</th>
               <th scope="col">Proveedor</th>
@@ -97,11 +97,11 @@
               <td>{{$mvalue->nombre}}</td>
               <td>{{$mvalue->pivot->ancho}}</td>
               <td>{{$mvalue->pivot->alto}}</td>
-              <td>m2</td>
-              <td>total m2</td>
+              <td>{{$mvalue->pivot->m2}}</td>
+              <td>{{$mvalue->pivot->total_m2}}</td>
               <td>{{$mvalue->pivot->proveedors_nombre}}</td>
               <td>{{$mvalue->precio}}</td>
-              <td>preciototal</td>
+              <td>{{$mvalue->pivot->precio_total}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -149,7 +149,9 @@ $(function() {
     }
   });
 
-  // Tabla Materiales
+  /*
+  * Añadir Material - Modal
+  */
   $(".addMaterial").click(function(){
     var modalBody = $("#addMaterialModal .modal-body");
     var parte_id = $(this).next().val();
@@ -218,6 +220,12 @@ $(function() {
   });
 
 });
+
+/*
+* Generamos DataTable
+* Ocultamos columnas con IDs
+* Añadimos el idioma
+*/
 
 function prepareDataTable(parte_id){
   var table = $('#selectMaterial').DataTable({
