@@ -43,7 +43,6 @@
           <tbody>
 
             @foreach($value->materiales as $mkey => $mvalue)
-
             <tr>
               <th scope="row">{{$mkey}}</th>
               <td>{{$mvalue->nombre}}</td>
