@@ -13,11 +13,11 @@
       <div class="col-md-6">
         <div onclick="editar1('concepto')">
           <b>Concepto: </b>
-          <input type="text" id="concepto" placeholder="Concepto" name="concepto" value="{{ $presupuesto->concepto }}" class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="concepto" placeholder="Concepto" name="concepto" value="{{ $presupuesto->concepto }}" class="infoPresupuesto"  disabled/>
         </div>
         <div onclick="editar1('unidades')">
           <b>Unidades: </b>
-          <input type="text" id="unidades" placeholder="Unidades" name="unidades" value="{{ $presupuesto->unidades }} " class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="unidades" placeholder="Unidades" name="unidades" value="{{ $presupuesto->unidades }} " class="infoPresupuesto"  disabled/>
         </div>
         <div onclick="">
           <b>Obra: </b>
@@ -36,22 +36,23 @@
       <div class="col-md-6">
         <div onclick="editar1('fecha')">
           <b>Fecha: </b>
-          <input type="text" id="fecha" placeholder="Fecha" name="fecha" value="{{ $presupuesto->fecha }}" class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="fecha" placeholder="Fecha" name="fecha" value="{{ $presupuesto->fecha }}" class="infoPresupuesto"  disabled/>
         </div>
         <div onclick="editar1('estado')">
           <b>Estado: </b>
-          <input type="text" id="estado" placeholder="Estado" name="estado" value="{{ $presupuesto->estado }} " class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="estado" placeholder="Estado" name="estado" value="{{ $presupuesto->estado }} " class="infoPresupuesto"  disabled/>
         </div>
         <div onclick="editar1('beneficio')">
           <b>Beneficio: </b>
-          <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $presupuesto->beneficio }} " class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $presupuesto->beneficio }} " class="infoPresupuesto"  disabled/>
         </div>
         <div onclick="editar1('caracteristicas')">
           <b>Características: </b>
-          <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto" onblur="guardar1(this.id)" disabled/>
+          <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
         </div>
 
         <button type="button" id="editarP" class="btn btn-primary">Editar</button>
+        <button type="button" id="cerrarP" class="btn btn-secondary" data-dismiss="modal" hidden>Cerrar</button>
         <button type="button" id="guardarP" class="btn btn-primary">Guardar</button>
       </div>
     </div>
@@ -183,10 +184,16 @@ $(function() {
 
 
   $('#editarP').click(function(event){
+    document.getElementById("editarP").hidden = true;
+    document.getElementById("cerrarP").hidden = false;
     var n = document.getElementsByClassName('infoPresupuesto');
     for(var i=0;i<n.length;i++){
        n[i].disabled = false;
     }
+  });
+
+  $('#cerrarP').click(function(event){
+    location.reload();
   });
 
   $('#guardarP').click(function(event){
@@ -211,6 +218,8 @@ $(function() {
         location.reload();
     });
 
+    document.getElementById("editarP").hidden = false;
+    document.getElementById("cerrarP").hidden = true;
     var n = document.getElementsByClassName('infoPresupuesto');
     for(var i=0;i<n.length;i++){
        n[i].disabled = true;
@@ -275,6 +284,8 @@ function guardar1(id) {
 function editar1(id) {
   console.log("click");
   document.getElementById(id).disabled = false;
+  document.getElementById("editarP").hidden = true;
+  document.getElementById("cerrarP").hidden = false;
 }
 </script>
 @endsection
