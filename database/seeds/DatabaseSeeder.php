@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
             $parte->materiales()->attach(
               $parte->id, [
                 'material_id'   => $parte->id,
-                'proveedor_id'  => $parte->id
+                'proveedor_id'  => $parte->id,
+                'unidades'      => rand(1,3),
+                'ancho'         => rand(1,100),
+                'alto'         => rand(1,100)
               ]);
         });
         App\Proveedor::all()->each(function ($proveedor) use ($materiales) {

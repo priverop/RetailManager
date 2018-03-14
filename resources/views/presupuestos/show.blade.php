@@ -34,20 +34,31 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <th scope="col">Índice</th>
+              <th scope="col">Unidades</th>
               <th scope="col">Material</th>
-              <th scope="col">Precio</th>
+              <th scope="col">Ancho</th>
+              <th scope="col">Alto</th>
+              <th scope="col">M2</th>
+              <th scope="col">Total M2</th>
               <th scope="col">Proveedor</th>
+              <th scope="col">Precio Und.</th>
+              <th scope="col">Precio Total</th>
             </tr>
           </thead>
           <tbody>
-
             @foreach($value->materiales as $mkey => $mvalue)
             <tr>
-              <th scope="row">{{$mkey}}</th>
+              <td>{{$mkey}}</td>
+              <td>{{$mvalue->pivot->unidades}}</td>
               <td>{{$mvalue->nombre}}</td>
-              <td>{{$mvalue->precio}}</td>
+              <td>{{$mvalue->pivot->ancho}}</td>
+              <td>{{$mvalue->pivot->alto}}</td>
+              <td>m2</td>
+              <td>total m2</td>
               <td>{{$mvalue->pivot->proveedors_nombre}}</td>
+              <td>{{$mvalue->precio}}</td>
+              <td>preciototal</td>
             </tr>
             @endforeach
           </tbody>

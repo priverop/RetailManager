@@ -27,6 +27,11 @@ class ParteMaterial extends Migration
         $table->foreign('proveedor_id')->references('id')
             ->on('proveedors')->onDelete('cascade');
 
+        $table->integer('unidades')->default(1);
+        $table->integer('ancho')->default(0);
+        $table->integer('alto')->default(0);
+
+
         $table->timestamps();
       });
     }
