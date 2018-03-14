@@ -103,10 +103,14 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, int $id)
     {
-      // $presupuesto = Presupuesto::find($presupuesto_id)->update($request->all());
-      dd($request);
+      // $presupuesto = Presupuesto::find($request->input('id'))->update($request->all());
+      // $presupuesto = Presupuesto::find($request->input('id'));
+      // $presupuesto = Presupuesto::find($id);
+
+      $presupuesto = Presupuesto::find($id)->update($request->all());
+
       return response()->json($presupuesto);
     }
 

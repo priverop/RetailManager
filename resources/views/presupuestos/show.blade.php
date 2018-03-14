@@ -8,7 +8,7 @@
   <h1>Presupuesto Individual</h1>
   <h3>Precio Total: {{$presupuesto->precio_final}}</h3>
 
-  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="PUT" id="updatePresupuesto">
+  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-6">
         <div onclick="editar1('concepto')">
@@ -179,14 +179,22 @@ $(function() {
 
   $('#guardarP').click(function(event){
     var form_action = $("#updatePresupuesto").attr("action");
-    var concepto = $("#addParteConcepto").val();
-    var presupuesto_id = {{ $presupuesto->id }};
-
+    console.log($("#id").val());
+    var id = $("#id").val();
+    var obra_id = $("#obra_id").val();
+    var fecha = $("#fecha").val();
+    var concepto = $("#concepto").val();
+    var caracteristicas = $("#caracteristicas").val();
+    var unidades = $("#unidades").val();
+    var estado = $("#estado").val();
+    var beneficio = $("#beneficio").val();
+    var precio_final = $("#precio_final").val();
+    //$("#updatePresupuesto").serialize()
     $.ajax({
         dataType: 'json',
-        type:'POST',
+        type:'PUT',
         url: form_action,
-        data: $("#updatePresupuesto").serialize()
+        data: {id: id, obra_id: obra_id, fecha: fecha, concepto: concepto, caracteristicas: caracteristicas, unidades: unidades, estado: estado, beneficio: beneficio, precio_final: precio_final},
     }).done(function(data){
         location.reload();
     });
