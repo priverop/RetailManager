@@ -19,4 +19,15 @@ class Presupuesto extends Model
   public function partes(){
     return $this->hasMany('App\Parte');
   }
+
+  /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+
+        'obra_id', 'fecha', 'concepto', 'caracteristicas', 'unidades', 'estado', 'beneficio', 'precio_final'
+
+    ];
 }

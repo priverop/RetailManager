@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Material;
 use Illuminate\Http\Request;
 use View;
+use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
 {
@@ -18,6 +19,22 @@ class MaterialController extends Controller
       $materiales = Material::all();
 
       return View::make('materiales.index')->with('materiales', $materiales);
+    }
+
+    /**
+     * Muestra la tabla Materiales-Proveedores (con precio)
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexMaterialesProveedores()
+    {
+      $materialesProveedoresPrecio = DB::table('material_proveedor')
+      ->join('materials', 'material_proveedor.material_id', '=', 'materials.id')
+      ->join('proveedors', 'material_proveedor.proveedor_id', '=', 'proveedors.id')
+      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'proveedors.nombre as p_nombre')
+      ->get();
+
+      return View::make('materiales.index-withProveedores')->with('pivotTable', $materialesProveedoresPrecio);
     }
 
     /**
@@ -41,8 +58,25 @@ class MaterialController extends Controller
     {
       $material = Material::create($request->all());
       return response()->json($material);
-        
-        
+    }
+
+    /**
+     * Almacenamos un Material en la tabla Material_Parte
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeWithProveedor(Request $request)
+    {
+        $result = DB::table('material_parte')->insert(
+          [
+            'parte_id'      => $request->input('parte_id'),
+            'material_id'   => $request->input('material_id'),
+            'proveedor_id'  => $request->input('proveedor_id'),
+          ]
+        );
+
+      return response()->json($result);
     }
 
     /**
@@ -91,7 +125,7 @@ class MaterialController extends Controller
     public function destroy($id)
     {
         //
-        
+
          Material::find($id)->delete();
 
         return response()->json(['done']);

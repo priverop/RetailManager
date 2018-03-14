@@ -67,7 +67,7 @@
   <div class="row mt-5 p-3 border">
     <?php print_r($value->proveedor); ?>
     <div class="col-xs-12 col-md-2">
-      <button type="button" class="addMaterial btn btn-secondary">Añadir Material</button>
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
       <input type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
     <div class="col-xs-12 col-md-10">
@@ -102,6 +102,35 @@
   @endforeach
 </div>
 
+<!-- ================================ -->
+<!-- == MODAL PARA AÑADIR MATERIAL == -->
+<!-- ================================ -->
+
+<div class="modal fade" id="addMaterialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir Material</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="añadir" class="btn btn-primary">Añadir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ -->
+<!-- == FIN MODAL === -->
+<!-- ================ -->
+
+
 <script>
 $(function() {
   $.ajaxSetup({
@@ -109,12 +138,15 @@ $(function() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  // Create Material
-  $(".addMaterial").click(function(){
-    var tbody = $(this).parent().parent().find("tbody");
 
-    $.get('/materiales/create-small', function(data){
-        $(tbody).append(data);
+  // Tabla Materiales
+  $(".addMaterial").click(function(){
+    var modalBody = $("#addMaterialModal .modal-body");
+    var parte_id = $(this).next().val();
+
+    $.get('/materiales/indexWithProveedores', function(data){
+        $(modalBody).html(data);
+        prepareDataTable(parte_id);
     });
 
   });
@@ -168,6 +200,44 @@ $(function() {
   });
 
 });
+
+function prepareDataTable(parte_id){
+  var table = $('#selectMaterial').DataTable({
+    "columnDefs": [
+      { "visible": false, "searchable": false, "targets": 4 },
+      { "visible": false, "searchable": false, "targets": 5 },
+    ],
+    "language": {
+          "url": "{{ URL::to('/') }}/js/datatable_spanish.json"
+      }
+  });
+
+
+  $('#selectMaterial tbody').on( 'click', 'tr', function () {
+      $(this).toggleClass('selected');
+  } );
+
+
+
+  $('#añadir').click( function () {
+
+    table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
+      var parteID = parte_id;
+      var materialID = this.data()[4];
+      var proveedorID = this.data()[5];
+      $.ajax({
+          type: 'POST',
+          url: '/materiales/storeWithProveedor',
+          data: {parte_id:parteID, material_id:materialID, proveedor_id: proveedorID}
+      });
+    });
+
+    location.reload();
+
+  });
+
+}
+
 </script>
 
 <script>
