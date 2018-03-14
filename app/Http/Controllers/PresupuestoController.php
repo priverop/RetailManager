@@ -103,9 +103,13 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Presupuesto $presupuesto_id)
+    public function update(Request $request, int $id)
     {
-      $presupuesto = Presupuesto::find($presupuesto_id)->update($request->all());
+      // $presupuesto = Presupuesto::find($request->input('id'))->update($request->all());
+      // $presupuesto = Presupuesto::find($request->input('id'));
+      // $presupuesto = Presupuesto::find($id);
+
+      $presupuesto = Presupuesto::find($id)->update($request->all());
 
       return response()->json($presupuesto);
     }
@@ -127,8 +131,10 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Presupuesto $presupuesto)
+    public function destroy($id)
     {
-        //
+      Presupuesto::find($id)->delete();
+
+     return response()->json(['done']);
     }
 }
