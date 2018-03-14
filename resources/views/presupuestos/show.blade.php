@@ -184,7 +184,7 @@ $(function() {
 
     $.ajax({
         dataType: 'json',
-        type:'PUT',
+        type:'POST',
         url: form_action,
         data: $("#updatePresupuesto").serialize()
     }).done(function(data){
