@@ -64,35 +64,24 @@
 
         $("body").on("click",".eliminar",function(){
 
-
            var id_bueno=$(this).next().val();
-            //var tbody = $(this).find('tbody').val();
-
-        var form_action = $("#addClienteForm").attr("action");
-        var c_obj = $(this).parents("tr");
-
+           var form_action = $("#addClienteForm").attr("action");
+           var c_obj = $(this).parents("tr");
 
             $.ajax({
+                dataType: 'json',
 
-        dataType: 'json',
+                type:'delete',
 
-        type:'delete',
-
-        url: 'presupuestos/'+id_bueno
-
+                url: 'presupuestos/'+id_bueno
             }).done(function(data){
+                c_obj.remove();
+                location.reload();
 
+            });
 
-        c_obj.remove();
-
-
-
-        location.reload();
-
+        });
     });
-
-});
-});
-    </script>
+</script>
 
 @endsection

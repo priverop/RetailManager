@@ -3,3 +3,8 @@
       max-width: 800px;
   }
 }
+input:disabled{
+  outline: none !important;
+  background-color: white !important;
+  border: 0 !important;
+}
