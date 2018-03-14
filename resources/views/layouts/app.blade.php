@@ -8,7 +8,6 @@
           src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
-<<<<<<< HEAD
 
           <style>
             input:disabled{
@@ -17,9 +16,9 @@
               border: 0 !important;
             }
           </style>
-=======
+
           <link rel="stylesheet" href="{{ URL::to('/') }}/css/master.css">
->>>>>>> origin/master
+
     </head>
     <body>
 

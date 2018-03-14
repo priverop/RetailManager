@@ -128,36 +128,22 @@ $(function() {
 </div>
 
 <script type="text/javascript">
-        $("body").on("click",".eliminar",function(){
+$("body").on("click",".eliminar",function(){
 
+  var id_bueno=$(this).next().val();
+  var form_action = $("#addClienteForm").attr("action");
+  var c_obj = $(this).parents("tr");
 
-           var id_bueno=$(this).next().val();
-            //var tbody = $(this).find('tbody').val();
-
-        var form_action = $("#addClienteForm").attr("action");
-        var c_obj = $(this).parents("tr");
-
-
-            $.ajax({
-
-        dataType: 'json',
-
-        type:'delete',
-
-        url: 'materiales/'+id_bueno
-
-            }).done(function(data){
-
-
-        c_obj.remove();
-
-
-
-        location.reload();
-
-    });
+  $.ajax({
+    dataType: 'json',
+    type:'delete',
+    url: 'materiales/'+id_bueno
+  }).done(function(data){
+    c_obj.remove();
+    location.reload();
+  });
 
 });
-    </script>
+</script>
 
 @endsection
