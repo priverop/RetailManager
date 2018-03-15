@@ -11,7 +11,7 @@
           crossorigin="anonymous">
         </script>
 
-        <link rel="stylesheet" href="{{ URL::to('/') }}/css/master.css">
+        <link rel="stylesheet" href="{{ asset('css/master.css') }}">
 
     </head>
     <body>
