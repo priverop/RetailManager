@@ -12,6 +12,8 @@ input:disabled{
 .addMaterial{
   margin-top: 5px;
   margin-bottom: 5px;
+  font-size: 14px;
+  width: 110%;
 }
 
 .head_material_especial{
