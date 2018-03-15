@@ -42,6 +42,5 @@ class DatabaseSeeder extends Seeder
             );
         });
 
-        MaterialController::refreshAllPropierties();
     }
 }
