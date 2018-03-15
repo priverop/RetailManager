@@ -76,11 +76,12 @@
   $tipoExiste = ['normal' => false, 'electricidad' => false, 'herrajes' => false,
             'complementos' => false, 'piezasCompuestas' => false,
             'embalaje' => false, 'acabados' => false];
-            
+
    ?>
   <div class="row mt-5 p-3 border">
 
-    <div class="col-xs-12 col-md-2">
+    <h2 class="text-center">Concepto: {{ $value->nombre }}</h2>
+    <div class="col-xs-12 col-md-12 text-center mb-4">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
       <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'normal']) }}" class="tipo_m">
 
@@ -104,9 +105,9 @@
 
       <input name="parte_id" type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
-    <div class="col-xs-12 col-md-10">
+    <div class="col-xs-12 col-md-12">
 
-        Concepto: {{ $value->nombre }}
+
 
         <table class="table table-striped">
           <thead>
