@@ -375,17 +375,21 @@ function prepareDataTable(parte_id){
       $(this).toggleClass('selected');
   } );
 
-
-
+  /*
+  * Añadimos los material/proveedor seleccionados
+  */
   $('#añadir').click( function () {
+    var form_action = $(".modal-body input:first-child").val();
 
     table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
       var parteID = parte_id;
       var materialID = this.data()[4];
       var proveedorID = this.data()[5];
+
+      console.log("form: "+form_action);
       $.ajax({
           type: 'POST',
-          url: '/materiales/storeWithProveedor',
+          url: form_action,
           data: {parte_id:parteID, material_id:materialID, proveedor_id: proveedorID}
       }).done(function(data){
           location.reload();

@@ -1,3 +1,4 @@
+<input type="hidden" value="{{route('storeWithProveedor')}}">
 <table id="selectMaterial" class="display" style="width:100%">
   <thead>
     <tr>
