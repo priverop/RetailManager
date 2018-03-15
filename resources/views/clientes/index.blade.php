@@ -59,7 +59,7 @@
           <button id="addClienteButton" type="button" class="btn btn-success add" data-dismiss="modal">
             <span class='glyphicon glyphicon-check'></span> Añadir
           </button>
-        
+
 
 
         <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -80,7 +80,7 @@
 
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 
-		        
+
 
 		      </div>
 
@@ -128,10 +128,10 @@
                           </div>
 		      			<div class="modal-footer">
 
-                          <button id="addClienteButton" type="button" class="btn btn-success add" data-dismiss="modal">
+                          <button id="addClienteButton" type="button" class="btn btn-success add" data-dismiss="modal" >
                             <span class='glyphicon glyphicon-check'></span> Editar
                           </button>
-        
+
 
 
                             <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -181,7 +181,7 @@ $(function() {
     }).done(function(data){
         console.log("daada");
       location.reload();
-        
+
     });
   });
 });
@@ -203,7 +203,7 @@ $(function() {
 
 
   <input type="button" id="añadir_cliente" class="add-modal mt-4 mb-4" value="Añadir Cliente">
-    
+
 
 
   <table class="table table-striped">
@@ -222,9 +222,9 @@ $(function() {
 
       @foreach($clientes as $key => $value)
       <tr>
-          
-          
-          
+
+
+
         <td> <a href='/clientes/{{ $value->id }}'> {{ $value->nombre }}</a> </td>
 
         <td>{{ $value->direccion }}</td>
@@ -243,12 +243,12 @@ $(function() {
         </button>
               <input type=“hidden” value='{{ $value->id }}' id='cliente_id' style="display:none;">
         </td>
-          <td><button type="button"  class="btn btn-warning editar" data-dismiss="modal">
+          <!-- <td><button type="button"  class="btn btn-warning editar" data-dismiss="modal">
           <span class='glyphicon glyphicon-remove'></span> Editar
         </button>
               <input type=“hidden” value='{{ $value->id }}' id='cliente_id' style="display:none;">
               <input type=“hidden” value='{{ $value->nombre }}' id='nombre' style="display:none;">
-        </td>
+        </td> -->
       </tr>
 
       @endforeach
@@ -259,15 +259,15 @@ $(function() {
 
     <script type="text/javascript">
         $("body").on("click",".eliminar",function(){
-            
-        
+
+
            var id_bueno=$(this).next().val();
             //var tbody = $(this).find('tbody').val();
-            
+
         var form_action = $("#addClienteForm").attr("action");
         var c_obj = $(this).parents("tr");
-    
-   
+
+
             $.ajax({
 
         dataType: 'json',
@@ -277,17 +277,17 @@ $(function() {
         url: 'clientes/'+id_bueno
 
             }).done(function(data){
-           
-  
+
+
         c_obj.remove();
 
-        
+
 
         location.reload();
 
     });
 
-});    
+});
     </script>
     <script>
         $(document).on('click', '.editar', function() {

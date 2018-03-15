@@ -6,7 +6,7 @@
 
 
 <!-- Modal form to add a post -->
-<div id="addModal" class="modal fade" role="dialog">
+<!-- <div id="addModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,11 +53,11 @@
     </div>
   </div>
 </div>
-</div>
+</div> -->
 
 
 
-<script>
+<!-- <script>
 $(document).on('click', '.add-modal', function() {
   $('#addModal').modal('show');
 });
@@ -83,14 +83,14 @@ $(function() {
     });
   });
 });
-</script>
+</script> -->
 
 
 <div class="container">
 
   <h2>Lista de Materiales</h2>
 
-    <input type="button" id="añadir_material" class="add-modal mt-4 mb-4" value="Añadir Material">
+    <!-- <input type="button" id="añadir_material" class="add-modal mt-4 mb-4" value="Añadir Material"> -->
 
   <table class="table table-striped">
     <thead>
@@ -131,10 +131,6 @@ $(function() {
 </div>
 
 <script type="text/javascript">
-$.get("{{route('indexWithProveedores', ['tipo' => 'normal']) }}", function(data){
-    $(modalBody).html(data);
-    prepareDataTable(parte_id);
-});
 
 $("body").on("click",".eliminar",function(){
 
