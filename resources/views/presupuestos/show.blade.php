@@ -3,6 +3,9 @@
 @section('title', 'Presupuesto Individual')
 
 @section('content')
+<?php $tipos = array('Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
+            'Complementos' => 'complementos', 'Piezas Compuestas' => 'piezasCompuestas',
+            'Embalaje' => 'embalaje', 'Acabados' => 'acabados') ?>
 
 <div class="pt-5" id="presupuestoContainer">
   <h1>Presupuesto Individual</h1>
@@ -112,6 +115,7 @@
           </thead>
           <tbody>
             @foreach($value->materiales as $mkey => $mvalue)
+            @if($mvalue->tipo === 'normal')
             <tr>
               <td>{{$mkey}}</td>
               <td>{{$mvalue->pivot->unidades}}</td>
@@ -124,6 +128,31 @@
               <td>{{$mvalue->precio}}</td>
               <td>{{$mvalue->pivot->precio_total}}</td>
             </tr>
+            @endif
+            @endforeach
+
+            @foreach($tipos as $title => $type)
+            <tr>
+              <td colspan="10" class="head_material_especial">
+                {{$title}}
+              </td>
+            </tr>
+            @foreach($value->materiales as $mkey => $mvalue)
+            @if($mvalue->tipo === $type)
+            <tr>
+              <td>{{$mkey}}</td>
+              <td>{{$mvalue->pivot->unidades}}</td>
+              <td>{{$mvalue->nombre}}</td>
+              <td>{{$mvalue->pivot->ancho}}</td>
+              <td>{{$mvalue->pivot->alto}}</td>
+              <td>{{$mvalue->pivot->m2}}</td>
+              <td>{{$mvalue->pivot->total_m2}}</td>
+              <td>{{$mvalue->pivot->proveedors_nombre}}</td>
+              <td>{{$mvalue->precio}}</td>
+              <td>{{$mvalue->pivot->precio_total}}</td>
+            </tr>
+            @endif
+            @endforeach
             @endforeach
           </tbody>
         </table>

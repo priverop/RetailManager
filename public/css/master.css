@@ -13,3 +13,9 @@ input:disabled{
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.head_material_especial{
+  background-color: #007bff !important;
+  text-align: center;
+  color: white;
+}
