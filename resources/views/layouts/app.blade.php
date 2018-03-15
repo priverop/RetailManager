@@ -20,11 +20,11 @@
         <div class="row">
           <div class="col-xs-4 p-5">
             <ul>
-              <li><a href="/">Inicio</a></li>
-              <li><a href="/materiales">Materiales</a></li>
-              <li><a href="/clientes">Clientes</a></li>
-              <li><a href="/presupuestos">Presupuestos</a></li>
-              <li><a href="/proveedores">Proveedores</a></li>
+              <li><a href="{{ URL::to('/') }}">Inicio</a></li>
+              <li><a href="{{ route('materiales.index') }}">Materiales</a></li>
+              <li><a href="{{ route('clientes.index') }}">Clientes</a></li>
+              <li><a href="{{ route('presupuestos.index') }}">Presupuestos</a></li>
+              <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             </ul>
           </div>
           <div class="col p-5">@yield('content')</div>
