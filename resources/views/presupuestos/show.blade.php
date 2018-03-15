@@ -366,7 +366,7 @@ function prepareDataTable(parte_id){
       { "visible": false, "searchable": false, "targets": 5 },
     ],
     "language": {
-          "url": "{{ URL::to('/') }}/js/datatable_spanish.json"
+          "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
 
