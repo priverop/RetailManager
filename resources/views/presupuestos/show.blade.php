@@ -360,10 +360,10 @@ function prepareDataTable(parte_id){
           type: 'POST',
           url: '/materiales/storeWithProveedor',
           data: {parte_id:parteID, material_id:materialID, proveedor_id: proveedorID}
+      }).done(function(data){
+          location.reload();
       });
     });
-
-    location.reload();
 
   });
 
