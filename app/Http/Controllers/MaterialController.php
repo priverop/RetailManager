@@ -5,10 +5,48 @@ namespace App\Http\Controllers;
 use App\Material;
 use Illuminate\Http\Request;
 use View;
+use App\Presupuesto;
 use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
 {
+
+  public function updatePrize($precio, $presupuesto_id)
+  {
+    $presupuesto = Presupuesto::find($presupuesto_id);
+
+    $presupuesto->precio_final = $precio;
+
+    $presupuesto->save();
+
+    return response()->json($presupuesto);
+  }
+
+  /**
+  * Recalcula el precio final del presupuesto y lo actualiza en la ddbb
+  *
+  * @return Integer precio final
+  */
+  public function refreshTotalPrize($presupuesto_id){
+
+    $prizes = DB::table("material_parte")
+    ->select('precio_total')
+    ->join('partes', function($join) use ($presupuesto_id){
+      $join->on('material_parte.parte_id', '=', 'partes.id')
+      ->where('partes.presupuesto_id', '=', $presupuesto_id);
+    })
+    ->get();
+
+    $precioTotal = 0;
+
+    foreach($prizes as $key => $value){
+      $precioTotal += $value->precio_total;
+    }
+
+    $update = $this->updatePrize($precioTotal, $presupuesto_id);
+
+    return response()->json($update);
+  }
 
   /**
    * Actualizamos las propiedades de todos los materiales
@@ -39,7 +77,6 @@ class MaterialController extends Controller
         'precio_total' => $precio[0]->precio * $value->unidades]
       );
     }
-
 
     return response()->json($update);
   }
@@ -114,6 +151,13 @@ class MaterialController extends Controller
         );
 
         $this->refreshAllPropierties();
+
+        $presupuesto_id = DB::table('partes')
+        ->select('presupuesto_id')
+        ->where('id', '=', $request->input('parte_id'))
+        ->get();
+
+        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
 
       return response()->json($result);
     }
