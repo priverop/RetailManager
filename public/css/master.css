@@ -1,14 +1,22 @@
+/* ========================= */
+/* == PRESUPUESTO - SHOW  ==*/
+/* ========================= */
+
+
+/* Modal más grande */
 @media (min-width: 576px){
   .modal-dialog {
       max-width: 800px;
   }
 }
+
 input:disabled{
   outline: none !important;
   background-color: white !important;
   border: 0 !important;
 }
 
+/* Botones de Añadir Material */
 .addMaterial{
   margin-top: 5px;
   margin-bottom: 5px;
@@ -16,9 +24,19 @@ input:disabled{
   width: 110%;
 }
 
+/* Cabecera de los Materiales */
 .head_material_especial{
   background-color: #007bff !important;
   text-align: center;
   color: white;
   padding: 2px !important;
 }
+
+/* Input de la tabla más pequeños */
+.editable .small-input{
+  width: 65px;
+}
+
+/* ============================ */
+/* == FIN PRESUPUESTO - SHOW == */
+/* ============================ */

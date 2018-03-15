@@ -117,6 +117,7 @@
               <th scope="col">Proveedor</th>
               <th scope="col">Precio Und.</th>
               <th scope="col">Precio Total</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -126,7 +127,7 @@
                 @if($mvalue->tipo === $type)
                   @if(!$tipoExiste[$type])
                   <tr>
-                    <td colspan="10" class="head_material_especial">
+                    <td colspan="11" class="head_material_especial">
                       {{$title}}
                     </td>
                   </tr>
@@ -134,15 +135,30 @@
                   @endif
                 <tr>
                   <td>{{$mkey}}</td>
-                  <td>{{$mvalue->pivot->unidades}}</td>
+                  <td class="editable">
+                    <p>{{$mvalue->pivot->unidades}}</p>
+                    <input name="unidades" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->unidades}}">
+                  </td>
                   <td>{{$mvalue->nombre}}</td>
-                  <td>{{$mvalue->pivot->ancho}}</td>
-                  <td>{{$mvalue->pivot->alto}}</td>
+                  <td class="editable">
+                    <p>{{$mvalue->pivot->ancho}}</p>
+                    <input name="ancho" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->ancho}}">
+                  </td>
+                  <td class="editable">
+                    <p>{{$mvalue->pivot->alto}}</p>
+                    <input name="alto" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->alto}}">
+                  </td>
                   <td>{{$mvalue->pivot->m2}}</td>
                   <td>{{$mvalue->pivot->total_m2}}</td>
                   <td>{{$mvalue->pivot->proveedors_nombre}}</td>
                   <td>{{$mvalue->precio}}</td>
                   <td>{{$mvalue->pivot->precio_total}}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" onclick="editarMaterial({{$mvalue->id}}, this)">Editar</button>
+                    <button type="button" class="btn btn-primary" onclick="eliminarMaterial({{$mvalue->id}})">Borrar</button>
+                    <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
+                    <input type="hidden" value="{{ $value->id }}">
+                  </td>
                 </tr>
                 @endif
               @endforeach
@@ -273,6 +289,42 @@ $(function() {
   });
 
 });
+
+/*
+* Editar Material.
+* Habilita los inputs para la edición.
+* Cambiamos el botón para guardar y cambiamos su función onclick.
+* @input materialID
+* @input elemento -> this para el botón en el que ha pulsado el usuario
+*/
+function editarMaterial(materialID, elemento){
+  $(elemento).html('Guardar');
+  $(elemento).parent().parent().find('.editable input').prop("type", "text");
+  $(elemento).parent().parent().find('.editable p').hide();
+  $(elemento).attr("onclick","guardarMaterialEditado("+materialID+", this)");
+}
+
+/*
+* Guardar Material Editado
+*
+*/
+function guardarMaterialEditado(materialID, elemento){
+  var tr = $(elemento).parent().parent();
+  var form_action = $(elemento).next().next().val();
+  var parteID = $(elemento).next().next().next().val();
+  var unidades = tr.find('input[name="unidades"]').val();
+  var alto = tr.find('input[name="alto"]').val();
+  var ancho = tr.find('input[name="ancho"]').val();
+
+  $.ajax({
+      dataType: 'json',
+      type:'POST',
+      url: form_action,
+      data: {parte: parteID, unidades: unidades, alto: alto, ancho: ancho},
+  }).done(function(data){
+      location.reload();
+  });
+}
 
 /*
 * Generamos DataTable

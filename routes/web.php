@@ -22,6 +22,7 @@ Route::get('/materiales/create-small', function () {
 Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProveedor');
 Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores');
 Route::get('/materiales/refreshAll', 'MaterialController@refreshAllPropierties');
+Route::post('/materiales/updateWithParte/{id}', 'MaterialController@updateWithParte')->name('updateMaterialWithParte');
 
 Route::get('presupuestos/{id}/refresh', 'PresupuestoController@refreshTotalPrize');
 

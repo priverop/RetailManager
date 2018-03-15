@@ -9,6 +9,41 @@ use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
 {
+
+  /**
+   * Actualizamos las propiedades de todos los materiales
+   *
+   * @param integer $materialID
+   * @param integer $parteID
+   * @return \Illuminate\Http\Response
+   */
+
+  public function refreshAllPropierties(){
+    $rows = DB::table('material_parte')->get();
+
+    foreach ($rows as $key => $value) {
+
+      $m2 = $value->ancho * $value->alto / 1000000;
+
+      $precio = DB::table('material_proveedor')
+      ->where('material_id', $value->material_id)
+      ->where('proveedor_id', $value->proveedor_id)
+      ->select('precio')->get();
+
+      $update = DB::table('material_parte')
+      ->where('material_id', $value->material_id)
+      ->where('parte_id', $value->parte_id)
+      ->update(
+        ['m2' => $m2,
+        'total_m2' => $m2 * $value->unidades,
+        'precio_total' => $precio[0]->precio * $value->unidades]
+      );
+    }
+
+
+    return response()->json($update);
+  }
+
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +93,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
       $material = Material::create($request->all());
-      $this->rereshAllProperties();
+      $this->refreshAllPropierties();
       return response()->json($material);
     }
 
@@ -78,43 +113,9 @@ class MaterialController extends Controller
           ]
         );
 
-        $this->rereshAllProperties();
+        $this->refreshAllPropierties();
 
       return response()->json($result);
-    }
-
-    /**
-     * Actualizamos las propiedades del material dado
-     *
-     * @param integer $materialID
-     * @param integer $parteID
-     * @return \Illuminate\Http\Response
-     */
-
-    public static function refreshAllPropierties(){
-      $rows = DB::table('material_parte')->get();
-
-      foreach ($rows as $key => $value) {
-
-        $m2 = $value->ancho * $value->alto / 1000000;
-
-        $precio = DB::table('material_proveedor')
-        ->where('material_id', $value->material_id)
-        ->where('proveedor_id', $value->proveedor_id)
-        ->select('precio')->get();
-
-        $update = DB::table('material_parte')
-        ->where('material_id', $value->material_id)
-        ->where('parte_id', $value->parte_id)
-        ->update(
-          ['m2' => $m2,
-          'total_m2' => $m2 * $value->unidades,
-          'precio_total' => $precio[0]->precio * $value->unidades]
-        );
-      }
-
-
-      return response()->json($update);
     }
 
     /**
@@ -152,6 +153,32 @@ class MaterialController extends Controller
     public function update(Request $request, Material $material)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer $material
+     * @return \Illuminate\Http\Response
+     */
+    public function updateWithParte(Request $request, $material)
+    {
+
+        $parte_id = $request->input('parte');
+
+        $update = DB::table('material_parte')
+        ->where('material_id', $material)
+        ->where('parte_id', $parte_id)
+        ->update(
+          ['unidades' => $request->input('unidades'),
+          'ancho' => $request->input('ancho'),
+          'alto' => $request->input('alto')]
+        );
+
+        $this->refreshAllPropierties();
+
+        return response()->json($update);
     }
 
     /**
