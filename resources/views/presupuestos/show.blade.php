@@ -154,10 +154,13 @@
                   <td>{{$mvalue->precio}}</td>
                   <td>{{$mvalue->pivot->precio_total}}</td>
                   <td>
-                    <button type="button" class="btn btn-primary" onclick="editarMaterial({{$mvalue->id}}, this)">Editar</button>
-                    <button type="button" class="btn btn-primary" onclick="eliminarMaterial({{$mvalue->id}})">Borrar</button>
+                    <?php $rutaEliminar = route('destroyMaterialWithParte', ['id' => $mvalue->id]); ?>
+
+                    <button type="button" class="btn btn-primary" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
+                    <button type="button" class="btn btn-primary" onclick="eliminarMaterial({{ $value->id }}, this)">Borrar</button>
                     <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
                     <input type="hidden" value="{{ $value->id }}">
+                    <input type="hidden" value="{{ $rutaEliminar }}">
                   </td>
                 </tr>
                 @endif
@@ -292,26 +295,28 @@ $(function() {
 
 /*
 * Editar Material.
+*
 * Habilita los inputs para la edición.
 * Cambiamos el botón para guardar y cambiamos su función onclick.
 * @input materialID
 * @input elemento -> this para el botón en el que ha pulsado el usuario
 */
-function editarMaterial(materialID, elemento){
+function editarMaterial(materialID, parteID, elemento){
   $(elemento).html('Guardar');
   $(elemento).parent().parent().find('.editable input').prop("type", "text");
   $(elemento).parent().parent().find('.editable p').hide();
-  $(elemento).attr("onclick","guardarMaterialEditado("+materialID+", this)");
+  $(elemento).attr("onclick","guardarMaterialEditado("+materialID+", "+parteID+", this)");
 }
 
 /*
 * Guardar Material Editado
 *
+* Seleccionamos los datos y los enviamos
+* @return Actualizamos la página
 */
-function guardarMaterialEditado(materialID, elemento){
+function guardarMaterialEditado(materialID, parteID, elemento){
   var tr = $(elemento).parent().parent();
   var form_action = $(elemento).next().next().val();
-  var parteID = $(elemento).next().next().next().val();
   var unidades = tr.find('input[name="unidades"]').val();
   var alto = tr.find('input[name="alto"]').val();
   var ancho = tr.find('input[name="ancho"]').val();
@@ -321,6 +326,23 @@ function guardarMaterialEditado(materialID, elemento){
       type:'POST',
       url: form_action,
       data: {parte: parteID, unidades: unidades, alto: alto, ancho: ancho},
+  }).done(function(data){
+      location.reload();
+  });
+}
+
+/*
+* Eliminar Material
+*/
+
+function eliminarMaterial(parte_id, elemento){
+var form_action = $(elemento).next().next().next().val();
+
+  $.ajax({
+      dataType: 'json',
+      type:'POST',
+      url: form_action,
+      data: {parte: parte_id},
   }).done(function(data){
       location.reload();
   });

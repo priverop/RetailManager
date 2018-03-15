@@ -195,4 +195,22 @@ class MaterialController extends Controller
 
         return response()->json(['done']);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Material  $material
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyWithParte(Request $request, $material)
+    {
+      $parte_id = $request->input('parte');
+
+      $delete = DB::table('material_parte')
+      ->where('material_id', $material)
+      ->where('parte_id', $parte_id)
+      ->delete();
+
+        return response()->json($delete);
+    }
 }

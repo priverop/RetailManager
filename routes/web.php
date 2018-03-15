@@ -23,6 +23,7 @@ Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProve
 Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores');
 Route::get('/materiales/refreshAll', 'MaterialController@refreshAllPropierties');
 Route::post('/materiales/updateWithParte/{id}', 'MaterialController@updateWithParte')->name('updateMaterialWithParte');
+Route::post('/materiales/destroyWithParte/{id}', 'MaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 
 Route::get('presupuestos/{id}/refresh', 'PresupuestoController@refreshTotalPrize');
 
