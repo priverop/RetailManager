@@ -16,6 +16,7 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
             $table->string('nombre');
+            $table->string('tipo')->default('normal');
             $table->timestamps();
         });
     }

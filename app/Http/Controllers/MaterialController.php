@@ -26,12 +26,13 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexMaterialesProveedores()
+    public function indexMaterialesProveedores($tipo)
     {
       $materialesProveedoresPrecio = DB::table('material_proveedor')
       ->join('materials', 'material_proveedor.material_id', '=', 'materials.id')
       ->join('proveedors', 'material_proveedor.proveedor_id', '=', 'proveedors.id')
-      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'proveedors.nombre as p_nombre')
+      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'proveedors.nombre as p_nombre', 'materials.tipo as m_tipo')
+      ->where('materials.tipo', '=', $tipo)
       ->get();
 
       return View::make('materiales.index-withProveedores')->with('pivotTable', $materialesProveedoresPrecio);

@@ -69,6 +69,26 @@
     <?php print_r($value->proveedor); ?>
     <div class="col-xs-12 col-md-2">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
+      <input type="hidden" value="normal" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Electricidad</button>
+      <input type="hidden" value="electricidad" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Herrajes</button>
+      <input type="hidden" value="herrajes" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Complementos</button>
+      <input type="hidden" value="complementos" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Piezas Compuestas</button>
+      <input type="hidden" value="piezasCompuestas" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Embalaje</button>
+      <input type="hidden" value="embalaje" class="tipo_m">
+
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Acabados</button>
+      <input type="hidden" value="acabados" class="tipo_m">
+
       <input type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
     <div class="col-xs-12 col-md-10">
@@ -155,9 +175,11 @@ $(function() {
   */
   $(".addMaterial").click(function(){
     var modalBody = $("#addMaterialModal .modal-body");
-    var parte_id = $(this).next().val();
+    var parte_id = $("#parte_id").val();
+    var tipo = $(this).next().val();
+    console.log(tipo);
 
-    $.get('/materiales/indexWithProveedores', function(data){
+    $.get('/materiales/indexWithProveedores/'+tipo, function(data){
         $(modalBody).html(data);
         prepareDataTable(parte_id);
     });

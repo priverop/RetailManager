@@ -8,3 +8,8 @@ input:disabled{
   background-color: white !important;
   border: 0 !important;
 }
+
+.addMaterial{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

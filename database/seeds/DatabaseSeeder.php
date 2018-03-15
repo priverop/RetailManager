@@ -14,10 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         factory(App\Cliente::class, 10)->create();
         factory(App\Obra::class, 10)->create();
-        factory(App\Proveedor::class, 10)->create();
+        factory(App\Proveedor::class, 40)->create();
         factory(App\Presupuesto::class, 10)->create();
         factory(App\Parte::class, 10)->create();
-        factory(App\Material::class, 10)->create();
+        factory(App\Material::class, 40)->create();
+        //factory(App\MaterialesEspecial::class, 10)->create();
 
         // Populate the pivot tables (Materiales-Partes & Materiales-Proveedores)
         $materiales = App\Material::all();
