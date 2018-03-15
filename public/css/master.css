@@ -1,3 +1,18 @@
+a{
+  color: #dc3545 !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+#logo img{
+  max-height: 80px;
+  margin-bottom: 30px;
+}
+
 /* ========================= */
 /* == PRESUPUESTO - SHOW  ==*/
 /* ========================= */
@@ -26,7 +41,7 @@ input:disabled{
 
 /* Cabecera de los Materiales */
 .head_material_especial{
-  background-color: #007bff !important;
+  background-color: #dc3545 !important;
   text-align: center;
   color: white;
   padding: 2px !important;

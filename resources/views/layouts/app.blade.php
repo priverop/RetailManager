@@ -19,6 +19,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-xs-1 border p-5">
+            <div id="logo">
+              <img src="{{asset('images/logo_grande.png')}}" alt="Logo Modifase" />
+            </div>
             <ul>
               <li><a href="{{ URL::to('/') }}">Inicio</a></li>
               <li><a href="{{ route('materiales.index') }}">Materiales</a></li>

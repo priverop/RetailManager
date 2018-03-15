@@ -99,8 +99,7 @@ $(function() {
         <th>Material</th>
         <th>Proveedor</th>
         <th>Precio</th>
-        <th>Material ID</th>
-        <th>Proveedor ID</th>
+
       </tr>
     </thead>
     <tbody>
@@ -110,8 +109,7 @@ $(function() {
         <td> <a href='materiales/{{ $value->material_id }}'> {{ $value->m_nombre}}</a> </td>
         <td><a href='proveedores/{{ $value->proveedor_id }}'>{{ $value->p_nombre }}</a> </td>
         <td>{{ $value->precio }}</td>
-        <td>{{ $value->material_id }}</td>
-        <td>{{ $value->proveedor_id }}</td>
+
 
 
 
