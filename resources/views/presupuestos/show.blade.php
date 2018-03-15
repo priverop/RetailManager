@@ -3,9 +3,15 @@
 @section('title', 'Presupuesto Individual')
 
 @section('content')
-<?php $tipos = array('Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
+<?php
+  $tiposMaterial = array('Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
             'Complementos' => 'complementos', 'Piezas Compuestas' => 'piezasCompuestas',
-            'Embalaje' => 'embalaje', 'Acabados' => 'acabados') ?>
+            'Embalaje' => 'embalaje', 'Acabados' => 'acabados');
+
+  $tipoExiste = ['electricidad' => false, 'herrajes' => false,
+            'complementos' => false, 'piezasCompuestas' => false,
+            'embalaje' => false, 'acabados' => false];
+?>
 
 <div class="pt-5" id="presupuestoContainer">
   <h1>Presupuesto Individual</h1>
@@ -69,7 +75,7 @@
 
   @foreach($presupuesto->partes as $key => $value)
   <div class="row mt-5 p-3 border">
-    <?php print_r($value->proveedor); ?>
+
     <div class="col-xs-12 col-md-2">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
       <input type="hidden" value="normal" class="tipo_m">
@@ -114,45 +120,53 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($value->materiales as $mkey => $mvalue)
-            @if($mvalue->tipo === 'normal')
-            <tr>
-              <td>{{$mkey}}</td>
-              <td>{{$mvalue->pivot->unidades}}</td>
-              <td>{{$mvalue->nombre}}</td>
-              <td>{{$mvalue->pivot->ancho}}</td>
-              <td>{{$mvalue->pivot->alto}}</td>
-              <td>{{$mvalue->pivot->m2}}</td>
-              <td>{{$mvalue->pivot->total_m2}}</td>
-              <td>{{$mvalue->pivot->proveedors_nombre}}</td>
-              <td>{{$mvalue->precio}}</td>
-              <td>{{$mvalue->pivot->precio_total}}</td>
-            </tr>
-            @endif
-            @endforeach
-
-            @foreach($tipos as $title => $type)
             <tr>
               <td colspan="10" class="head_material_especial">
-                {{$title}}
+                Madera
               </td>
             </tr>
             @foreach($value->materiales as $mkey => $mvalue)
-            @if($mvalue->tipo === $type)
-            <tr>
-              <td>{{$mkey}}</td>
-              <td>{{$mvalue->pivot->unidades}}</td>
-              <td>{{$mvalue->nombre}}</td>
-              <td>{{$mvalue->pivot->ancho}}</td>
-              <td>{{$mvalue->pivot->alto}}</td>
-              <td>{{$mvalue->pivot->m2}}</td>
-              <td>{{$mvalue->pivot->total_m2}}</td>
-              <td>{{$mvalue->pivot->proveedors_nombre}}</td>
-              <td>{{$mvalue->precio}}</td>
-              <td>{{$mvalue->pivot->precio_total}}</td>
-            </tr>
-            @endif
+              @if($mvalue->tipo === 'normal')
+              <tr>
+                <td>{{$mkey}}</td>
+                <td>{{$mvalue->pivot->unidades}}</td>
+                <td>{{$mvalue->nombre}}</td>
+                <td>{{$mvalue->pivot->ancho}}</td>
+                <td>{{$mvalue->pivot->alto}}</td>
+                <td>{{$mvalue->pivot->m2}}</td>
+                <td>{{$mvalue->pivot->total_m2}}</td>
+                <td>{{$mvalue->pivot->proveedors_nombre}}</td>
+                <td>{{$mvalue->precio}}</td>
+                <td>{{$mvalue->pivot->precio_total}}</td>
+              </tr>
+              @endif
             @endforeach
+
+            @foreach($tiposMaterial as $title => $type)
+              @foreach($value->materiales as $mkey => $mvalue)
+                @if($mvalue->tipo === $type)
+                  @if(!$tipoExiste[$type])
+                  <tr>
+                    <td colspan="10" class="head_material_especial">
+                      {{$title}}
+                    </td>
+                  </tr>
+                  <?php $tipoExiste[$type] = true; ?>
+                  @endif
+                <tr>
+                  <td>{{$mkey}}</td>
+                  <td>{{$mvalue->pivot->unidades}}</td>
+                  <td>{{$mvalue->nombre}}</td>
+                  <td>{{$mvalue->pivot->ancho}}</td>
+                  <td>{{$mvalue->pivot->alto}}</td>
+                  <td>{{$mvalue->pivot->m2}}</td>
+                  <td>{{$mvalue->pivot->total_m2}}</td>
+                  <td>{{$mvalue->pivot->proveedors_nombre}}</td>
+                  <td>{{$mvalue->precio}}</td>
+                  <td>{{$mvalue->pivot->precio_total}}</td>
+                </tr>
+                @endif
+              @endforeach
             @endforeach
           </tbody>
         </table>

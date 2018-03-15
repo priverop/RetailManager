@@ -20,4 +20,5 @@ input:disabled{
   background-color: #007bff !important;
   text-align: center;
   color: white;
+  padding: 2px !important;
 }
