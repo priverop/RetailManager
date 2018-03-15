@@ -22,7 +22,7 @@ Route::get('/materiales/create-small', function () {
 });
 Route::resource('materiales', 'MaterialController');
 Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProveedor');
-Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores');
+Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
 Route::post('/materiales/updateWithParte/{id}', 'MaterialController@updateWithParte')->name('updateMaterialWithParte');
 Route::post('/materiales/destroyWithParte/{id}', 'MaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 Route::get('/materiales/refreshAll', 'MaterialController@refreshAllPropierties');

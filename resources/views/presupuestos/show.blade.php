@@ -8,9 +8,6 @@
             'Complementos' => 'complementos', 'Piezas Compuestas' => 'piezasCompuestas',
             'Embalaje' => 'embalaje', 'Acabados' => 'acabados');
 
-  $tipoExiste = ['normal' => false, 'electricidad' => false, 'herrajes' => false,
-            'complementos' => false, 'piezasCompuestas' => false,
-            'embalaje' => false, 'acabados' => false];
 ?>
 
 <div class="pt-5" id="presupuestoContainer">
@@ -74,31 +71,38 @@
   </div>
 
   @foreach($presupuesto->partes as $key => $value)
+  <?php
+
+  $tipoExiste = ['normal' => false, 'electricidad' => false, 'herrajes' => false,
+            'complementos' => false, 'piezasCompuestas' => false,
+            'embalaje' => false, 'acabados' => false];
+            
+   ?>
   <div class="row mt-5 p-3 border">
 
     <div class="col-xs-12 col-md-2">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
-      <input type="hidden" value="normal" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'normal']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Electricidad</button>
-      <input type="hidden" value="electricidad" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'electricidad']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Herrajes</button>
-      <input type="hidden" value="herrajes" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'herrajes']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Complementos</button>
-      <input type="hidden" value="complementos" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'complementos']) }}complementos" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Piezas Compuestas</button>
-      <input type="hidden" value="piezasCompuestas" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'piezasCompuestas']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Embalaje</button>
-      <input type="hidden" value="embalaje" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'embalaje']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Acabados</button>
-      <input type="hidden" value="acabados" class="tipo_m">
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'acabados']) }}" class="tipo_m">
 
-      <input type="hidden" value="{{ $value->id }}" id="parte_id">
+      <input name="parte_id" type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
     <div class="col-xs-12 col-md-10">
 
@@ -216,11 +220,11 @@ $(function() {
   */
   $(".addMaterial").click(function(){
     var modalBody = $("#addMaterialModal .modal-body");
-    var parte_id = $("#parte_id").val();
-    var tipo = $(this).next().val();
-    console.log(tipo);
+    var parte_id = $(this).parent().find('#parte_id').val();
 
-    $.get('/materiales/indexWithProveedores/'+tipo, function(data){
+    var form_action = $(this).next().val();
+
+    $.get(form_action, function(data){
         $(modalBody).html(data);
         prepareDataTable(parte_id);
     });
