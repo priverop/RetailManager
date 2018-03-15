@@ -18,7 +18,7 @@
 
       <div class="container-fluid">
         <div class="row">
-          <div class="col-xs-4 p-5">
+          <div class="col-xs-1 border p-5">
             <ul>
               <li><a href="{{ URL::to('/') }}">Inicio</a></li>
               <li><a href="{{ route('materiales.index') }}">Materiales</a></li>
