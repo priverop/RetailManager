@@ -222,6 +222,13 @@ class MaterialController extends Controller
 
         $this->refreshAllPropierties();
 
+        $presupuesto_id = DB::table('partes')
+        ->select('presupuesto_id')
+        ->where('id', '=', $parte_id)
+        ->get();
+
+        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+
         return response()->json($update);
     }
 
@@ -254,6 +261,13 @@ class MaterialController extends Controller
       ->where('material_id', $material)
       ->where('parte_id', $parte_id)
       ->delete();
+
+      $presupuesto_id = DB::table('partes')
+      ->select('presupuesto_id')
+      ->where('id', '=', $parte_id)
+      ->get();
+
+      $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
 
         return response()->json($delete);
     }
