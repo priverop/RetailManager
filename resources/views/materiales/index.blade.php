@@ -95,26 +95,30 @@ $(function() {
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Precio</th>
-
+        <th>#</th>
+        <th>Material</th>
         <th>Proveedor</th>
+        <th>Precio</th>
+        <th>Material ID</th>
         <th>Proveedor ID</th>
       </tr>
     </thead>
     <tbody>
-
-          @foreach($materiales as $key => $value)
-        <tr>
-        <td> <a href='materiales/{{ $value->id }}'> {{ $value->nombre }}</a> </td>
-
+      @foreach($pivotTable as $key => $value)
+      <tr>
+        <td>{{ $key }}</td>
+        <td> <a href='materiales/{{ $value->material_id }}'> {{ $value->m_nombre}}</a> </td>
+        <td><a href='proveedores/{{ $value->proveedor_id }}'>{{ $value->p_nombre }}</a> </td>
         <td>{{ $value->precio }}</td>
+        <td>{{ $value->material_id }}</td>
+        <td>{{ $value->proveedor_id }}</td>
+
 
 
         <td><button type="button" id="eliminar" class="btn btn-danger eliminar" data-dismiss="modal">
           <span class='glyphicon glyphicon-remove'></span> X
         </button>
-              <input type=“hidden” value='{{ $value->id }}' id='cliente_id' style="display:none;">
+              <input type=“hidden” value='{{ $value->material_id }}' id='cliente_id' style="display:none;">
         </td>
         </tr>
 
@@ -122,12 +126,16 @@ $(function() {
           @endforeach
 
 
-
     </tbody>
   </table>
 </div>
 
 <script type="text/javascript">
+$.get("{{route('indexWithProveedores', ['tipo' => 'normal']) }}", function(data){
+    $(modalBody).html(data);
+    prepareDataTable(parte_id);
+});
+
 $("body").on("click",".eliminar",function(){
 
   var id_bueno=$(this).next().val();

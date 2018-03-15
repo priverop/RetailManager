@@ -88,9 +88,14 @@ class MaterialController extends Controller
      */
     public function index()
     {
-      $materiales = Material::all();
 
-      return View::make('materiales.index')->with('materiales', $materiales);
+      $materialesProveedoresPrecio = DB::table('material_proveedor')
+      ->join('materials', 'material_proveedor.material_id', '=', 'materials.id')
+      ->join('proveedors', 'material_proveedor.proveedor_id', '=', 'proveedors.id')
+      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'proveedors.nombre as p_nombre', 'materials.tipo as m_tipo')
+      ->get();
+
+      return View::make('materiales.index')->with('pivotTable', $materialesProveedoresPrecio);
     }
 
     /**
