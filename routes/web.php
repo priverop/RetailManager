@@ -21,7 +21,7 @@ Route::get('/materiales/create-small', function () {
     return view('materiales.create-small');
 });
 Route::resource('materiales', 'MaterialController');
-Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProveedor');
+Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProveedor')->name('storeWithProveedor');
 Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
 Route::post('/materiales/updateWithParte/{id}', 'MaterialController@updateWithParte')->name('updateMaterialWithParte');
 Route::post('/materiales/destroyWithParte/{id}', 'MaterialController@destroyWithParte')->name('destroyMaterialWithParte');
