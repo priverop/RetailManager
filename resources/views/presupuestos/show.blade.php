@@ -4,11 +4,11 @@
 
 @section('content')
 <?php
-  $tiposMaterial = array('Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
+  $tiposMaterial = array('Madera' => 'normal', 'Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
             'Complementos' => 'complementos', 'Piezas Compuestas' => 'piezasCompuestas',
             'Embalaje' => 'embalaje', 'Acabados' => 'acabados');
 
-  $tipoExiste = ['electricidad' => false, 'herrajes' => false,
+  $tipoExiste = ['normal' => false, 'electricidad' => false, 'herrajes' => false,
             'complementos' => false, 'piezasCompuestas' => false,
             'embalaje' => false, 'acabados' => false];
 ?>
@@ -120,27 +120,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="10" class="head_material_especial">
-                Madera
-              </td>
-            </tr>
-            @foreach($value->materiales as $mkey => $mvalue)
-              @if($mvalue->tipo === 'normal')
-              <tr>
-                <td>{{$mkey}}</td>
-                <td>{{$mvalue->pivot->unidades}}</td>
-                <td>{{$mvalue->nombre}}</td>
-                <td>{{$mvalue->pivot->ancho}}</td>
-                <td>{{$mvalue->pivot->alto}}</td>
-                <td>{{$mvalue->pivot->m2}}</td>
-                <td>{{$mvalue->pivot->total_m2}}</td>
-                <td>{{$mvalue->pivot->proveedors_nombre}}</td>
-                <td>{{$mvalue->precio}}</td>
-                <td>{{$mvalue->pivot->precio_total}}</td>
-              </tr>
-              @endif
-            @endforeach
 
             @foreach($tiposMaterial as $title => $type)
               @foreach($value->materiales as $mkey => $mvalue)
