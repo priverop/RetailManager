@@ -90,7 +90,7 @@
   ];
 
    ?>
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-5 p-3 border" id="parteDiv">
 
     <h2 class="text-center">Concepto: {{ $value->nombre }}</h2>
     <div class="col-xs-12 col-md-12 text-center mb-4">
