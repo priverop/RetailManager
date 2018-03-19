@@ -83,8 +83,11 @@ class ParteController extends Controller
      * @param  \App\Parte  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Parte $proveedor)
+    public function destroy($id)
     {
-        //
+      
+      $parte = Parte::find($id)->delete();
+
+      return response()->json($parte);
     }
 }

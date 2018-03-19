@@ -94,7 +94,10 @@
 
     <div class="row fullWidth">
       <h2 class="mr-5">{{ $value->nombre }}</h2>
-      <div class="col"><button class="btn btn-primary float-right" id="borrarParte">Borrar</button></div>
+      <div class="col">
+        <button class="btn btn-primary float-right" id="borrarParte" onclick="deleteParte(this)">Borrar</button>
+        <input type="hidden" value="{{ route('partes.destroy', ['id' => $value->id]) }}">
+      </div>
     </div>
     <div class="row justify-content-center mb-4">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Madera</button>
@@ -310,6 +313,28 @@ $(function() {
   });
 
 });
+
+
+/*
+* Editar Material.
+*
+* Habilita los inputs para la edición.
+* Cambiamos el botón para guardar y cambiamos su función onclick.
+* @input materialID
+* @input elemento -> this para el botón en el que ha pulsado el usuario
+*/
+function deleteParte(elemento){
+  var form_action = $(elemento).next().parent().val();
+  console.log(form_action);
+  $.ajax({
+      dataType: 'json',
+      type: 'DELETE',
+      url: form_action
+  }).done(function(data){
+      location.reload();
+  });
+
+}
 
 /*
 * Editar Material.

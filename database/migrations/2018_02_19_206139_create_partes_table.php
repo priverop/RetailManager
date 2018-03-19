@@ -17,7 +17,7 @@ class CreatePartesTable extends Migration
             $table->increments('id')->unsigned()->unique();
             $table->string('nombre');
             $table->integer('presupuesto_id')->unsigned();
-            $table->foreign('presupuesto_id')->references('id')->on('presupuestos')->onDelete('cascade');
+            $table->foreign('presupuesto_id')->references('id')->on('presupuestos');
             $table->timestamps();
         });
     }
