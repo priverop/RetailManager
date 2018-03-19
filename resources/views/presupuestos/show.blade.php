@@ -4,9 +4,15 @@
 
 @section('content')
 <?php
-  $tiposMaterial = array('Madera' => 'normal', 'Electricidad' => 'electricidad', 'Herrajes' => 'herrajes',
-            'Complementos' => 'complementos', 'Piezas Compuestas' => 'piezasCompuestas',
-            'Embalaje' => 'embalaje', 'Acabados' => 'acabados');
+  $tiposMaterial = [
+    'Maderas' => 'madera',
+    'Electricidad' => 'electricidad',
+    'Herrajes' => 'herraje',
+    'Complementos' => 'complemento',
+    'Piezas Compuestas' => 'piezaCompuesta',
+    'Embalajes' => 'embalaje',
+    'Acabados' => 'acabado'
+  ];
 
 ?>
 
@@ -73,41 +79,45 @@
   @foreach($presupuesto->partes as $key => $value)
   <?php
 
-  $tipoExiste = ['normal' => false, 'electricidad' => false, 'herrajes' => false,
-            'complementos' => false, 'piezasCompuestas' => false,
-            'embalaje' => false, 'acabados' => false];
+  $tipoExiste = [
+    'madera' => false,
+    'electricidad' => false,
+    'herraje' => false,
+    'complemento' => false,
+    'piezaCompuesta' => false,
+    'embalaje' => false,
+    'acabado' => false
+  ];
 
    ?>
   <div class="row mt-5 p-3 border">
 
     <h2 class="text-center">Concepto: {{ $value->nombre }}</h2>
     <div class="col-xs-12 col-md-12 text-center mb-4">
-      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Material</button>
-      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'normal']) }}" class="tipo_m">
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Madera</button>
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'madera']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Electricidad</button>
       <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'electricidad']) }}" class="tipo_m">
 
-      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Herrajes</button>
-      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'herrajes']) }}" class="tipo_m">
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Herraje</button>
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'herraje']) }}" class="tipo_m">
 
-      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Complementos</button>
-      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'complementos']) }}complementos" class="tipo_m">
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Complemento</button>
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'complemento']) }}" class="tipo_m">
 
-      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Piezas Compuestas</button>
-      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'piezasCompuestas']) }}" class="tipo_m">
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Pieza Compuesta</button>
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'piezaCompuesta']) }}" class="tipo_m">
 
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Embalaje</button>
       <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'embalaje']) }}" class="tipo_m">
 
-      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Acabados</button>
-      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'acabados']) }}" class="tipo_m">
+      <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Acabado</button>
+      <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'acabado']) }}" class="tipo_m">
 
       <input name="parte_id" type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
     <div class="col-xs-12 col-md-12">
-
-
 
         <table class="table table-striped">
           <thead>
@@ -276,7 +286,7 @@ $(function() {
     var estado = $("#estado").val();
     var beneficio = $("#beneficio").val();
     var precio_final = $("#precio_final").val();
-    //$("#updatePresupuesto").serialize()
+
     $.ajax({
         dataType: 'json',
         type:'PUT',
