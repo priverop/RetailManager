@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\MaterialController;
 
 class DatabaseSeeder extends Seeder
@@ -41,6 +42,14 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         });
-
+        // Creamos el Proveedor Sin Nombre
+        DB::table('proveedors')->insert([
+          'nombre'        => "Sin Proveedor",
+          'direccion'     => "Sin dirección",
+          'codigo-postal' => 000000,
+          'provincia'     => "Madrid",
+          'telefono'      => 666666666,
+          'nif'           => 00000000,
+        ]);
     }
 }
