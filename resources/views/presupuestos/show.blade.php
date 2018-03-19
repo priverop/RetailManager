@@ -92,8 +92,11 @@
    ?>
   <div class="row mt-5 p-3 border" id="parteDiv">
 
-    <h2 class="text-center">Concepto: {{ $value->nombre }}</h2>
-    <div class="col-xs-12 col-md-12 text-center mb-4">
+    <div class="row fullWidth">
+      <h2 class="mr-5">{{ $value->nombre }}</h2>
+      <div class="col"><button class="btn btn-primary float-right" id="borrarParte">Borrar</button></div>
+    </div>
+    <div class="row justify-content-center mb-4">
       <button type="button" class="addMaterial btn btn-secondary" data-toggle="modal" data-target="#addMaterialModal">Añadir Madera</button>
       <input type="hidden" value="{{route('indexWithProveedores', ['tipo' => 'madera']) }}" class="tipo_m">
 
@@ -117,7 +120,7 @@
 
       <input name="parte_id" type="hidden" value="{{ $value->id }}" id="parte_id">
     </div>
-    <div class="col-xs-12 col-md-12">
+    <div class="row">
 
         <table class="table table-striped">
           <thead>
@@ -171,8 +174,8 @@
                   <td>
                     <?php $rutaEliminar = route('destroyMaterialWithParte', ['id' => $mvalue->id]); ?>
 
-                    <button type="button" class="btn btn-primary" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
-                    <button type="button" class="btn btn-primary" onclick="eliminarMaterial({{ $value->id }}, this)">Borrar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $value->id }}, this)">Borrar</button>
                     <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
                     <input type="hidden" value="{{ $value->id }}">
                     <input type="hidden" value="{{ $rutaEliminar }}">

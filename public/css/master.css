@@ -7,6 +7,10 @@ a{
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
 }
+.btn-outline-primary{
+  color: #dc3545;
+  border-color: #dc3545 !important;
+}
 
 #logo img{
   max-height: 80px;
@@ -17,6 +21,9 @@ a{
 /* == PRESUPUESTO - SHOW  ==*/
 /* ========================= */
 
+.row .fullWidth{
+  width: 100%;
+}
 
 /* Modal más grande */
 @media (min-width: 576px){
@@ -33,8 +40,7 @@ input:disabled{
 
 /* Botones de Añadir Material */
 .addMaterial{
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
   font-size: 14px;
   width: 200px;
 }
