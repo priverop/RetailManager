@@ -23,7 +23,7 @@ class MaterialProveedor extends Migration
         $table->foreign('material_id')->references('id')
             ->on('materials')->onDelete('cascade');
 
-        $table->integer('precio');
+        $table->double('precio', 8, 2);
 
         $table->timestamps();
       });
