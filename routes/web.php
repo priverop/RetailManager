@@ -15,20 +15,17 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-/* MATERIALES */
+/* MATERIALES PIVOTS */
 
-Route::get('/materiales/create-small', function () {
-    return view('materiales.create-small');
-});
-Route::resource('materiales', 'MaterialController');
-Route::post('/materiales/storeWithProveedor', 'MaterialController@storeWithProveedor')->name('storeWithProveedor');
-Route::get('/materiales/indexWithProveedores/{tipo}', 'MaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
-Route::post('/materiales/updateWithParte/{id}', 'MaterialController@updateWithParte')->name('updateMaterialWithParte');
-Route::post('/materiales/destroyWithParte/{id}', 'MaterialController@destroyWithParte')->name('destroyMaterialWithParte');
-Route::get('/materiales/refreshAll', 'MaterialController@refreshAllPropierties');
+Route::post('/materiales/storeWithProveedor', 'PivotMaterialController@storeWithProveedor')->name('storeWithProveedor');
+Route::get('/materiales/indexWithProveedores/{tipo}', 'PivotMaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
+Route::post('/materiales/updateWithParte/{id}', 'PivotMaterialController@updateWithParte')->name('updateMaterialWithParte');
+Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
+Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
 
 /* FIN MATERIALES */
 
+Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');
 Route::resource('partes', 'ParteController');
