@@ -27,13 +27,12 @@ casper.test.begin('Añadimos Materiales', 4, function suite(test) {
 casper.start("http://localhost:8000/presupuestos/1", function(){
   test.assertTitle('Modifase - Presupuesto Individual', 'El título de la página inicial es el esperado');
   test.assertElementCount("#parteDiv", 1, "El número de partes es correcto (1)");
-  this.click("#parteDiv > div.col-xs-12.col-md-12.text-center.mb-4 > button:nth-child(1)"); // Añadir Madera
+  this.click("#parteDiv > div.row.justify-content-center.mb-4 > button:nth-child(1)"); // Añadir Madera
 });
 casper.waitUntilVisible('.modal-dialog', function(){
-  this.capture('tablamateriales.png');
   test.assertEval(function() {
-            return __utils__.findAll('#selectMaterial > tbody > tr').length >= 10;
-        }, 'La tabla de materiales tiene 10 registros o más');
+            return __utils__.findAll('#selectMaterial > tbody > tr').length > 0;
+        }, 'La tabla de materiales tiene registros');
 });
 
 casper.then(function(){
