@@ -324,8 +324,8 @@ $(function() {
 * @input elemento -> this para el botón en el que ha pulsado el usuario
 */
 function deleteParte(elemento){
-  var form_action = $(elemento).next().parent().val();
-  console.log(form_action);
+  var form_action = $(elemento).next().val();
+  
   $.ajax({
       dataType: 'json',
       type: 'DELETE',
