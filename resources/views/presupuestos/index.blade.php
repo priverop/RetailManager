@@ -5,9 +5,9 @@
 @section('content')
 
 
-<div class="container">
+<div class="row">
 
-  <h2>Lista de Materiales</h2>
+  <h2>Lista de Presupuestos</h2>
 
   <table class="table table-striped">
     <thead>
