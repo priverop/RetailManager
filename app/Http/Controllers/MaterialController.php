@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Material;
+use App\Proveedor;
 use Illuminate\Http\Request;
 use View;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class MaterialController extends Controller
       $materialesProveedoresPrecio = DB::table('material_proveedor')
       ->join('materials', 'material_proveedor.material_id', '=', 'materials.id')
       ->join('proveedors', 'material_proveedor.proveedor_id', '=', 'proveedors.id')
-      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'proveedors.nombre as p_nombre', 'materials.tipo as m_tipo')
+      ->select('material_proveedor.*', 'materials.nombre as m_nombre', 'materials.tipo as m_tipo', 'proveedors.nombre as p_nombre', 'materials.tipo as m_tipo')
       ->get();
 
       return View::make('materiales.index')->with('pivotTable', $materialesProveedoresPrecio);
@@ -32,10 +33,34 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $material = Material::all();
-        return View::make('materiales.create')->with('materiales', $material);
+      $proveedores = Proveedor::all();
+
+
+      if($request->input('material_id') && $request->input('proveedor_id')){
+
+        $material = Material::find($request->input('material_id'));
+        $proveedor = Proveedor::find($request->input('proveedor_id'));
+        $precio = DB::table('material_proveedor')
+        ->where('material_id', $request->input('material_id'))
+        ->where('proveedor_id', $request->input('proveedor_id'))
+        ->select('precio')->first();
+
+        $html = view('materiales.create', [
+          'proveedores' => $proveedores,
+          'material' => $material,
+          'precio' => $precio->precio,
+          'proveedor' => $proveedor,
+          ])->render();
+      }
+      else{
+        $html = view('materiales.create', [
+          'proveedores' => $proveedores
+          ])->render();
+      }
+
+      return response()->json($html);
     }
 
     /**
@@ -46,9 +71,26 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-      $material = Material::create($request->all());
+      \Debugbar::info($request);
+      // Comprobamos que no exista
+      if(!Material::where('nombre', '=', $request->input('nombre'))->exists()){
+        $material = Material::create($request->all());
+      }
+      else{
+        $material = Material::where('nombre', '=', $request->input('nombre'))->first();
+      }
 
-      return response()->json($material);
+      //Lo insertamos en material_proveedor
+      $result = DB::table('material_proveedor')->insert(
+        [
+          'material_id'   => $material->id,
+          'proveedor_id'  => $request->input('proveedorID'),
+          'precio'        => $request->input('precio'),
+        ]
+      );
+
+
+      return response()->json($result);
     }
 
     /**
@@ -83,9 +125,35 @@ class MaterialController extends Controller
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request, $material)
     {
-        //
+        // Actualizamos el material
+        $material = Material::find($material)->update($request->all());
+
+        if($request->input('proveedorID')){
+          $newProveedorID = $request->input('proveedorID');
+          $newProveedorID++;
+          $update = DB::table('material_proveedor')
+          ->where('material_id', $material)
+          ->where('proveedor_id', $request->input('proveedor_id'))
+          ->update(
+            ['precio'       => $request->input('precio'),
+             'proveedor_id' => $newProveedorID]
+          );
+        }
+        else {
+
+          $update = DB::table('material_proveedor')
+          ->where('material_id', $material)
+          ->where('proveedor_id', $request->input('proveedor_id'))
+          ->update(
+            ['precio' => $request->input('precio')]
+          );
+
+        }
+
+        return response()->json($update);
+
     }
 
     /**

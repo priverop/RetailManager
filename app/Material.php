@@ -27,7 +27,7 @@ class Material extends Model
        */
       protected $fillable = [
 
-          'nombre', 'precio', 'proveedor_id'
+          'nombre', 'tipo'
 
       ];
 }

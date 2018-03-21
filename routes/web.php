@@ -23,8 +23,8 @@ Route::post('/materiales/updateWithParte/{id}', 'PivotMaterialController@updateW
 Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
 
-/* FIN MATERIALES */
 
+/* FIN MATERIALES */
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');
