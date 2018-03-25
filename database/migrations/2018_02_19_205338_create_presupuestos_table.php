@@ -24,6 +24,24 @@ class CreatePresupuestosTable extends Migration
             $table->string('estado')->default('por comprobar');
             $table->integer('beneficio')->default(0.3);
             $table->double('precio_final', 8, 2)->default(0);
+
+            $table->integer('t_seccionadora')->default(0);
+            $table->string('o_seccionadora')->default('No indicado');
+            $table->integer('t_escuadradora')->default(0);
+            $table->string('o_escuadradora')->default('No indicado');
+            $table->integer('t_canteadora')->default(0);
+            $table->string('o_canteadora')->default('No indicado');
+            $table->integer('t_punto')->default(0);
+            $table->string('o_punto')->default('No indicado');
+            $table->integer('t_prensa')->default(0);
+            $table->string('o_prensa')->default('No indicado');
+
+            $table->integer('desplazamiento_unidad')->default(0);
+            $table->integer('desplazamiento_beneficio')->default(0.1);
+            $table->integer('transporte_unidad')->default(0);
+            $table->integer('transporte_beneficio')->default(0.1);
+            $table->integer('imprevistos_unidad')->default(0);
+            $table->integer('imprevistos_beneficio')->default(0.1);
             $table->timestamps();
         });
     }

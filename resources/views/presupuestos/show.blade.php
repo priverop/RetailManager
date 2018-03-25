@@ -63,9 +63,9 @@
           <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
         </div>
 
-        <button type="button" id="editarP" class="btn btn-primary">Editar</button>
-        <button type="button" id="cerrarP" class="btn btn-secondary" data-dismiss="modal" hidden>Cerrar</button>
-        <button type="button" id="guardarP" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-primary editarP">Editar</button>
+        <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
+        <button type="button" class="btn btn-primary guardarP">Guardar</button>
       </div>
     </div>
   </form>
@@ -193,6 +193,226 @@
     </div>
   </div>
   @endforeach
+  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+    <div class="row mt-5 p-3 border">
+      <div class="col-md-12">
+        <h2 class="mr-5">MÁQUINAS (ESTOS PROCESOS NO TIENEN VALORACIÓN)</h2>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Tiempo</th>
+            <th scope="col">Máquina Sección</th>
+            <th scope="col">Operación</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="{{ $presupuesto->t_seccionadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>Seccionadora</td>
+            <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="t_escuadradora" placeholder="Minutos" name="t_escuadradora" value="{{ $presupuesto->t_escuadradora }}" class="infoPresupuesto"  disabled/></td>
+            <td>Escuadradora/Tupi</td>
+            <td><input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="t_canteadora" placeholder="Minutos" name="t_canteadora" value="{{ $presupuesto->t_canteadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>Canteadora</td>
+            <td><input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="t_punto" placeholder="Minutos" name="t_punto" value="{{ $presupuesto->t_punto }}" class="infoPresupuesto"  disabled/></td>
+            <td>Punto</td>
+            <td><input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="t_prensa" placeholder="Minutos" name="t_prensa" value="{{ $presupuesto->t_prensa }}" class="infoPresupuesto"  disabled/></td>
+            <td>Prensa</td>
+            <td><input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary editarP">Editar</button>
+        <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
+        <button type="button" class="btn btn-primary guardarP">Guardar</button>
+      </div>
+    </div>
+  </form>
+
+  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+    <div class="row mt-5 p-3 border">
+      <div class="col-md-12">
+        <h2 class="mr-5">MANO DE OBRA</h2>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Operarios</th>
+              <th scope="col">Horas por Operario</th>
+              <th scope="col">Sección</th>
+              <th scope="col">Operración</th>
+              <th scope="col">Total Horas</th>
+              <th scope="col">precio Unidad</th>
+              <th scope="col">Total</th>
+              <th scope="col">Beneficio</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Máquinas</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="44.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="57.20" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Bancos Ayudante</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="44.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="57.20" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="4.92" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Máquinas oficial 1ª</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Mecanizado" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="4.92" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="108.17" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="140.62" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.5" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Producto Terminado</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Embalaje" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.50" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="11.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="14.30" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Producto Terminado</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Carga" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.40" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="7.20" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="9.36" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Oficial 1ª</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Oficial 2ª</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>Ayudante</td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <!-- <button type="button" id="editarP" class="btn btn-primary">Editar</button>
+        <button type="button" id="cerrarP" class="btn btn-secondary" data-dismiss="modal" hidden>Cerrar</button>
+        <button type="button" class="btn btn-primary guardarP">Guardar</button> -->
+      </div>
+    </div>
+  </form>
+
+  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+    <div class="row mt-5 p-3 border">
+      <div class="col-md-12">
+        <h2 class="mr-5">COSTES ADICIONALES</h2>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Precio Unidad</th>
+            <th scope="col">Total</th>
+            <th scope="col">Beneficio</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Desplazamiento</td>
+            <td><input type="text" id="desplazamiento_unidad" placeholder="Minutos" name="desplazamiento_unidad" value="{{ $presupuesto->desplazamiento_unidad }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="0" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="desplazamiento_beneficio" placeholder="Operacion" name="desplazamiento_beneficio" value="{{ $presupuesto->desplazamiento_beneficio }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="desplazamiento_total_beneficio" placeholder="Operacion" name="desplazamiento_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td>Transporte</td>
+            <td><input type="text" id="transporte_unidad" placeholder="Minutos" name="transporte_unidad" value="{{ $presupuesto->transporte_unidad }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="0" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="transporte_beneficio" placeholder="Operacion" name="transporte_beneficio" value="{{ $presupuesto->transporte_beneficio }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="transporte_total_beneficio" placeholder="Operacion" name="transporte_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+          </tr>
+          <tr>
+            <td>Imprevistos</td>
+            <td><input type="text" id="imprevistos_unidad" placeholder="Minutos" name="imprevistos_unidad" value="{{ $presupuesto->imprevistos_unidad }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="0" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="imprevistos_beneficio" placeholder="Operacion" name="imprevistos_beneficio" value="{{ $presupuesto->imprevistos_beneficio }}" class="infoPresupuesto"  disabled/></td>
+            <td><input type="text" id="imprevistos_total_beneficio" placeholder="Operacion" name="imprevistos_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary editarP">Editar</button>
+        <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
+        <button type="button" class="btn btn-primary guardarP">Guardar</button>
+      </div>
+    </div>
+  </form>
+
 </div>
 
 <!-- ================================ -->
@@ -267,20 +487,26 @@ $(function() {
   });
 
 
-  $('#editarP').click(function(event){
-    document.getElementById("editarP").hidden = true;
-    document.getElementById("cerrarP").hidden = false;
+  $('.editarP').click(function(event){
+    var n = document.getElementsByClassName('editarP');
+    for(var i=0;i<n.length;i++){
+       n[i].hidden = true;
+    }
+    var n = document.getElementsByClassName('cerrarP');
+    for(var i=0;i<n.length;i++){
+       n[i].hidden = false;
+    }
     var n = document.getElementsByClassName('infoPresupuesto');
     for(var i=0;i<n.length;i++){
        n[i].disabled = false;
     }
   });
 
-  $('#cerrarP').click(function(event){
+  $('.cerrarP').click(function(event){
     location.reload();
   });
 
-  $('#guardarP').click(function(event){
+  $('.guardarP').click(function(event){
     var form_action = $("#updatePresupuesto").attr("action");
     console.log($("#id").val());
     var id = $("#id").val();
@@ -293,17 +519,52 @@ $(function() {
     var beneficio = $("#beneficio").val();
     var precio_final = $("#precio_final").val();
 
+    var t_seccionadora = $("#t_seccionadora").val();
+    console.log($("#t_seccionadora").val());
+    var o_seccionadora = $("#o_seccionadora").val();
+    var t_escuadradora = $("#t_escuadradora").val();
+    var o_escuadradora = $("#o_escuadradora").val();
+    var t_canteadora = $("#t_canteadora").val();
+    var o_canteadora = $("#o_canteadora").val();
+    var t_punto = $("#t_punto").val();
+    var o_punto = $("#o_punto").val();
+    var t_prensa = $("#t_prensa").val();
+    var o_prensa = $("#o_prensa").val();
+
+    var desplazamiento_unidad = $("#desplazamiento_unidad").val();
+    var desplazamiento_beneficio = $("#desplazamiento_beneficio").val();
+    var transporte_unidad = $("#transporte_unidad").val();
+    var transporte_beneficio = $("#transporte_beneficio").val();
+    var imprevistos_unidad = $("#imprevistos_unidad").val();
+    var imprevistos_beneficio = $("#imprevistos_beneficio").val();
+
     $.ajax({
         dataType: 'json',
         type:'PUT',
         url: form_action,
-        data: {id: id, obra_id: obra_id, fecha: fecha, concepto: concepto, caracteristicas: caracteristicas, unidades: unidades, estado: estado, beneficio: beneficio, precio_final: precio_final},
+        data: {id: id, obra_id: obra_id, fecha: fecha,
+          concepto: concepto, caracteristicas: caracteristicas,
+          unidades: unidades, estado: estado, beneficio: beneficio,
+          precio_final: precio_final,
+          t_seccionadora: t_seccionadora, o_seccionadora, o_seccionadora,
+          t_escuadradora: t_escuadradora, o_escuadradora, o_escuadradora,
+          t_canteadora: t_canteadora, o_canteadora: o_canteadora,
+          t_punto: t_punto, o_punto: o_punto, t_prensa: t_prensa, o_prensa: o_prensa,
+          desplazamiento_unidad: desplazamiento_unidad, desplazamiento_beneficio: desplazamiento_beneficio,
+          transporte_unidad: transporte_unidad, transporte_beneficio: transporte_beneficio,
+          imprevistos_unidad: imprevistos_unidad, imprevistos_beneficio: imprevistos_beneficio},
     }).done(function(data){
         location.reload();
     });
 
-    document.getElementById("editarP").hidden = false;
-    document.getElementById("cerrarP").hidden = true;
+    var n = document.getElementsByClassName('editarP');
+    for(var i=0;i<n.length;i++){
+       n[i].hidden = false;
+    }
+    var n = document.getElementsByClassName('cerrarP');
+    for(var i=0;i<n.length;i++){
+       n[i].hidden = true;
+    }
     var n = document.getElementsByClassName('infoPresupuesto');
     for(var i=0;i<n.length;i++){
        n[i].disabled = true;
@@ -313,7 +574,18 @@ $(function() {
   });
 
 });
+function editarInfo(elemento){
+  var form_action = $(elemento).next().val();
 
+  $.ajax({
+      dataType: 'json',
+      type: 'DELETE',
+      url: form_action
+  }).done(function(data){
+      location.reload();
+  });
+
+}
 
 /*
 * Editar Material.
@@ -325,7 +597,7 @@ $(function() {
 */
 function deleteParte(elemento){
   var form_action = $(elemento).next().val();
-  
+
   $.ajax({
       dataType: 'json',
       type: 'DELETE',
