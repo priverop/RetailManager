@@ -323,7 +323,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('maquinas_precio_unidad')">
@@ -331,7 +331,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario) * $presupuesto->maquinas_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('maquinas_beneficio')">
@@ -339,7 +339,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario) * $presupuesto->maquinas_precio_unidad) * ($presupuesto->maquinas_beneficio*0.01)) + (($presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario) * $presupuesto->maquinas_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -360,7 +360,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('bancos_precio_unidad')">
@@ -368,7 +368,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('bancos_beneficio')">
@@ -376,7 +376,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad) * ($presupuesto->bancos_beneficio*0.01)) + (($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -397,7 +397,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{$presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('maquinas_oficial_1_precio_unidad')">
@@ -405,7 +405,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('maquinas_oficial_1_beneficio')">
@@ -413,7 +413,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad) * ($presupuesto->maquinas_oficial_1_beneficio*0.01)) + (($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -434,7 +434,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('producto_ter_1_precio_unidad')">
@@ -442,7 +442,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('producto_ter_1_beneficio')">
@@ -450,7 +450,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad) * ($presupuesto->producto_ter_1_beneficio*0.01)) + (($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -471,7 +471,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('productor_ter_2_precio_unidad')">
@@ -479,7 +479,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('productor_ter_2_beneficio')">
@@ -487,7 +487,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad) * ($presupuesto->productor_ter_2_beneficio*0.01)) + (($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -508,7 +508,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('oficial_1_precio_unidad')">
@@ -516,7 +516,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('oficial_1_beneficio')">
@@ -524,7 +524,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad) * ($presupuesto->oficial_1_beneficio*0.01)) + (($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -545,7 +545,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('oficial_2_precio_unidad')">
@@ -553,7 +553,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('oficial_2_beneficio')">
@@ -561,7 +561,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad) * ($presupuesto->oficial_2_beneficio*0.01)) + (($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
             <tr>
@@ -582,7 +582,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('ayudante_precio_unidad')">
@@ -590,7 +590,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('ayudante_beneficio')">
@@ -598,7 +598,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+                <input type="text" id="" placeholder="Total" name="" value="{{ ((($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad) * ($presupuesto->ayudante_beneficio*0.01)) + (($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad)}}" class="form-control small-input infoPresupuesto"  disabled/>
               </td>
             </tr>
           </tbody>
@@ -637,7 +637,7 @@
               </div>
             </td>
             <td>
-                <input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="0" class="infoPresupuesto"  disabled/>
+                <input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="{{ $presupuesto->precio_final * ($presupuesto->desplazamiento_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
             </td>
             <td>
               <div onclick="editar1('desplazamiento_beneficio')">
@@ -645,7 +645,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="desplazamiento_total_beneficio" placeholder="Operacion" name="desplazamiento_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+              <input type="text" id="desplazamiento_total_beneficio" placeholder="Operacion" name="desplazamiento_total_beneficio" value="{{ ( ($presupuesto->precio_final * ($presupuesto->desplazamiento_unidad * 0.01)) * ($presupuesto->desplazamiento_beneficio * 0.01) ) + ($presupuesto->precio_final * ($presupuesto->desplazamiento_unidad * 0.01))}}" class="infoPresupuesto"  disabled/>
             </td>
           </tr>
           <tr>
@@ -656,7 +656,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="0" class="infoPresupuesto"  disabled/>
+              <input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="{{ $presupuesto->precio_final * ($presupuesto->transporte_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
             </td>
             <td>
               <div onclick="editar1('transporte_beneficio')">
@@ -664,7 +664,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="transporte_total_beneficio" placeholder="Operacion" name="transporte_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+              <input type="text" id="transporte_total_beneficio" placeholder="Operacion" name="transporte_total_beneficio" value="{{ ( ($presupuesto->precio_final * ($presupuesto->transporte_unidad * 0.01)) * ($presupuesto->transporte_beneficio * 0.01) ) + ($presupuesto->precio_final * ($presupuesto->transporte_unidad * 0.01))}}" class="infoPresupuesto"  disabled/>
             </td>
           </tr>
           <tr>
@@ -675,7 +675,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="0" class="infoPresupuesto"  disabled/>
+              <input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="{{ $presupuesto->precio_final * ($presupuesto->imprevistos_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
             </td>
             <td>
               <div onclick="editar1('imprevistos_beneficio')">
@@ -683,7 +683,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="imprevistos_total_beneficio" placeholder="Operacion" name="imprevistos_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+              <input type="text" id="imprevistos_total_beneficio" placeholder="Operacion" name="imprevistos_total_beneficio" value="{{ ( ($presupuesto->precio_final * ($presupuesto->imprevistos_unidad * 0.01)) * ($presupuesto->imprevistos_beneficio * 0.01) ) + ($presupuesto->precio_final * ($presupuesto->imprevistos_unidad * 0.01))}}" class="infoPresupuesto"  disabled/>
             </td>
           </tr>
         </tbody>
@@ -888,7 +888,7 @@ $(function() {
           producto_ter_1_precio_unidad: producto_ter_1_precio_unidad, producto_ter_1_beneficio: producto_ter_1_beneficio,
           productor_ter_2_operarios: productor_ter_2_operarios, productor_ter_2_horas_operario: productor_ter_2_horas_operario,
           productor_ter_2_operacion: productor_ter_2_operacion, productor_ter_2_precio_unidad: productor_ter_2_precio_unidad,
-          productor_ter_2_beneficio: productor_ter_2_beneficio, oficial_1_operarios: productor_ter_2_beneficio,
+          productor_ter_2_beneficio: productor_ter_2_beneficio, oficial_1_operarios: oficial_1_operarios,
           oficial_1_horas_operario: oficial_1_horas_operario, oficial_1_operacion: oficial_1_operacion, oficial_1_precio_unidad: oficial_1_precio_unidad,
           oficial_1_beneficio: oficial_1_beneficio, oficial_2_operarios: oficial_2_operarios, oficial_2_horas_operario: oficial_2_horas_operario,
           oficial_2_operacion: oficial_2_operacion, oficial_2_precio_unidad: oficial_2_precio_unidad, oficial_2_beneficio: oficial_2_beneficio,
