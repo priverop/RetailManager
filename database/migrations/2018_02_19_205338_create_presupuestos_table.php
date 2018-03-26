@@ -36,6 +36,49 @@ class CreatePresupuestosTable extends Migration
             $table->integer('t_prensa')->default(0);
             $table->string('o_prensa')->default('No indicado');
 
+            $table->integer('maquinas_operarios')->default(0);
+            $table->integer('maquinas_horas_operario')->default(0);
+            $table->string('maquinas_operacion')->default('No indicado');
+            $table->integer('maquinas_precio_unidad')->default(0);
+            $table->integer('maquinas_beneficio')->default(0);
+            $table->integer('bancos_operarios')->default(0);
+            $table->integer('bancos_horas_operario')->default(0);
+            $table->string('bancos_operacion')->default('No indicado');
+            $table->integer('bancos_precio_unidad')->default(0);
+            $table->integer('bancos_beneficio')->default(0);
+            $table->integer('maquinas_oficial_1_operarios')->default(0);
+            $table->integer('maquinas_oficial_1_horas_operario')->default(0);
+            $table->string('maquinas_oficial_1_operacion')->default('No indicado');
+            $table->integer('maquinas_oficial_1_precio_unidad')->default(0);
+            $table->integer('maquinas_oficial_1_beneficio')->default(0);
+            $table->integer('producto_ter_1_operarios')->default(0);
+            $table->integer('producto_ter_1_horas_operario')->default(0);
+            $table->string('producto_ter_1_operacion')->default('No indicado');
+            $table->integer('producto_ter_1_precio_unidad')->default(0);
+            $table->integer('producto_ter_1_beneficio')->default(0);
+            $table->integer('productor_ter_2_operarios')->default(0);
+            $table->integer('productor_ter_2_horas_operario')->default(0);
+            $table->string('productor_ter_2_operacion')->default('No indicado');
+            $table->integer('productor_ter_2_precio_unidad')->default(0);
+            $table->integer('productor_ter_2_beneficio')->default(0);
+            $table->integer('oficial_1_operarios')->default(0);
+            $table->integer('oficial_1_horas_operario')->default(0);
+            $table->string('oficial_1_operacion')->default('No indicado');
+            $table->integer('oficial_1_precio_unidad')->default(0);
+            $table->integer('oficial_1_beneficio')->default(0);
+            $table->integer('oficial_2_operarios')->default(0);
+            $table->integer('oficial_2_horas_operario')->default(0);
+            $table->string('oficial_2_operacion')->default('No indicado');
+            $table->integer('oficial_2_precio_unidad')->default(0);
+            $table->integer('oficial_2_beneficio')->default(0);
+            $table->integer('ayudante_operarios')->default(0);
+            $table->integer('ayudante_horas_operario')->default(0);
+            $table->string('ayudante_operacion')->default('No indicado');
+            $table->integer('ayudante_precio_unidad')->default(0);
+            $table->integer('ayudante_beneficio')->default(0);
+
+
+
             $table->integer('desplazamiento_unidad')->default(0);
             $table->integer('desplazamiento_beneficio')->default(0.1);
             $table->integer('transporte_unidad')->default(0);

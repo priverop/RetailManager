@@ -209,29 +209,69 @@
 
         <tbody>
           <tr>
-            <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="{{ $presupuesto->t_seccionadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('t_seccionadora')">
+                <input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="{{ $presupuesto->t_seccionadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
             <td>Seccionadora</td>
-            <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('o_seccionadora')">
+                <input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td><input type="text" id="t_escuadradora" placeholder="Minutos" name="t_escuadradora" value="{{ $presupuesto->t_escuadradora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('t_escuadradora')">
+                <input type="text" id="t_escuadradora" placeholder="Minutos" name="t_escuadradora" value="{{ $presupuesto->t_escuadradora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
             <td>Escuadradora/Tupi</td>
-            <td><input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('o_escuadradora')">
+                <input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td><input type="text" id="t_canteadora" placeholder="Minutos" name="t_canteadora" value="{{ $presupuesto->t_canteadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('t_canteadora')">
+                <input type="text" id="t_canteadora" placeholder="Minutos" name="t_canteadora" value="{{ $presupuesto->t_canteadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
             <td>Canteadora</td>
-            <td><input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('o_canteadora')">
+                <input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td><input type="text" id="t_punto" placeholder="Minutos" name="t_punto" value="{{ $presupuesto->t_punto }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('t_punto')">
+                <input type="text" id="t_punto" placeholder="Minutos" name="t_punto" value="{{ $presupuesto->t_punto }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
             <td>Punto</td>
-            <td><input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('o_punto')">
+                <input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td><input type="text" id="t_prensa" placeholder="Minutos" name="t_prensa" value="{{ $presupuesto->t_prensa }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('t_prensa')">
+                <input type="text" id="t_prensa" placeholder="Minutos" name="t_prensa" value="{{ $presupuesto->t_prensa }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
             <td>Prensa</td>
-            <td><input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('o_prensa')">
+                <input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -266,101 +306,308 @@
 
           <tbody>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('maquinas_operarios')">
+                  <input type="text" id="maquinas_operarios" placeholder="Operarios" name="maquinas_operarios" value="{{ $presupuesto->maquinas_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_horas_operario')">
+                  <input type="text" id="maquinas_horas_operario" placeholder="Horas por Operario" name="maquinas_horas_operario" value="{{ $presupuesto->maquinas_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Máquinas</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="44.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="57.20" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('maquinas_operacion')">
+                  <input type="text" id="maquinas_operacion" placeholder="Operación" name="maquinas_operacion" value="{{ $presupuesto->maquinas_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_precio_unidad')">
+                  <input type="text" id="maquinas_precio_unidad" placeholder="Precio UND" name="maquinas_precio_unidad" value="{{ $presupuesto->maquinas_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_beneficio')">
+                  <input type="text" id="maquinas_beneficio" placeholder="Beneficio" name="maquinas_beneficio" value="{{ $presupuesto->maquinas_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('bancos_operarios')">
+                  <input type="text" id="bancos_operarios" placeholder="Operarios" name="bancos_operarios" value="{{ $presupuesto->bancos_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('bancos_horas_operario')">
+                  <input type="text" id="bancos_horas_operario" placeholder="Horas por Operario" name="bancos_horas_operario" value="{{ $presupuesto->bancos_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Bancos Ayudante</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="44.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="57.20" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('bancos_operacion')">
+                  <input type="text" id="bancos_operacion" placeholder="Operación" name="bancos_operacion" value="{{ $presupuesto->bancos_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('bancos_precio_unidad')">
+                  <input type="text" id="bancos_precio_unidad" placeholder="Precio UND" name="bancos_precio_unidad" value="{{ $presupuesto->bancos_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('bancos_beneficio')">
+                  <input type="text" id="bancos_beneficio" placeholder="Beneficio" name="bancos_beneficio" value="{{ $presupuesto->bancos_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="4.92" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('maquinas_oficial_1_operarios')">
+                  <input type="text" id="maquinas_oficial_1_operarios" placeholder="Operarios" name="maquinas_oficial_1_operarios" value="{{ $presupuesto->maquinas_oficial_1_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_oficial_1_horas_operario')">
+                  <input type="text" id="maquinas_oficial_1_horas_operario" placeholder="Horas por Operario" name="maquinas_oficial_1_horas_operario" value="{{ $presupuesto->maquinas_oficial_1_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Máquinas oficial 1ª</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Mecanizado" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="4.92" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="108.17" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="140.62" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('maquinas_oficial_1_operacion')">
+                  <input type="text" id="maquinas_oficial_1_operacion" placeholder="Operación" name="maquinas_oficial_1_operacion" value="{{ $presupuesto->maquinas_oficial_1_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_oficial_1_precio_unidad')">
+                  <input type="text" id="maquinas_oficial_1_precio_unidad" placeholder="Precio UND" name="maquinas_oficial_1_precio_unidad" value="{{ $presupuesto->maquinas_oficial_1_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('maquinas_oficial_1_beneficio')">
+                  <input type="text" id="maquinas_oficial_1_beneficio" placeholder="Beneficio" name="maquinas_oficial_1_beneficio" value="{{ $presupuesto->maquinas_oficial_1_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.5" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('producto_ter_1_operarios')">
+                  <input type="text" id="producto_ter_1_operarios" placeholder="Operarios" name="producto_ter_1_operarios" value="{{ $presupuesto->producto_ter_1_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('producto_ter_1_horas_operario')">
+                  <input type="text" id="producto_ter_1_horas_operario" placeholder="Horas por Operario" name="producto_ter_1_horas_operario" value="{{ $presupuesto->producto_ter_1_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Producto Terminado</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Embalaje" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.50" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="22.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="11.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="14.30" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('producto_ter_1_operacion')">
+                  <input type="text" id="producto_ter_1_operacion" placeholder="Operación" name="producto_ter_1_operacion" value="{{ $presupuesto->producto_ter_1_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('producto_ter_1_precio_unidad')">
+                  <input type="text" id="producto_ter_1_precio_unidad" placeholder="Precio UND" name="producto_ter_1_precio_unidad" value="{{ $presupuesto->producto_ter_1_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('producto_ter_1_beneficio')">
+                  <input type="text" id="producto_ter_1_beneficio" placeholder="Beneficio" name="producto_ter_1_beneficio" value="{{ $presupuesto->producto_ter_1_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.2" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('productor_ter_2_operarios')">
+                  <input type="text" id="productor_ter_2_operarios" placeholder="Operarios" name="productor_ter_2_operarios" value="{{ $presupuesto->productor_ter_2_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('productor_ter_2_horas_operario')">
+                  <input type="text" id="productor_ter_2_horas_operario" placeholder="Horas por Operario" name="productor_ter_2_horas_operario" value="{{ $presupuesto->productor_ter_2_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Producto Terminado</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Carga" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.40" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="7.20" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="30%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="9.36" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('productor_ter_2_operacion')">
+                  <input type="text" id="productor_ter_2_operacion" placeholder="Operación" name="productor_ter_2_operacion" value="{{ $presupuesto->productor_ter_2_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('productor_ter_2_precio_unidad')">
+                  <input type="text" id="productor_ter_2_precio_unidad" placeholder="Precio UND" name="productor_ter_2_precio_unidad" value="{{ $presupuesto->productor_ter_2_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('productor_ter_2_beneficio')">
+                  <input type="text" id="productor_ter_2_beneficio" placeholder="Beneficio" name="productor_ter_2_beneficio" value="{{ $presupuesto->productor_ter_2_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="1" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('oficial_1_operarios')">
+                  <input type="text" id="oficial_1_operarios" placeholder="Operarios" name="oficial_1_operarios" value="{{ $presupuesto->oficial_1_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_1_horas_operario')">
+                  <input type="text" id="oficial_1_horas_operario" placeholder="Horas por Operario" name="oficial_1_horas_operario" value="{{ $presupuesto->oficial_1_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Oficial 1ª</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('oficial_1_operacion')">
+                  <input type="text" id="oficial_1_operacion" placeholder="Operación" name="oficial_1_operacion" value="{{ $presupuesto->oficial_1_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_1_precio_unidad')">
+                  <input type="text" id="oficial_1_precio_unidad" placeholder="Precio UND" name="oficial_1_precio_unidad" value="{{ $presupuesto->oficial_1_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_1_beneficio')">
+                  <input type="text" id="oficial_1_beneficio" placeholder="Beneficio" name="oficial_1_beneficio" value="{{ $presupuesto->oficial_1_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('oficial_2_operarios')">
+                  <input type="text" id="oficial_2_operarios" placeholder="Operarios" name="oficial_2_operarios" value="{{ $presupuesto->oficial_2_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_2_horas_operario')">
+                  <input type="text" id="oficial_2_horas_operario" placeholder="Horas por Operario" name="oficial_2_horas_operario" value="{{ $presupuesto->oficial_2_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Oficial 2ª</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('oficial_2_operacion')">
+                  <input type="text" id="oficial_2_operacion" placeholder="Operación" name="oficial_2_operacion" value="{{ $presupuesto->oficial_2_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_2_precio_unidad')">
+                  <input type="text" id="oficial_2_precio_unidad" placeholder="Precio UND" name="oficial_2_precio_unidad" value="{{ $presupuesto->oficial_2_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('oficial_2_beneficio')">
+                  <input type="text" id="oficial_2_beneficio" placeholder="Beneficio" name="oficial_2_beneficio" value="{{ $presupuesto->oficial_2_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
             <tr>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="2" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('ayudante_operarios')">
+                  <input type="text" id="ayudante_operarios" placeholder="Operarios" name="ayudante_operarios" value="{{ $presupuesto->ayudante_operarios }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('ayudante_horas_operario')">
+                  <input type="text" id="ayudante_horas_operario" placeholder="Horas por Operario" name="ayudante_horas_operario" value="{{ $presupuesto->ayudante_horas_operario }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
               <td>Ayudante</td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="Montaje Obra" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="18.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="10%" class="form-control small-input infoPresupuesto"  disabled/></td>
-              <td><input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="0.00" class="form-control small-input infoPresupuesto"  disabled/></td>
+              <td>
+                <div onclick="editar1('ayudante_operacion')">
+                  <input type="text" id="ayudante_operacion" placeholder="Operación" name="ayudante_operacion" value="{{ $presupuesto->ayudante_operacion }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total Horas" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('ayudante_precio_unidad')">
+                  <input type="text" id="ayudante_precio_unidad" placeholder="Precio UND" name="ayudante_precio_unidad" value="{{ $presupuesto->ayudante_precio_unidad }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
+              <td>
+                <div onclick="editar1('ayudante_beneficio')">
+                  <input type="text" id="ayudante_beneficio" placeholder="Beneficio" name="ayudante_beneficio" value="{{ $presupuesto->ayudante_beneficio }}" class="form-control small-input infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <input type="text" id="" placeholder="Total" name="" value="0" class="form-control small-input infoPresupuesto"  disabled/>
+              </td>
             </tr>
-
           </tbody>
         </table>
       </div>
       <div class="col-md-12">
-        <!-- <button type="button" id="editarP" class="btn btn-primary">Editar</button>
-        <button type="button" id="cerrarP" class="btn btn-secondary" data-dismiss="modal" hidden>Cerrar</button>
-        <button type="button" class="btn btn-primary guardarP">Guardar</button> -->
+        <button type="button" class="btn btn-primary editarP">Editar</button>
+        <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
+        <button type="button" class="btn btn-primary guardarP">Guardar</button>
       </div>
     </div>
   </form>
@@ -384,24 +631,60 @@
         <tbody>
           <tr>
             <td>Desplazamiento</td>
-            <td><input type="text" id="desplazamiento_unidad" placeholder="Minutos" name="desplazamiento_unidad" value="{{ $presupuesto->desplazamiento_unidad }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="0" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="desplazamiento_beneficio" placeholder="Operacion" name="desplazamiento_beneficio" value="{{ $presupuesto->desplazamiento_beneficio }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="desplazamiento_total_beneficio" placeholder="Operacion" name="desplazamiento_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('desplazamiento_unidad')">
+                <input type="text" id="desplazamiento_unidad" placeholder="Minutos" name="desplazamiento_unidad" value="{{ $presupuesto->desplazamiento_unidad }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+                <input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="0" class="infoPresupuesto"  disabled/>
+            </td>
+            <td>
+              <div onclick="editar1('desplazamiento_beneficio')">
+                <input type="text" id="desplazamiento_beneficio" placeholder="Operacion" name="desplazamiento_beneficio" value="{{ $presupuesto->desplazamiento_beneficio }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <input type="text" id="desplazamiento_total_beneficio" placeholder="Operacion" name="desplazamiento_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+            </td>
           </tr>
           <tr>
             <td>Transporte</td>
-            <td><input type="text" id="transporte_unidad" placeholder="Minutos" name="transporte_unidad" value="{{ $presupuesto->transporte_unidad }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="0" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="transporte_beneficio" placeholder="Operacion" name="transporte_beneficio" value="{{ $presupuesto->transporte_beneficio }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="transporte_total_beneficio" placeholder="Operacion" name="transporte_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('transporte_unidad')">
+                <input type="text" id="transporte_unidad" placeholder="Minutos" name="transporte_unidad" value="{{ $presupuesto->transporte_unidad }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="0" class="infoPresupuesto"  disabled/>
+            </td>
+            <td>
+              <div onclick="editar1('transporte_beneficio')">
+                <input type="text" id="transporte_beneficio" placeholder="Operacion" name="transporte_beneficio" value="{{ $presupuesto->transporte_beneficio }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <input type="text" id="transporte_total_beneficio" placeholder="Operacion" name="transporte_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+            </td>
           </tr>
           <tr>
             <td>Imprevistos</td>
-            <td><input type="text" id="imprevistos_unidad" placeholder="Minutos" name="imprevistos_unidad" value="{{ $presupuesto->imprevistos_unidad }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="0" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="imprevistos_beneficio" placeholder="Operacion" name="imprevistos_beneficio" value="{{ $presupuesto->imprevistos_beneficio }}" class="infoPresupuesto"  disabled/></td>
-            <td><input type="text" id="imprevistos_total_beneficio" placeholder="Operacion" name="imprevistos_total_beneficio" value="0" class="infoPresupuesto"  disabled/></td>
+            <td>
+              <div onclick="editar1('imprevistos_unidad')">
+                <input type="text" id="imprevistos_unidad" placeholder="Minutos" name="imprevistos_unidad" value="{{ $presupuesto->imprevistos_unidad }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="0" class="infoPresupuesto"  disabled/>
+            </td>
+            <td>
+              <div onclick="editar1('imprevistos_beneficio')">
+                <input type="text" id="imprevistos_beneficio" placeholder="Operacion" name="imprevistos_beneficio" value="{{ $presupuesto->imprevistos_beneficio }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <input type="text" id="imprevistos_total_beneficio" placeholder="Operacion" name="imprevistos_total_beneficio" value="0" class="infoPresupuesto"  disabled/>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -520,7 +803,6 @@ $(function() {
     var precio_final = $("#precio_final").val();
 
     var t_seccionadora = $("#t_seccionadora").val();
-    console.log($("#t_seccionadora").val());
     var o_seccionadora = $("#o_seccionadora").val();
     var t_escuadradora = $("#t_escuadradora").val();
     var o_escuadradora = $("#o_escuadradora").val();
@@ -530,6 +812,48 @@ $(function() {
     var o_punto = $("#o_punto").val();
     var t_prensa = $("#t_prensa").val();
     var o_prensa = $("#o_prensa").val();
+
+
+    var maquinas_operarios = $("#maquinas_operarios").val();
+    var maquinas_horas_operario = $("#maquinas_horas_operario").val();
+    var maquinas_operacion = $("#maquinas_operacion").val();
+    var maquinas_precio_unidad = $("#maquinas_precio_unidad").val();
+    var maquinas_beneficio = $("#maquinas_beneficio").val();
+    var bancos_operarios = $("#bancos_operarios").val();
+    var bancos_horas_operario = $("#bancos_horas_operario").val();
+    var bancos_operacion = $("#bancos_operacion").val();
+    var bancos_precio_unidad = $("#bancos_precio_unidad").val();
+    var bancos_beneficio = $("#bancos_beneficio").val();
+    var maquinas_oficial_1_operarios = $("#maquinas_oficial_1_operarios").val();
+    var maquinas_oficial_1_horas_operario = $("#maquinas_oficial_1_horas_operario").val();
+    var maquinas_oficial_1_operacion = $("#maquinas_oficial_1_operacion").val();
+    var maquinas_oficial_1_precio_unidad = $("#maquinas_oficial_1_precio_unidad").val();
+    var maquinas_oficial_1_beneficio = $("#maquinas_oficial_1_beneficio").val();
+    var producto_ter_1_operarios = $("#producto_ter_1_operarios").val();
+    var producto_ter_1_horas_operario = $("#producto_ter_1_horas_operario").val();
+    var producto_ter_1_operacion = $("#producto_ter_1_operacion").val();
+    var producto_ter_1_precio_unidad = $("#producto_ter_1_precio_unidad").val();
+    var producto_ter_1_beneficio = $("#producto_ter_1_beneficio").val();
+    var productor_ter_2_operarios = $("#productor_ter_2_operarios").val();
+    var productor_ter_2_horas_operario = $("#productor_ter_2_horas_operario").val();
+    var productor_ter_2_operacion = $("#productor_ter_2_operacion").val();
+    var productor_ter_2_precio_unidad = $("#productor_ter_2_precio_unidad").val();
+    var productor_ter_2_beneficio = $("#productor_ter_2_beneficio").val();
+    var oficial_1_operarios = $("#oficial_1_operarios").val();
+    var oficial_1_horas_operario = $("#oficial_1_horas_operario").val();
+    var oficial_1_operacion = $("#oficial_1_operacion").val();
+    var oficial_1_precio_unidad = $("#oficial_1_precio_unidad").val();
+    var oficial_1_beneficio = $("#oficial_1_beneficio").val();
+    var oficial_2_operarios = $("#oficial_2_operarios").val();
+    var oficial_2_horas_operario = $("#oficial_2_horas_operario").val();
+    var oficial_2_operacion = $("#oficial_2_operacion").val();
+    var oficial_2_precio_unidad = $("#oficial_2_precio_unidad").val();
+    var oficial_2_beneficio = $("#oficial_2_beneficio").val();
+    var ayudante_operarios = $("#ayudante_operarios").val();
+    var ayudante_horas_operario = $("#ayudante_horas_operario").val();
+    var ayudante_operacion = $("#ayudante_operacion").val();
+    var ayudante_precio_unidad = $("#ayudante_precio_unidad").val();
+    var ayudante_beneficio = $("#ayudante_beneficio").val();
 
     var desplazamiento_unidad = $("#desplazamiento_unidad").val();
     var desplazamiento_beneficio = $("#desplazamiento_beneficio").val();
@@ -552,7 +876,24 @@ $(function() {
           t_punto: t_punto, o_punto: o_punto, t_prensa: t_prensa, o_prensa: o_prensa,
           desplazamiento_unidad: desplazamiento_unidad, desplazamiento_beneficio: desplazamiento_beneficio,
           transporte_unidad: transporte_unidad, transporte_beneficio: transporte_beneficio,
-          imprevistos_unidad: imprevistos_unidad, imprevistos_beneficio: imprevistos_beneficio},
+          imprevistos_unidad: imprevistos_unidad, imprevistos_beneficio: imprevistos_beneficio,
+          maquinas_operarios: maquinas_operarios, maquinas_horas_operario: maquinas_horas_operario,
+          maquinas_operacion: maquinas_operacion, maquinas_precio_unidad: maquinas_precio_unidad, maquinas_beneficio: maquinas_beneficio,
+          bancos_operarios: bancos_operarios, bancos_horas_operario: bancos_horas_operario, bancos_operacion: bancos_operacion,
+          bancos_precio_unidad: bancos_precio_unidad, bancos_beneficio: bancos_beneficio,
+          maquinas_oficial_1_operarios: maquinas_oficial_1_operarios, maquinas_oficial_1_horas_operario: maquinas_oficial_1_horas_operario,
+          maquinas_oficial_1_operacion: maquinas_oficial_1_operacion, maquinas_oficial_1_precio_unidad: maquinas_oficial_1_precio_unidad,
+          maquinas_oficial_1_beneficio: maquinas_oficial_1_beneficio, producto_ter_1_operarios: producto_ter_1_operarios,
+          producto_ter_1_horas_operario: producto_ter_1_horas_operario, producto_ter_1_operacion: producto_ter_1_operacion,
+          producto_ter_1_precio_unidad: producto_ter_1_precio_unidad, producto_ter_1_beneficio: producto_ter_1_beneficio,
+          productor_ter_2_operarios: productor_ter_2_operarios, productor_ter_2_horas_operario: productor_ter_2_horas_operario,
+          productor_ter_2_operacion: productor_ter_2_operacion, productor_ter_2_precio_unidad: productor_ter_2_precio_unidad,
+          productor_ter_2_beneficio: productor_ter_2_beneficio, oficial_1_operarios: productor_ter_2_beneficio,
+          oficial_1_horas_operario: oficial_1_horas_operario, oficial_1_operacion: oficial_1_operacion, oficial_1_precio_unidad: oficial_1_precio_unidad,
+          oficial_1_beneficio: oficial_1_beneficio, oficial_2_operarios: oficial_2_operarios, oficial_2_horas_operario: oficial_2_horas_operario,
+          oficial_2_operacion: oficial_2_operacion, oficial_2_precio_unidad: oficial_2_precio_unidad, oficial_2_beneficio: oficial_2_beneficio,
+          ayudante_operarios: ayudante_operarios, ayudante_horas_operario: ayudante_horas_operario, ayudante_operacion: ayudante_operacion,
+          ayudante_precio_unidad: ayudante_precio_unidad, ayudante_beneficio: ayudante_beneficio },
     }).done(function(data){
         location.reload();
     });
@@ -721,8 +1062,14 @@ function guardar1(id) {
 function editar1(id) {
   console.log("click");
   document.getElementById(id).disabled = false;
-  document.getElementById("editarP").hidden = true;
-  document.getElementById("cerrarP").hidden = false;
+  var n = document.getElementsByClassName('editarP');
+  for(var i=0;i<n.length;i++){
+     n[i].hidden = true;
+  }
+  var n = document.getElementsByClassName('cerrarP');
+  for(var i=0;i<n.length;i++){
+     n[i].hidden = false;
+  }
 }
 </script>
 @endsection
