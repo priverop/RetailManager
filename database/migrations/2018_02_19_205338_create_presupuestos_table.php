@@ -26,15 +26,23 @@ class CreatePresupuestosTable extends Migration
             $table->double('precio_final', 8, 2)->default(0);
 
             $table->integer('t_seccionadora')->default(0);
-            $table->string('o_seccionadora')->default('No indicado');
+            $table->string('o_seccionadora')->default('Corte');
+            $table->integer('precio_t_seccionadora')->default(0);
             $table->integer('t_escuadradora')->default(0);
-            $table->string('o_escuadradora')->default('No indicado');
+            $table->string('o_escuadradora')->default('Ingletado');
+            $table->integer('precio_t_escuadradora')->default(0);
+            $table->integer('t_elaboracion')->default(0);
+            $table->string('o_elaboracion')->default('Macizos');
+            $table->integer('precio_t_elaboracion')->default(0);
             $table->integer('t_canteadora')->default(0);
-            $table->string('o_canteadora')->default('No indicado');
+            $table->string('o_canteadora')->default('Canteado');
+            $table->integer('precio_t_canteadora')->default(0);
             $table->integer('t_punto')->default(0);
-            $table->string('o_punto')->default('No indicado');
+            $table->string('o_punto')->default('Mecanizado');
+            $table->integer('precio_t_punto')->default(0);
             $table->integer('t_prensa')->default(0);
-            $table->string('o_prensa')->default('No indicado');
+            $table->string('o_prensa')->default('Pegado de Formica');
+            $table->integer('precio_t_prensa')->default(0);
 
             $table->integer('maquinas_operarios')->default(0);
             $table->integer('maquinas_horas_operario')->default(0);

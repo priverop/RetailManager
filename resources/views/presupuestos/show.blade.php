@@ -204,6 +204,7 @@
             <th scope="col">Tiempo</th>
             <th scope="col">Máquina Sección</th>
             <th scope="col">Operación</th>
+            <th scope="col">Precio por Hora</th>
           </tr>
         </thead>
 
@@ -220,6 +221,11 @@
                 <input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/>
               </div>
             </td>
+            <td>
+              <div onclick="editar1('precio_t_seccionadora')">
+                <input type="text" id="precio_t_seccionadora" placeholder="Operacion" name="precio_t_seccionadora" value="{{ $presupuesto->precio_t_seccionadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -231,6 +237,29 @@
             <td>
               <div onclick="editar1('o_escuadradora')">
                 <input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <div onclick="editar1('precio_t_escuadradora')">
+                <input type="text" id="precio_t_escuadradora" placeholder="Operacion" name="precio_t_escuadradora" value="{{ $presupuesto->precio_t_escuadradora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div onclick="editar1('t_elaboracion')">
+                <input type="text" id="t_elaboracion" placeholder="Minutos" name="t_elaboracion" value="{{ $presupuesto->t_elaboracion }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>Elaboración</td>
+            <td>
+              <div onclick="editar1('o_elaboracion')">
+                <input type="text" id="o_elaboracion" placeholder="Operacion" name="o_elaboracion" value="{{ $presupuesto->o_elaboracion }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <div onclick="editar1('precio_t_elaboracion')">
+                <input type="text" id="precio_t_elaboracion" placeholder="Operacion" name="precio_t_elaboracion" value="{{ $presupuesto->precio_t_elaboracion }}" class="infoPresupuesto"  disabled/>
               </div>
             </td>
           </tr>
@@ -246,6 +275,11 @@
                 <input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/>
               </div>
             </td>
+            <td>
+              <div onclick="editar1('precio_t_canteadora')">
+                <input type="text" id="precio_t_canteadora" placeholder="Operacion" name="precio_t_canteadora" value="{{ $presupuesto->precio_t_canteadora }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -259,6 +293,11 @@
                 <input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/>
               </div>
             </td>
+            <td>
+              <div onclick="editar1('precio_t_punto')">
+                <input type="text" id="precio_t_punto" placeholder="Operacion" name="precio_t_punto" value="{{ $presupuesto->precio_t_punto }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -270,6 +309,11 @@
             <td>
               <div onclick="editar1('o_prensa')">
                 <input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/>
+              </div>
+            </td>
+            <td>
+              <div onclick="editar1('precio_t_prensa')">
+                <input type="text" id="precio_t_prensa" placeholder="Operacion" name="precio_t_prensa" value="{{ $presupuesto->precio_t_prensa }}" class="infoPresupuesto"  disabled/>
               </div>
             </td>
           </tr>
@@ -804,14 +848,22 @@ $(function() {
 
     var t_seccionadora = $("#t_seccionadora").val();
     var o_seccionadora = $("#o_seccionadora").val();
+    var precio_t_seccionadora = $("#precio_t_seccionadora").val();
+    var t_elaboracion = $("#t_elaboracion").val();
+    var o_elaboracion = $("#o_elaboracion").val();
+    var precio_t_elaboracion = $("#precio_t_elaboracion").val();
     var t_escuadradora = $("#t_escuadradora").val();
     var o_escuadradora = $("#o_escuadradora").val();
+    var precio_t_escuadradora = $("#precio_t_escuadradora").val();
     var t_canteadora = $("#t_canteadora").val();
     var o_canteadora = $("#o_canteadora").val();
+    var precio_t_canteadora = $("#precio_t_canteadora").val();
     var t_punto = $("#t_punto").val();
     var o_punto = $("#o_punto").val();
+    var precio_t_punto = $("#precio_t_punto").val();
     var t_prensa = $("#t_prensa").val();
     var o_prensa = $("#o_prensa").val();
+    var precio_t_prensa = $("#precio_t_prensa").val();
 
 
     var maquinas_operarios = $("#maquinas_operarios").val();
@@ -870,10 +922,12 @@ $(function() {
           concepto: concepto, caracteristicas: caracteristicas,
           unidades: unidades, estado: estado, beneficio: beneficio,
           precio_final: precio_final,
-          t_seccionadora: t_seccionadora, o_seccionadora, o_seccionadora,
-          t_escuadradora: t_escuadradora, o_escuadradora, o_escuadradora,
-          t_canteadora: t_canteadora, o_canteadora: o_canteadora,
-          t_punto: t_punto, o_punto: o_punto, t_prensa: t_prensa, o_prensa: o_prensa,
+          t_seccionadora: t_seccionadora, o_seccionadora: o_seccionadora, precio_t_seccionadora: precio_t_seccionadora,
+          t_escuadradora: t_escuadradora, o_escuadradora: o_escuadradora, precio_t_escuadradora: precio_t_escuadradora,
+          t_elaboracion: t_elaboracion, o_elaboracion: o_elaboracion, precio_t_elaboracion: precio_t_elaboracion,
+          t_canteadora: t_canteadora, o_canteadora: o_canteadora, precio_t_canteadora: precio_t_canteadora,
+          t_punto: t_punto, o_punto: o_punto, precio_t_punto: precio_t_punto,
+          t_prensa: t_prensa, o_prensa: o_prensa, precio_t_prensa: precio_t_prensa,
           desplazamiento_unidad: desplazamiento_unidad, desplazamiento_beneficio: desplazamiento_beneficio,
           transporte_unidad: transporte_unidad, transporte_beneficio: transporte_beneficio,
           imprevistos_unidad: imprevistos_unidad, imprevistos_beneficio: imprevistos_beneficio,
