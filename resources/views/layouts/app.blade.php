@@ -26,6 +26,7 @@
               <li><a href="{{ URL::to('/') }}">Inicio</a></li>
               <li><a href="{{ route('materiales.index') }}">Materiales</a></li>
               <li><a href="{{ route('clientes.index') }}">Clientes</a></li>
+              <li><a href="{{ route('obras.index') }}">Obras</a></li>
               <li><a href="{{ route('presupuestos.index') }}">Presupuestos</a></li>
               <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             </ul>
