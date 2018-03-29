@@ -14,6 +14,13 @@ class Obra extends Model
   }
 
   /**
+  * Obtiene sus Presupuestoss
+  */
+  public function presupuestos(){
+    return $this->hasMany('App\Presupuesto');
+  }
+
+  /**
   * Devuelve la fecha en formato español
   */
 

@@ -28,7 +28,9 @@ class ObraController extends Controller
      */
     public function create()
     {
-        //
+        $html = View::make('obras.create')->render();
+
+        return response()->json($html);
     }
 
     /**
@@ -41,23 +43,20 @@ class ObraController extends Controller
     {
         //
         $name = $request->input('name');
-        
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Obra  $proveedor
+     * @param  \App\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function show(int $proveedor)
+    public function show($obra)
     {
-        $proveedor = Obra::find($proveedor);
-        
-        
-        
-        
-        return View::make('obras.show')->with('proveedor', $proveedor);
+        $obra = Obra::find($obra);
+
+        return View::make('obras.show')->with('obra', $obra);
     }
 
     /**
