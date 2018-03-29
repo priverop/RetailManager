@@ -12,4 +12,13 @@ class Obra extends Model
   public function cliente(){
     return $this->belongsTo('App\Cliente');
   }
+
+  /**
+  * Devuelve la fecha en formato español
+  */
+
+  public function getFechaAttribute($value) {
+    return \Carbon\Carbon::parse($value)->format('d-m-Y');
+  }
+
 }
