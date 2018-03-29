@@ -9,9 +9,20 @@ use Response;
 
 class ClienteController extends Controller
 {
-    
-    
-    
+
+    /**
+     * Devolvemos la lista de clientes parecido a la consulta
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function autocompletar(Request $request)
+    {
+      $query = $request->input('query');
+
+        $data = Cliente::select("nombre")->where("nombre","LIKE","%$query%")->get();
+        return response()->json($data);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,12 +56,12 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         //
-        
+
         $cliente = Cliente::create($request->all());
         return response()->json($cliente);
-        
-        
-        
+
+
+
     }
 
     /**
@@ -62,7 +73,7 @@ class ClienteController extends Controller
     public function show(int $material)
     {
         //
-        
+
         $cliente = Cliente::find($material);
 
         return View::make('clientes.show')->with('cliente', $cliente);

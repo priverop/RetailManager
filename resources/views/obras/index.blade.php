@@ -6,7 +6,7 @@
 
 <h1>Lista de Obras</h1>
 
-<button class="btn btn-primary">Obra Nueva</button>
+<button class="btn btn-primary" id="addObra">Obra Nueva</button>
 
 <div class="row">
   <table id="index">
@@ -15,15 +15,23 @@
         <th>#</th>
         <th>Fecha</th>
         <th>Cliente</th>
+        <th>Acciones</th>
       </tr>
     </thead>
-    @foreach($obras as $key => $value)
+    <tbody>
+      @foreach($obras as $key => $value)
       <tr>
-        <td>{{ $key }}</td>
-        <td>{{ $value->fecha }}</td>
-        <td>{{ $value->cliente->nombre }}</td>
-      </tr>
-    @endforeach
+          <td>{{ $key }}</td>
+          <td>{{ $value->fecha }}</td>
+          <td>{{ $value->cliente->nombre }}</td>
+          <td>
+            <a href="{{ route('obras.show', ['id' => $value->id]) }}">
+              <button class="btn btn-outline-primary btn-sm">Ver</button>
+            </a>
+          </td>
+        </tr>
+      @endforeach
+    </tbody>
   </table>
 </div>
 
@@ -34,6 +42,26 @@ $(function(){
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
+});
+
+/*
+* Añadir Obra
+* Traemos el create.blade por GET
+* Lo metemos dentro del row y activamos el modal
+*/
+$('#addObra').click(function(event){
+  event.preventDefault();
+  var form_action = "{{route('obras.create')}}";
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: form_action
+  }).done(function(data){
+    $('#addObra').parent().prepend(data);
+    $('#addModal').modal('show');
+  });
+
 });
 
 </script>

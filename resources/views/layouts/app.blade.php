@@ -10,7 +10,7 @@
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous">
         </script>
-
+<script src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
         <link rel="stylesheet" href="{{ asset('css/master.css') }}">
 
     </head>
