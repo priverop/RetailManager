@@ -73,6 +73,7 @@ class PresupuestoController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * Al actualizarse las unidades actualizamos el precio_total
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Presupuesto  $presupuesto
@@ -80,11 +81,12 @@ class PresupuestoController extends Controller
      */
     public function update(Request $request, int $id)
     {
-      // $presupuesto = Presupuesto::find($request->input('id'))->update($request->all());
-      // $presupuesto = Presupuesto::find($request->input('id'));
-      // $presupuesto = Presupuesto::find($id);
+      $presupuesto = Presupuesto::find($id);
 
-      $presupuesto = Presupuesto::find($id)->update($request->all());
+      $presupuesto->precio_total = $presupuesto->precio_total_unidad * $presupuesto->unidades;
+      $presupuesto->save();
+
+      $presupuesto->update($request->all());
 
       return response()->json($presupuesto);
     }

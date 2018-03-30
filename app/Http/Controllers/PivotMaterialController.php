@@ -14,11 +14,20 @@ use Illuminate\Support\Facades\DB;
 class PivotMaterialController extends Controller
 {
 
+  /**
+  * Actualiza el precio total unidad del presupuesto y el precio total
+  *
+  * @param Integer precio final
+  * @param Integer presupuesto id
+  * @return json response presupuesto
+  */
+
   public function updatePrize($precio, $presupuesto_id)
   {
     $presupuesto = Presupuesto::find($presupuesto_id);
 
-    $presupuesto->precio_final = $precio;
+    $presupuesto->precio_total_unidad = $precio;
+    $presupuesto->precio_total = $precio * $presupuesto->unidades;
 
     $presupuesto->save();
 
@@ -26,7 +35,7 @@ class PivotMaterialController extends Controller
   }
 
   /**
-  * Recalcula el precio final del presupuesto y lo actualiza en la ddbb
+  * Recalcula el precio total unidad del presupuesto
   *
   * @return Integer precio final
   */
@@ -46,6 +55,7 @@ class PivotMaterialController extends Controller
       $precioTotal += $value->precio_total;
     }
 
+    // Actualizamos en la BBDD
     $update = $this->updatePrize($precioTotal, $presupuesto_id);
 
     return response()->json($update);
