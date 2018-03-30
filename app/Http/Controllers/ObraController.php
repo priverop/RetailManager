@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use App\Cliente;
 use Illuminate\Http\Request;
 
 use View;
@@ -41,9 +42,14 @@ class ObraController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $name = $request->input('name');
+        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
 
+        $obra = Obra::create([
+          'fecha' => $request->input('fecha'),
+          'cliente_id' => $cliente->id
+        ]);
+
+        return response()->json($obra);
     }
 
     /**

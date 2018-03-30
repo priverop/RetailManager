@@ -25,7 +25,7 @@
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
             </p>
             <div class="col-sm-10">
-              <input type="date" class="form-control" name="precio">
+              <input type="date" class="form-control" name="fecha">
             </div>
           </div>
 
@@ -45,6 +45,29 @@
 
 
 <script type="text/javascript">
+
+$(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $("#addObraButton").click(function(event){
+    event.preventDefault();
+    var form_action = $("#addObrasForm").attr("action");
+    var formulario = $("#addObrasForm").serialize();
+    console.log(formulario);
+
+    $.ajax({
+        type: 'POST',
+        url: form_action,
+        data: formulario
+    }).done(function(data){
+        location.reload();
+    });
+
+  });
 
     var clientes = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace('nombre'),
@@ -80,4 +103,7 @@
   			}
   		},
     });
+});
+
+
 </script>

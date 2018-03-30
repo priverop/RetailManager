@@ -23,9 +23,14 @@ class Obra extends Model
   /**
   * Devuelve la fecha en formato español
   */
-
   public function getFechaAttribute($value) {
     return \Carbon\Carbon::parse($value)->format('d-m-Y');
   }
+
+  protected $fillable = [
+
+      'fecha', 'cliente_id'
+
+  ];
 
 }
