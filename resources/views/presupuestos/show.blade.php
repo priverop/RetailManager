@@ -18,7 +18,7 @@
 
 <div class="pt-5" id="presupuestoContainer">
   <h1>Presupuesto Individual</h1>
-  <h3>Precio Total: {{$presupuesto->precio_final}}</h3>
+  <h3>Precio Total: {{$presupuesto->precio_total_unidad}}</h3>
 
   <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
