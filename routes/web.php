@@ -23,8 +23,13 @@ Route::post('/materiales/updateWithParte/{id}', 'PivotMaterialController@updateW
 Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
 
+/* FIN MATERIALES PIVOT */
 
-/* FIN MATERIALES */
+// Clientes autocomplete
+Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
+
+
+
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');

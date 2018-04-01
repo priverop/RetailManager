@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use View;
 use App\Presupuesto;
 use Illuminate\Support\Facades\DB;
+use App\Events\PresupuestoModificado;
+use App\Events\MaterialParteModificado;
 
 /*
   This controller with manage MaterialParte & MaterialProveedor & Presupuesto Prize
@@ -13,76 +15,6 @@ use Illuminate\Support\Facades\DB;
 
 class PivotMaterialController extends Controller
 {
-
-  public function updatePrize($precio, $presupuesto_id)
-  {
-    $presupuesto = Presupuesto::find($presupuesto_id);
-
-    $presupuesto->precio_final = $precio;
-
-    $presupuesto->save();
-
-    return response()->json($presupuesto);
-  }
-
-  /**
-  * Recalcula el precio final del presupuesto y lo actualiza en la ddbb
-  *
-  * @return Integer precio final
-  */
-  public function refreshTotalPrize($presupuesto_id){
-
-    $prizes = DB::table("material_parte")
-    ->select('precio_total')
-    ->join('partes', function($join) use ($presupuesto_id){
-      $join->on('material_parte.parte_id', '=', 'partes.id')
-      ->where('partes.presupuesto_id', '=', $presupuesto_id);
-    })
-    ->get();
-
-    $precioTotal = 0;
-
-    foreach($prizes as $key => $value){
-      $precioTotal += $value->precio_total;
-    }
-
-    $update = $this->updatePrize($precioTotal, $presupuesto_id);
-
-    return response()->json($update);
-  }
-
-  /**
-   * Actualizamos las propiedades de todos los materiales
-   *
-   * @param integer $materialID
-   * @param integer $parteID
-   * @return \Illuminate\Http\Response
-   */
-
-  public function refreshAllPropierties(){
-    $rows = DB::table('material_parte')->get();
-
-    foreach ($rows as $key => $value) {
-
-      $m2 = $value->ancho * $value->alto / 1000000;
-
-      $precio = DB::table('material_proveedor')
-      ->where('material_id', $value->material_id)
-      ->where('proveedor_id', $value->proveedor_id)
-      ->select('precio')->get();
-
-      $update = DB::table('material_parte')
-      ->where('material_id', $value->material_id)
-      ->where('parte_id', $value->parte_id)
-      ->update(
-        ['m2' => $m2,
-        'total_m2' => $m2 * $value->unidades,
-        'precio_total' => $precio[0]->precio * $value->unidades]
-      );
-    }
-
-    return response()->json($update);
-  }
 
     /**
      * Muestra la tabla Materiales-Proveedores (con precio)
@@ -118,14 +50,16 @@ class PivotMaterialController extends Controller
           ]
         );
 
-        $this->refreshAllPropierties();
+        event(new MaterialParteModificado($request->input('material_id'), $request->input('parte_id')));
 
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
         ->where('id', '=', $request->input('parte_id'))
-        ->get();
+        ->first();
 
-        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+        $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+
+        event(new PresupuestoModificado($presupuesto));
 
       return response()->json($result);
     }
@@ -152,20 +86,22 @@ class PivotMaterialController extends Controller
           'alto' => $request->input('alto')]
         );
 
-        $this->refreshAllPropierties();
+        event(new MaterialParteModificado($material, $parte_id));
 
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
         ->where('id', '=', $parte_id)
-        ->get();
+        ->first();
 
-        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+        $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+
+        event(new PresupuestoModificado($presupuesto));
 
         return response()->json($update);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Borramos una fila de Material_Parte
      *
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
@@ -182,10 +118,12 @@ class PivotMaterialController extends Controller
       $presupuesto_id = DB::table('partes')
       ->select('presupuesto_id')
       ->where('id', '=', $parte_id)
-      ->get();
+      ->first();
 
-      $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+      $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
 
-        return response()->json($delete);
+      event(new PresupuestoModificado($presupuesto));
+
+      return response()->json($delete);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Obra;
+use App\Cliente;
 use Illuminate\Http\Request;
 
 use View;
@@ -28,7 +29,9 @@ class ObraController extends Controller
      */
     public function create()
     {
-        //
+        $html = View::make('obras.create')->render();
+
+        return response()->json($html);
     }
 
     /**
@@ -39,25 +42,27 @@ class ObraController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $name = $request->input('name');
-        
+        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
+
+        $obra = Obra::create([
+          'fecha' => $request->input('fecha'),
+          'cliente_id' => $cliente->id
+        ]);
+
+        return response()->json($obra);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Obra  $proveedor
+     * @param  \App\Obra  $obra
      * @return \Illuminate\Http\Response
      */
-    public function show(int $proveedor)
+    public function show($obra)
     {
-        $proveedor = Obra::find($proveedor);
-        
-        
-        
-        
-        return View::make('obras.show')->with('proveedor', $proveedor);
+        $obra = Obra::find($obra);
+
+        return View::make('obras.show')->with('obra', $obra);
     }
 
     /**

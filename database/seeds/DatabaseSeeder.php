@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\MaterialController;
+use App\Events\PresupuestoModificado;
+use App\Events\MaterialParteModificado;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +21,6 @@ class DatabaseSeeder extends Seeder
         factory(App\Presupuesto::class, 10)->create();
         factory(App\Parte::class, 10)->create();
         factory(App\Material::class, 40)->create();
-        //factory(App\MaterialesEspecial::class, 10)->create();
 
         // Populate the pivot tables (Materiales-Partes & Materiales-Proveedores)
         $materiales = App\Material::all();
@@ -51,5 +52,19 @@ class DatabaseSeeder extends Seeder
           'telefono'      => 666666666,
           'nif'           => 00000000,
         ]);
+
+        // Actualizamos la info de los materiales_parte que hemos introducido.
+        $materiales_parte = DB::table('material_parte')->get();
+        foreach ($materiales_parte as $key => $value) {
+          event(new MaterialParteModificado($value->material_id, $value->parte_id));
+        }
+
+
+        // Actualizamos todos los precios de los Presupuestos y Obras
+        $presupuestos = App\Presupuesto::all();
+        foreach($presupuestos as $key => $value){
+          event(new PresupuestoModificado($value));
+        }
+
     }
 }

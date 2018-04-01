@@ -1,31 +1,3 @@
-@extends('layouts.app')
-
-@section('title', 'Cliente')
-
-@section('content')
-
-<div class="row">
-  <h1>{{ $cliente->nombre }}</h1>
-  <div class="row mt-5 p-3 border">
-    <div class="col-xs-12">
-
-      <p>ID cliente: {{ $cliente-> id}}</p>
-      <p>Nombre: {{ $cliente->nombre }}</p>
-      <p>Direccion: {{ $cliente->direccion }}</p>
-      <p>Provincia: {{ $cliente->provincia }}</p>
-      <p>Telefono: {{ $cliente->telefono }}</p>
-      <p>Obras: </p>
-      <ul>
-        @foreach($cliente->obras as $keys => $obras)
-          <li><a href="{{route('obras.show', ['id' => $obras->id])}}">{{ $obras->fecha }}</a></li>
-        @endforeach
-      </ul>
-      <button id="addObraModal" class="btn btn-primary">Obra Nueva</button>
-    </div>
-  </div>
-
-</div>
-
 <!-- Modal form to add a post -->
 <div id="addModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -38,13 +10,22 @@
         <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm">
 
           <div class="form-group">
+            <label class="control-label col-sm-2" for="title"><strong>Cliente</strong>:</label>
+            <p>
+              Escriba el nombre del cliente y le aparecerá una lista de los clientes similares
+            </p>
+            <div class="col-sm-10">
+              <input type="text" class="typeahead form-control" name="nombre" placeholder="Buscar cliente" autofocus>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Fecha:</strong></label>
             <p>
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
             </p>
             <div class="col-sm-10">
-              <input type="date" class="form-control" name="fecha" autofocus>
-              <input type="hidden" name="nombre" value="{{ $cliente->nombre }}">
+              <input type="date" class="form-control" name="fecha">
             </div>
           </div>
 
@@ -72,14 +53,11 @@ $(function(){
     }
   });
 
-  $("#addObraModal").click(function(event){
-    $("#addModal").modal('show');
-  });
-
   $("#addObraButton").click(function(event){
     event.preventDefault();
     var form_action = $("#addObrasForm").attr("action");
     var formulario = $("#addObrasForm").serialize();
+    console.log(formulario);
 
     $.ajax({
         type: 'POST',
@@ -91,10 +69,41 @@ $(function(){
 
   });
 
+    var clientes = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace('nombre'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            wildcard: '%QUERY',
+            url: "{{ route('autocompletarCliente') }}"+"/?query=%QUERY",
+                transform: function(response) {
+                    return $.map(response, function(cliente) {
+                        return { value: cliente.nombre };
+                    });
+                }
+        }
+    });
+
+    $('.typeahead').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 2,
+        limit: 5
+    },
+    {
+        name: 'Clientes',
+        display: 'value',
+        source: clientes,
+        templates: {
+  			empty: [
+  			    '<div class="alert alert-danger" role="alert">Sin resultados</div>'
+  			].join('\n'),
+
+  			suggestion: function (data) {
+  			    return '<div class="search-autocomplete-list">'+ data.value +'</div>'
+  			}
+  		},
+    });
 });
 
 
 </script>
-
-
-@endsection

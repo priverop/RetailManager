@@ -12,4 +12,25 @@ class Obra extends Model
   public function cliente(){
     return $this->belongsTo('App\Cliente');
   }
+
+  /**
+  * Obtiene sus Presupuestoss
+  */
+  public function presupuestos(){
+    return $this->hasMany('App\Presupuesto');
+  }
+
+  /**
+  * Devuelve la fecha en formato español
+  */
+  public function getFechaAttribute($value) {
+    return \Carbon\Carbon::parse($value)->format('d-m-Y');
+  }
+
+  protected $fillable = [
+
+      'fecha', 'cliente_id'
+
+  ];
+
 }

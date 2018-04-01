@@ -71,7 +71,7 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-      \Debugbar::info($request);
+      
       // Comprobamos que no exista
       if(!Material::where('nombre', '=', $request->input('nombre'))->exists()){
         $material = Material::create($request->all());
