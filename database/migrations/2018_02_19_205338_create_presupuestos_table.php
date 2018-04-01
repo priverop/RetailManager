@@ -23,6 +23,7 @@ class CreatePresupuestosTable extends Migration
             $table->integer('unidades')->default(1);
             $table->string('estado')->default('por comprobar');
             $table->integer('beneficio')->default(0.3);
+            $table->integer('desperdicio')->default(10);
             $table->double('precio_total_unidad', 8, 2)->default(0);
             $table->double('precio_total', 8, 2)->default(0);
 

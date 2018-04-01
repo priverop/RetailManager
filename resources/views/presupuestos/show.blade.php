@@ -193,6 +193,20 @@
     </div>
   </div>
   @endforeach
+
+  <div class="row mt-5 p-3 border">
+    <div class="col-md-12">
+      <h2 class="mr-5">DESPERDICIO</h2>
+      <p>
+        Este porcentaje se aplica al precio total de todas las Maderas de este presupuesto.
+        Y se suma automáticamente al total del presupuesto.
+      </p>
+      <input type="text" name="desperdicio" placeholder="Desperdicio (%)" value="{{ $presupuesto->desperdicio }}" />
+      <button class="btn btn-primary">Actualizar</button>
+    </div>
+
+  </div>
+
   <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-12">
