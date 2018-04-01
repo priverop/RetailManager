@@ -42,8 +42,11 @@ class PresupuestoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-         $presupuesto = Presupuesto::create($request->all());
+        
+        $presupuesto = Presupuesto::create([
+          'concepto' => $request->input('concepto'),
+          'obra_id' => $request->input('obra_id')
+        ]);
         return response()->json($presupuesto);
     }
 
