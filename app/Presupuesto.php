@@ -28,8 +28,10 @@ class Presupuesto extends Model
     protected $fillable = [
 
         'obra_id', 'fecha', 'concepto', 'caracteristicas', 'unidades', 'estado', 'beneficio', 'precio_final',
-        't_seccionadora', 'o_seccionadora', 't_escuadradora', 'o_escuadradora', 't_canteadora', 'o_canteadora',
-        't_punto', 'o_punto', 't_prensa', 'o_prensa', 'desplazamiento_unidad', 'desplazamiento_beneficio',
+        't_seccionadora', 'o_seccionadora', 'precio_t_seccionadora', 't_escuadradora', 'o_escuadradora', 'precio_t_escuadradora',
+        't_elaboracion', 'o_elaboracion', 'precio_t_elaboracion', 't_canteadora', 'o_canteadora', 'precio_t_canteadora',
+        't_punto', 'o_punto', 'precio_t_punto', 't_prensa', 'o_prensa', 'precio_t_prensa', 
+        'desplazamiento_unidad', 'desplazamiento_beneficio',
         'transporte_unidad', 'transporte_beneficio', 'imprevistos_unidad', 'imprevistos_beneficio',
         'maquinas_operarios', 'maquinas_horas_operario', 'maquinas_operacion', 'maquinas_precio_unidad', 'maquinas_beneficio',
         'bancos_operarios', 'bancos_horas_operario', 'bancos_operacion', 'bancos_precio_unidad', 'bancos_beneficio',
