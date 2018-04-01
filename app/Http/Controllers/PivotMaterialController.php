@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use View;
 use App\Presupuesto;
 use Illuminate\Support\Facades\DB;
+use App\Events\PresupuestoModificado;
 
 /*
   This controller with manage MaterialParte & MaterialProveedor & Presupuesto Prize
@@ -13,53 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class PivotMaterialController extends Controller
 {
-
-  /**
-  * Actualiza el precio total unidad del presupuesto y el precio total
-  *
-  * @param Integer precio final
-  * @param Integer presupuesto id
-  * @return json response presupuesto
-  */
-
-  public function updatePrize($precio, $presupuesto_id)
-  {
-    $presupuesto = Presupuesto::find($presupuesto_id);
-
-    $presupuesto->precio_total_unidad = $precio;
-    $presupuesto->precio_total = $precio * $presupuesto->unidades;
-
-    $presupuesto->save();
-
-    return response()->json($presupuesto);
-  }
-
-  /**
-  * Recalcula el precio total unidad del presupuesto
-  *
-  * @return Integer precio final
-  */
-  public function refreshTotalPrize($presupuesto_id){
-
-    $prizes = DB::table("material_parte")
-    ->select('precio_total')
-    ->join('partes', function($join) use ($presupuesto_id){
-      $join->on('material_parte.parte_id', '=', 'partes.id')
-      ->where('partes.presupuesto_id', '=', $presupuesto_id);
-    })
-    ->get();
-
-    $precioTotal = 0;
-
-    foreach($prizes as $key => $value){
-      $precioTotal += $value->precio_total;
-    }
-
-    // Actualizamos en la BBDD
-    $update = $this->updatePrize($precioTotal, $presupuesto_id);
-
-    return response()->json($update);
-  }
 
   /**
    * Actualizamos las propiedades de todos los materiales
@@ -133,9 +87,11 @@ class PivotMaterialController extends Controller
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
         ->where('id', '=', $request->input('parte_id'))
-        ->get();
+        ->first();
 
-        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+        $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+
+        event(new PresupuestoModificado($presupuesto));
 
       return response()->json($result);
     }
@@ -167,15 +123,17 @@ class PivotMaterialController extends Controller
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
         ->where('id', '=', $parte_id)
-        ->get();
+        ->first();
 
-        $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+        $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+
+        event(new PresupuestoModificado($presupuesto));
 
         return response()->json($update);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Borramos una fila de Material_Parte
      *
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
@@ -192,10 +150,12 @@ class PivotMaterialController extends Controller
       $presupuesto_id = DB::table('partes')
       ->select('presupuesto_id')
       ->where('id', '=', $parte_id)
-      ->get();
+      ->first();
 
-      $this->refreshTotalPrize($presupuesto_id->first()->presupuesto_id);
+      $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
 
-        return response()->json($delete);
+      event(new PresupuestoModificado($presupuesto));
+
+      return response()->json($delete);
     }
 }
