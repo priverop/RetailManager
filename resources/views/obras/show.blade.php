@@ -8,6 +8,7 @@
   <h1>{{ $obra->cliente->nombre }}</h1>
   <h4>{{ $obra->fecha }}</h4>
   <p>Identificador de obra: {{ $obra->id }}</p>
+  <p>Precio total de obra: {{ $obra->precio_total }}</p>
 
   <div class="row mt-5 p-3 border">
     <table id="presupuestoIndex">
