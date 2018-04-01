@@ -20,7 +20,11 @@ class RefreshTotalPrizePresupuesto
     }
 
     /**
-     * Handle the event.
+     * Obtenemos el presupuesto que se ha modificado.
+     * Seleccionamos todos los precios de los materiales_partes de todas las partes del presupuesto
+     * Sumamos todo.
+     * Actualizamos el precio_total_unidad del presupuesto.
+     * Actualizamos el precio_total del presupuesto.
      *
      * @param  PresupuestoModificado $event
      * @return void
