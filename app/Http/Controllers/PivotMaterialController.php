@@ -7,6 +7,7 @@ use View;
 use App\Presupuesto;
 use Illuminate\Support\Facades\DB;
 use App\Events\PresupuestoModificado;
+use App\Events\MaterialParteModificado;
 
 /*
   This controller with manage MaterialParte & MaterialProveedor & Presupuesto Prize
@@ -14,39 +15,6 @@ use App\Events\PresupuestoModificado;
 
 class PivotMaterialController extends Controller
 {
-
-  /**
-   * Actualizamos las propiedades de todos los materiales
-   *
-   * @param integer $materialID
-   * @param integer $parteID
-   * @return \Illuminate\Http\Response
-   */
-
-  public function refreshAllPropierties(){
-    $rows = DB::table('material_parte')->get();
-
-    foreach ($rows as $key => $value) {
-
-      $m2 = $value->ancho * $value->alto / 1000000;
-
-      $precio = DB::table('material_proveedor')
-      ->where('material_id', $value->material_id)
-      ->where('proveedor_id', $value->proveedor_id)
-      ->select('precio')->get();
-
-      $update = DB::table('material_parte')
-      ->where('material_id', $value->material_id)
-      ->where('parte_id', $value->parte_id)
-      ->update(
-        ['m2' => $m2,
-        'total_m2' => $m2 * $value->unidades,
-        'precio_total' => $precio[0]->precio * $value->unidades]
-      );
-    }
-
-    return response()->json($update);
-  }
 
     /**
      * Muestra la tabla Materiales-Proveedores (con precio)
@@ -82,7 +50,7 @@ class PivotMaterialController extends Controller
           ]
         );
 
-        $this->refreshAllPropierties();
+        event(new MaterialParteModificado($request->input('material_id'), $request->input('parte_id')));
 
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
@@ -118,7 +86,7 @@ class PivotMaterialController extends Controller
           'alto' => $request->input('alto')]
         );
 
-        $this->refreshAllPropierties();
+        event(new MaterialParteModificado($material, $parte_id));
 
         $presupuesto_id = DB::table('partes')
         ->select('presupuesto_id')
