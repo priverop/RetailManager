@@ -29,7 +29,7 @@ class Obra extends Model
 
   protected $fillable = [
 
-      'fecha', 'cliente_id'
+      'fecha', 'cliente_id', 'beneficio'
 
   ];
 

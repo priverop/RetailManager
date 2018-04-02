@@ -48,6 +48,7 @@ class PresupuestoController extends Controller
 
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
+          'beneficio' => $request->input('beneficio'),
           'obra_id' => $request->input('obra_id')
         ]);
         return response()->json($presupuesto);
@@ -94,7 +95,7 @@ class PresupuestoController extends Controller
 
       $presupuesto->update($request->all());
       $presupuesto = Presupuesto::find($id);
-      \Debugbar::info($presupuesto);
+
       event(new PresupuestoModificado($presupuesto));
 
       return response()->json($presupuesto);

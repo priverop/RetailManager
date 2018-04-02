@@ -60,6 +60,13 @@
                 <input type="text" class="form-control" name="concepto" autofocus>
               </div>
             </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="title"><strong>Beneficio</strong>:</label>
+
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="beneficio" value="{{ $obra->beneficio }}" placeholder="%" autofocus>
+              </div>
+            </div>
             <input type="hidden" class="form-control" name="obra_id" value="{{ $obra->id }}">
           </form>
           <div class="modal-footer">
