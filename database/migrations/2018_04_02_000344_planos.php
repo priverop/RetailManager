@@ -13,7 +13,7 @@ class Planos extends Migration
      */
     public function up()
     {
-      Schema::create('obras', function (Blueprint $table) {
+      Schema::create('planos', function (Blueprint $table) {
         $table->increments('id')->unsigned()->unique();
         $table->integer('presupuesto_id')->unsigned();
         $table->foreign('presupuesto_id')->references('id')
