@@ -28,11 +28,10 @@ Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropiert
 // Clientes autocomplete
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
 
-
-
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');
 Route::resource('partes', 'ParteController');
+Route::resource('planos', 'PlanoController');
 Route::resource('presupuestos', 'PresupuestoController');
 Route::resource('clientes', 'ClienteController');

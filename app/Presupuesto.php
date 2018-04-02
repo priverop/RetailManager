@@ -21,6 +21,13 @@ class Presupuesto extends Model
   }
 
   /**
+  * Obtiene sus Partes
+  */
+  public function planos(){
+    return $this->hasMany('App\Plano');
+  }
+
+  /**
      * The attributes that are mass assignable.
      *
      * @var array

@@ -16,9 +16,14 @@
 
 ?>
 
-<div class="pt-5" id="presupuestoContainer">
-  <h1>Presupuesto Individual</h1>
-  <h3>Precio Total: {{$presupuesto->precio_total_unidad}}</h3>
+<div class="row" id="presupuestoContainer">
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Presupuesto Individual</h1>
+      <h3>Precio Total: {{$presupuesto->precio_total_unidad}}</h3>
+    </div>
+  </div>
 
   <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
@@ -69,12 +74,36 @@
       </div>
     </div>
   </form>
-  <div class="col-xs-12">
-    <form action="{{ route('partes.store') }}" method="POST" id="addParteForm">
-      <input type="text" placeholder="Concepto" name="concepto" id="addParteConcepto" />
-      <button type="button" id="addParteButton" class="btn btn-primary">Añadir Parte</button>
-    </form>
+
+  <div class="col"><div class="row m-3">
+    <div class="col-xs-12">
+      <h3>Planos del presupuesto</h3>
+      <form id="planosForm"><input type="file" name="img" multiple></form>
+      <button class="btn btn-primary" id="addPlanos">Añadir</button>
+      @if(count($presupuesto->planos) >= 1)
+      <button class="btn btn-primary">Ver planos</button>
+      <div class="">
+        @foreach($presupuesto->planos as $key => $plano)
+          {{ $plano->filename }}
+        @endforeach
+      </div>
+      @endif
+    </div>
   </div>
+
+  <div class="row mt-5 p-3 border border-bottom-0">
+
+    <div class="col-xs-12">
+      <h3>Partes del Mueble</h3>
+      <p>
+        A continuación podemos añadir partes para el mueble.
+      </p>
+      <form action="{{ route('partes.store') }}" method="POST" id="addParteForm">
+        <input type="text" placeholder="Concepto" name="concepto" id="addParteConcepto" />
+        <button type="button" id="addParteButton" class="btn btn-primary">Añadir Parte</button>
+      </form>
+    </div>
+  </div></div>
 
   @foreach($presupuesto->partes as $key => $value)
   <?php
@@ -710,7 +739,7 @@
     </div>
   </form>
 
-</div>
+</div> <!-- ROW id -->
 
 <!-- ================================ -->
 <!-- == MODAL PARA AÑADIR MATERIAL == -->
@@ -747,6 +776,23 @@ $(function() {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+  });
+
+  /*
+  * Enviar Planos adjuntos
+  */
+  $("#addPlanos").click(function(event){
+    event.preventDefault();
+    var form_action = "{{ route('planos.store', ['presupuesto_id' => $presupuesto->id]) }}";
+    var formulario = $("#planosForm").serialize();
+
+    $.ajax({
+        type:'POST',
+        url: form_action,
+        data: formulario
+    }).done(function(data){
+        location.reload();
+    });
   });
 
   /*
