@@ -239,129 +239,162 @@
   <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-12">
-        <h2 class="mr-5">MÁQUINAS (ESTOS PROCESOS NO TIENEN VALORACIÓN)</h2>
+        <h2 class="mr-5">MÁQUINAS</h2>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Tiempo</th>
-            <th scope="col">Máquina Sección</th>
-            <th scope="col">Operación</th>
-            <th scope="col">Precio por Hora</th>
-          </tr>
-        </thead>
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Tiempo</th>
+              <th scope="col">Máquina Sección</th>
+              <th scope="col">Operación</th>
+              <th scope="col">Precio por Hora</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr>
-            <td>
-              <div onclick="editar1('t_seccionadora')">
-                <input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="{{ $presupuesto->t_seccionadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Seccionadora</td>
-            <td>
-              <div onclick="editar1('o_seccionadora')">
-                <input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_seccionadora')">
-                <input type="text" id="precio_t_seccionadora" placeholder="Operacion" name="precio_t_seccionadora" value="{{ $presupuesto->precio_t_seccionadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div onclick="editar1('t_escuadradora')">
-                <input type="text" id="t_escuadradora" placeholder="Minutos" name="t_escuadradora" value="{{ $presupuesto->t_escuadradora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Escuadradora/Tupi</td>
-            <td>
-              <div onclick="editar1('o_escuadradora')">
-                <input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_escuadradora')">
-                <input type="text" id="precio_t_escuadradora" placeholder="Operacion" name="precio_t_escuadradora" value="{{ $presupuesto->precio_t_escuadradora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div onclick="editar1('t_elaboracion')">
-                <input type="text" id="t_elaboracion" placeholder="Minutos" name="t_elaboracion" value="{{ $presupuesto->t_elaboracion }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Elaboración</td>
-            <td>
-              <div onclick="editar1('o_elaboracion')">
-                <input type="text" id="o_elaboracion" placeholder="Operacion" name="o_elaboracion" value="{{ $presupuesto->o_elaboracion }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_elaboracion')">
-                <input type="text" id="precio_t_elaboracion" placeholder="Operacion" name="precio_t_elaboracion" value="{{ $presupuesto->precio_t_elaboracion }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div onclick="editar1('t_canteadora')">
-                <input type="text" id="t_canteadora" placeholder="Minutos" name="t_canteadora" value="{{ $presupuesto->t_canteadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Canteadora</td>
-            <td>
-              <div onclick="editar1('o_canteadora')">
-                <input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_canteadora')">
-                <input type="text" id="precio_t_canteadora" placeholder="Operacion" name="precio_t_canteadora" value="{{ $presupuesto->precio_t_canteadora }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div onclick="editar1('t_punto')">
-                <input type="text" id="t_punto" placeholder="Minutos" name="t_punto" value="{{ $presupuesto->t_punto }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Punto</td>
-            <td>
-              <div onclick="editar1('o_punto')">
-                <input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_punto')">
-                <input type="text" id="precio_t_punto" placeholder="Operacion" name="precio_t_punto" value="{{ $presupuesto->precio_t_punto }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div onclick="editar1('t_prensa')">
-                <input type="text" id="t_prensa" placeholder="Minutos" name="t_prensa" value="{{ $presupuesto->t_prensa }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>Prensa</td>
-            <td>
-              <div onclick="editar1('o_prensa')">
-                <input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-            <td>
-              <div onclick="editar1('precio_t_prensa')">
-                <input type="text" id="precio_t_prensa" placeholder="Operacion" name="precio_t_prensa" value="{{ $presupuesto->precio_t_prensa }}" class="infoPresupuesto"  disabled/>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <tbody>
+            <tr>
+              <td>
+                <div onclick="editar1('t_seccionadora')">
+                  <input type="text" id="t_seccionadora" placeholder="Minutos" name="t_seccionadora" value="{{ $presupuesto->t_seccionadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Seccionadora</td>
+              <td>
+                <div onclick="editar1('o_seccionadora')">
+                  <input type="text" id="o_seccionadora" placeholder="Operacion" name="o_seccionadora" value="{{ $presupuesto->o_seccionadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_seccionadora')">
+                  <input type="text" id="precio_t_seccionadora" placeholder="Operacion" name="precio_t_seccionadora" value="{{ $presupuesto->precio_t_seccionadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_seccionadora" placeholder="Operacion" name="total_seccionadora" value="{{ $presupuesto->total_seccionadora }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div onclick="editar1('t_escuadradora')">
+                  <input type="text" id="t_escuadradora" placeholder="Minutos" name="t_escuadradora" value="{{ $presupuesto->t_escuadradora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Escuadradora/Tupi</td>
+              <td>
+                <div onclick="editar1('o_escuadradora')">
+                  <input type="text" id="o_escuadradora" placeholder="Operacion" name="o_escuadradora" value="{{ $presupuesto->o_escuadradora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_escuadradora')">
+                  <input type="text" id="precio_t_escuadradora" placeholder="Operacion" name="precio_t_escuadradora" value="{{ $presupuesto->precio_t_escuadradora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_escuadradora" placeholder="Operacion" name="total_escuadradora" value="{{ $presupuesto->total_escuadradora }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div onclick="editar1('t_elaboracion')">
+                  <input type="text" id="t_elaboracion" placeholder="Minutos" name="t_elaboracion" value="{{ $presupuesto->t_elaboracion }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Elaboración</td>
+              <td>
+                <div onclick="editar1('o_elaboracion')">
+                  <input type="text" id="o_elaboracion" placeholder="Operacion" name="o_elaboracion" value="{{ $presupuesto->o_elaboracion }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_elaboracion')">
+                  <input type="text" id="precio_t_elaboracion" placeholder="Operacion" name="precio_t_elaboracion" value="{{ $presupuesto->precio_t_elaboracion }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_elaboracion" placeholder="Operacion" name="total_elaboracion" value="{{ $presupuesto->total_elaboracion }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div onclick="editar1('t_canteadora')">
+                  <input type="text" id="t_canteadora" placeholder="Minutos" name="t_canteadora" value="{{ $presupuesto->t_canteadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Canteadora</td>
+              <td>
+                <div onclick="editar1('o_canteadora')">
+                  <input type="text" id="o_canteadora" placeholder="Operacion" name="o_canteadora" value="{{ $presupuesto->o_canteadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_canteadora')">
+                  <input type="text" id="precio_t_canteadora" placeholder="Operacion" name="precio_t_canteadora" value="{{ $presupuesto->precio_t_canteadora }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_canteadoratotal_canteadora" placeholder="Operacion" name="total_canteadora" value="{{ $presupuesto->total_canteadora }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div onclick="editar1('t_punto')">
+                  <input type="text" id="t_punto" placeholder="Minutos" name="t_punto" value="{{ $presupuesto->t_punto }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Punto</td>
+              <td>
+                <div onclick="editar1('o_punto')">
+                  <input type="text" id="o_punto" placeholder="Operacion" name="o_punto" value="{{ $presupuesto->o_punto }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_punto')">
+                  <input type="text" id="precio_t_punto" placeholder="Operacion" name="precio_t_punto" value="{{ $presupuesto->precio_t_punto }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_punto" placeholder="Operacion" name="total_punto" value="{{ $presupuesto->total_punto }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div onclick="editar1('t_prensa')">
+                  <input type="text" id="t_prensa" placeholder="Minutos" name="t_prensa" value="{{ $presupuesto->t_prensa }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>Prensa</td>
+              <td>
+                <div onclick="editar1('o_prensa')">
+                  <input type="text" id="o_prensa" placeholder="Operacion" name="o_prensa" value="{{ $presupuesto->o_prensa }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="editar1('precio_t_prensa')">
+                  <input type="text" id="precio_t_prensa" placeholder="Operacion" name="precio_t_prensa" value="{{ $presupuesto->precio_t_prensa }}" class="infoPresupuesto"  disabled/>
+                </div>
+              </td>
+              <td>
+                <div onclick="">
+                  <input type="text" id="total_prensa" placeholder="Operacion" name="total_prensa" value="{{ $presupuesto->total_prensa }}" class=""  disabled/>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="col-md-12">
         <button type="button" class="btn btn-primary editarP">Editar</button>
         <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
@@ -416,7 +449,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="maquinas_total" placeholder="Total" name="" value="{{ $presupuesto->maquinas_total }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_maquinas" placeholder="Total" name="" value="{{ $presupuesto->total_maquinas }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -445,7 +478,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="bancos_total" placeholder="Total" name="" value="{{ ($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad}}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_bancos" placeholder="Total" name="" value="{{ $presupuesto->total_bancos }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -474,7 +507,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total" name="" value="{{ ($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_maquinas_oficial_1" placeholder="Total" name="" value="{{ $presupuesto->total_maquinas_oficial_1 }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -503,7 +536,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="producto_ter_1_total" placeholder="Total" name="" value="{{ ($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad}}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_producto_ter_1" placeholder="Total" name="" value="{{ $presupuesto->total_producto_ter_1 }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -532,7 +565,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="producto_ter_2_total" placeholder="Total" name="" value="{{ ($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_productor_ter_2" placeholder="Total" name="" value="{{ $presupuesto->total_productor_ter_2 }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -561,7 +594,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="oficial_1_total" placeholder="Total" name="" value="{{ ($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_oficial_1" placeholder="Total" name="" value="{{ $presupuesto->total_oficial_1 }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -590,7 +623,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="oficial_2_total" placeholder="Total" name="" value="{{ ($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_oficial_2" placeholder="Total" name="" value="{{ $presupuesto->total_oficial_2 }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
             <tr>
@@ -619,7 +652,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="ayudante_total" placeholder="Total" name="" value="{{ ($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad }}" class="form-control small-input"  disabled/>
+                <input type="text" id="total_ayudante" placeholder="Total" name="" value="{{ $presupuesto->total_ayudante }}" class="form-control small-input"  disabled/>
               </td>
             </tr>
           </tbody>
@@ -656,7 +689,7 @@
               </div>
             </td>
             <td>
-                <input type="text" id="desplazamiento_total" placeholder="Operacion" name="desplazamiento_total" value="{{ $presupuesto->precio_final * ($presupuesto->desplazamiento_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
+                <input type="text" id="total_desplazamiento" placeholder="Operacion" name="total_desplazamiento" value="{{ $presupuesto->total_desplazamiento}}" class=""  disabled/>
             </td>
           </tr>
           <tr>
@@ -667,7 +700,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="transporte_total" placeholder="Operacion" name="transporte_total" value="{{ $presupuesto->precio_final * ($presupuesto->transporte_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
+              <input type="text" id="total_transporte" placeholder="Operacion" name="total_transporte" value="{{ $presupuesto->total_transporte}}" class=""  disabled/>
             </td>
           </tr>
           <tr>
@@ -678,7 +711,7 @@
               </div>
             </td>
             <td>
-              <input type="text" id="imprevistos_total" placeholder="Operacion" name="imprevistos_total" value="{{ $presupuesto->precio_final * ($presupuesto->imprevistos_unidad * 0.01)}}" class="infoPresupuesto"  disabled/>
+              <input type="text" id="total_imprevistos" placeholder="Operacion" name="total_imprevistos" value="{{ $presupuesto->total_imprevistos}}" class=""  disabled/>
             </td>
           </tr>
         </tbody>
@@ -817,21 +850,27 @@ $(function() {
     var t_seccionadora = $("#t_seccionadora").val();
     var o_seccionadora = $("#o_seccionadora").val();
     var precio_t_seccionadora = $("#precio_t_seccionadora").val();
+    var total_seccionadora = t_seccionadora * precio_t_seccionadora;
     var t_elaboracion = $("#t_elaboracion").val();
     var o_elaboracion = $("#o_elaboracion").val();
     var precio_t_elaboracion = $("#precio_t_elaboracion").val();
+    var total_elaboracion = t_elaboracion * precio_t_elaboracion;
     var t_escuadradora = $("#t_escuadradora").val();
     var o_escuadradora = $("#o_escuadradora").val();
     var precio_t_escuadradora = $("#precio_t_escuadradora").val();
+    var total_escuadradora = t_escuadradora * precio_t_escuadradora;
     var t_canteadora = $("#t_canteadora").val();
     var o_canteadora = $("#o_canteadora").val();
     var precio_t_canteadora = $("#precio_t_canteadora").val();
+    var total_canteadora = t_canteadora * precio_t_canteadora;
     var t_punto = $("#t_punto").val();
     var o_punto = $("#o_punto").val();
     var precio_t_punto = $("#precio_t_punto").val();
+    var total_punto = t_punto * precio_t_punto;
     var t_prensa = $("#t_prensa").val();
     var o_prensa = $("#o_prensa").val();
     var precio_t_prensa = $("#precio_t_prensa").val();
+    var total_prensa = t_prensa * precio_t_prensa;
 
 
 
@@ -839,49 +878,49 @@ $(function() {
     var maquinas_horas_operario = $("#maquinas_horas_operario").val();
     var maquinas_operacion = $("#maquinas_operacion").val();
     var maquinas_precio_unidad = $("#maquinas_precio_unidad").val();
-    var maquinas_total = (maquinas_operarios * maquinas_horas_operario) * maquinas_precio_unidad;
+    var total_maquinas = (maquinas_operarios * maquinas_horas_operario) * maquinas_precio_unidad;
     var bancos_operarios = $("#bancos_operarios").val();
     var bancos_horas_operario = $("#bancos_horas_operario").val();
     var bancos_operacion = $("#bancos_operacion").val();
     var bancos_precio_unidad = $("#bancos_precio_unidad").val();
-    var bancos_total = (bancos_operarios * bancos_horas_operario) * bancos_precio_unidad;
+    var total_bancos = (bancos_operarios * bancos_horas_operario) * bancos_precio_unidad;
     var maquinas_oficial_1_operarios = $("#maquinas_oficial_1_operarios").val();
     var maquinas_oficial_1_horas_operario = $("#maquinas_oficial_1_horas_operario").val();
     var maquinas_oficial_1_operacion = $("#maquinas_oficial_1_operacion").val();
     var maquinas_oficial_1_precio_unidad = $("#maquinas_oficial_1_precio_unidad").val();
-    var maquinas_oficial_1_total = (maquinas_oficial_1_operarios * maquinas_oficial_1_horas_operario) * maquinas_oficial_1_precio_unidad;
+    var total_maquinas_oficial_1 = (maquinas_oficial_1_operarios * maquinas_oficial_1_horas_operario) * maquinas_oficial_1_precio_unidad;
     var producto_ter_1_operarios = $("#producto_ter_1_operarios").val();
     var producto_ter_1_horas_operario = $("#producto_ter_1_horas_operario").val();
     var producto_ter_1_operacion = $("#producto_ter_1_operacion").val();
     var producto_ter_1_precio_unidad = $("#producto_ter_1_precio_unidad").val();
-    var producto_ter_1_total = (producto_ter_1_operarios * producto_ter_1_horas_operario) * producto_ter_1_precio_unidad;
+    var total_producto_ter_1 = (producto_ter_1_operarios * producto_ter_1_horas_operario) * producto_ter_1_precio_unidad;
     var productor_ter_2_operarios = $("#productor_ter_2_operarios").val();
     var productor_ter_2_horas_operario = $("#productor_ter_2_horas_operario").val();
     var productor_ter_2_operacion = $("#productor_ter_2_operacion").val();
     var productor_ter_2_precio_unidad = $("#productor_ter_2_precio_unidad").val();
-    var productor_ter_2_total = (productor_ter_2_operarios * productor_ter_2_horas_operario) * productor_ter_2_precio_unidad;
+    var total_productor_ter_2 = (productor_ter_2_operarios * productor_ter_2_horas_operario) * productor_ter_2_precio_unidad;
     var oficial_1_operarios = $("#oficial_1_operarios").val();
     var oficial_1_horas_operario = $("#oficial_1_horas_operario").val();
     var oficial_1_operacion = $("#oficial_1_operacion").val();
     var oficial_1_precio_unidad = $("#oficial_1_precio_unidad").val();
-    var oficial_1_total = (oficial_1_operarios * oficial_1_horas_operario) * oficial_1_precio_unidad;
+    var total_oficial_1 = (oficial_1_operarios * oficial_1_horas_operario) * oficial_1_precio_unidad;
     var oficial_2_operarios = $("#oficial_2_operarios").val();
     var oficial_2_horas_operario = $("#oficial_2_horas_operario").val();
     var oficial_2_operacion = $("#oficial_2_operacion").val();
     var oficial_2_precio_unidad = $("#oficial_2_precio_unidad").val();
-    var oficial_2_total = (oficial_2_operarios * oficial_2_horas_operario) * oficial_2_precio_unidad;
+    var total_oficial_2 = (oficial_2_operarios * oficial_2_horas_operario) * oficial_2_precio_unidad;
     var ayudante_operarios = $("#ayudante_operarios").val();
     var ayudante_horas_operario = $("#ayudante_horas_operario").val();
     var ayudante_operacion = $("#ayudante_operacion").val();
     var ayudante_precio_unidad = $("#ayudante_precio_unidad").val();
-    var ayudante_total = (ayudante_operarios * ayudante_horas_operario) * ayudante_precio_unidad;
+    var total_ayudante = (ayudante_operarios * ayudante_horas_operario) * ayudante_precio_unidad;
 
     var desplazamiento_unidad = $("#desplazamiento_unidad").val();
-    var desplazamiento_total = $("#desplazamiento_total").val();
+    var total_desplazamiento = {{ $presupuesto->precio_total_unidad }} * (desplazamiento_unidad * 0.01);
     var transporte_unidad = $("#transporte_unidad").val();
-    var transporte_total = $("#transporte_total").val();
+    var total_transporte = {{ $presupuesto->precio_total_unidad }} * (transporte_unidad * 0.01);
     var imprevistos_unidad = $("#imprevistos_unidad").val();
-    var imprevistos_total = $("#imprevistos_total").val();
+    var total_imprevistos = {{ $presupuesto->precio_total_unidad }} * (imprevistos_unidad * 0.01);
 
     $.ajax({
         dataType: 'json',
@@ -892,34 +931,34 @@ $(function() {
           unidades: unidades, estado: estado, beneficio: beneficio,
           precio_final: precio_final,
 
-          t_seccionadora: t_seccionadora, o_seccionadora: o_seccionadora, precio_t_seccionadora: precio_t_seccionadora,
-          t_escuadradora: t_escuadradora, o_escuadradora: o_escuadradora, precio_t_escuadradora: precio_t_escuadradora,
-          t_elaboracion: t_elaboracion, o_elaboracion: o_elaboracion, precio_t_elaboracion: precio_t_elaboracion,
-          t_canteadora: t_canteadora, o_canteadora: o_canteadora, precio_t_canteadora: precio_t_canteadora,
-          t_punto: t_punto, o_punto: o_punto, precio_t_punto: precio_t_punto,
-          t_prensa: t_prensa, o_prensa: o_prensa, precio_t_prensa: precio_t_prensa,
+          t_seccionadora: t_seccionadora, o_seccionadora: o_seccionadora, precio_t_seccionadora: precio_t_seccionadora, total_seccionadora: total_seccionadora,
+          t_escuadradora: t_escuadradora, o_escuadradora: o_escuadradora, precio_t_escuadradora: precio_t_escuadradora, total_escuadradora: total_escuadradora,
+          t_elaboracion: t_elaboracion, o_elaboracion: o_elaboracion, precio_t_elaboracion: precio_t_elaboracion, total_elaboracion: total_elaboracion,
+          t_canteadora: t_canteadora, o_canteadora: o_canteadora, precio_t_canteadora: precio_t_canteadora, total_canteadora: total_canteadora,
+          t_punto: t_punto, o_punto: o_punto, precio_t_punto: precio_t_punto, total_punto: total_punto,
+          t_prensa: t_prensa, o_prensa: o_prensa, precio_t_prensa: precio_t_prensa, total_prensa: total_prensa,
 
-          desplazamiento_unidad: desplazamiento_unidad, desplazamiento_total: desplazamiento_total,
-          transporte_unidad: transporte_unidad, transporte_total: transporte_total,
-          imprevistos_unidad: imprevistos_unidad, imprevistos_total: imprevistos_total,
+          desplazamiento_unidad: desplazamiento_unidad, total_desplazamiento: total_desplazamiento,
+          transporte_unidad: transporte_unidad, total_transporte: total_transporte,
+          imprevistos_unidad: imprevistos_unidad, total_imprevistos: total_imprevistos,
 
           maquinas_operarios: maquinas_operarios, maquinas_horas_operario: maquinas_horas_operario,
-          maquinas_operacion: maquinas_operacion, maquinas_precio_unidad: maquinas_precio_unidad, maquinas_total: maquinas_total,
+          maquinas_operacion: maquinas_operacion, maquinas_precio_unidad: maquinas_precio_unidad, total_maquinas: total_maquinas,
           bancos_operarios: bancos_operarios, bancos_horas_operario: bancos_horas_operario, bancos_operacion: bancos_operacion,
-          bancos_precio_unidad: bancos_precio_unidad, bancos_total: bancos_total,
+          bancos_precio_unidad: bancos_precio_unidad, total_bancos: total_bancos,
           maquinas_oficial_1_operarios: maquinas_oficial_1_operarios, maquinas_oficial_1_horas_operario: maquinas_oficial_1_horas_operario,
           maquinas_oficial_1_operacion: maquinas_oficial_1_operacion, maquinas_oficial_1_precio_unidad: maquinas_oficial_1_precio_unidad,
-          maquinas_oficial_1_total: maquinas_oficial_1_total, producto_ter_1_operarios: producto_ter_1_operarios,
+          total_maquinas_oficial_1: total_maquinas_oficial_1, producto_ter_1_operarios: producto_ter_1_operarios,
           producto_ter_1_horas_operario: producto_ter_1_horas_operario, producto_ter_1_operacion: producto_ter_1_operacion,
-          producto_ter_1_precio_unidad: producto_ter_1_precio_unidad, producto_ter_1_total: producto_ter_1_total,
+          producto_ter_1_precio_unidad: producto_ter_1_precio_unidad, total_producto_ter_1: total_producto_ter_1,
           productor_ter_2_operarios: productor_ter_2_operarios, productor_ter_2_horas_operario: productor_ter_2_horas_operario,
           productor_ter_2_operacion: productor_ter_2_operacion, productor_ter_2_precio_unidad: productor_ter_2_precio_unidad,
-          productor_ter_2_total: productor_ter_2_total, oficial_1_operarios: oficial_1_operarios,
+          total_productor_ter_2: total_productor_ter_2, oficial_1_operarios: oficial_1_operarios,
           oficial_1_horas_operario: oficial_1_horas_operario, oficial_1_operacion: oficial_1_operacion, oficial_1_precio_unidad: oficial_1_precio_unidad,
-          oficial_1_total: oficial_1_total, oficial_2_operarios: oficial_2_operarios, oficial_2_horas_operario: oficial_2_horas_operario,
-          oficial_2_operacion: oficial_2_operacion, oficial_2_precio_unidad: oficial_2_precio_unidad, oficial_2_total: oficial_2_total,
+          total_oficial_1: total_oficial_1, oficial_2_operarios: oficial_2_operarios, oficial_2_horas_operario: oficial_2_horas_operario,
+          oficial_2_operacion: oficial_2_operacion, oficial_2_precio_unidad: oficial_2_precio_unidad, total_oficial_2: total_oficial_2,
           ayudante_operarios: ayudante_operarios, ayudante_horas_operario: ayudante_horas_operario, ayudante_operacion: ayudante_operacion,
-          ayudante_precio_unidad: ayudante_precio_unidad, ayudante_total: ayudante_total },
+          ayudante_precio_unidad: ayudante_precio_unidad, total_ayudante: total_ayudante },
     }).done(function(data){
         location.reload();
     });
