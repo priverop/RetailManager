@@ -48,6 +48,20 @@ class RefreshTotalPrizePresupuesto
         $precioTotal += $value->precio_total;
       }
 
+      $precioTotal += $presupuesto->maquinas_total;
+      $precioTotal += $presupuesto->bancos_total;
+      $precioTotal += $presupuesto->maquinas_oficial_1_total;
+      $precioTotal += $presupuesto->producto_ter_1_total;
+      $precioTotal += $presupuesto->productor_ter_2_total;
+      $precioTotal += $presupuesto->oficial_1_total;
+      $precioTotal += $presupuesto->oficial_2_total;
+      $precioTotal += $presupuesto->ayudante_total;
+
+      $precioTotal += $presupuesto->desplazamiento_total;
+      $precioTotal += $presupuesto->transporte_total;
+      $precioTotal += $presupuesto->imprevistos_total;
+
+
       $presupuesto->precio_total_unidad = $precioTotal;
       $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
 
