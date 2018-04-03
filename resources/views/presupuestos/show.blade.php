@@ -222,6 +222,85 @@
     </div>
   </div>
   @endforeach
+  <div class="row mt-5 p-5 border border-bottom-0">
+
+    <div class="col-xs-12">
+      <h3>Proveedores Externos</h3>
+      <p>
+        A continuación podemos añadir aquellos servicios o materiales que proceden de proveedores externos.
+      </p>
+      <form action="{{ route('material_externos.store') }}" method="POST" id="addMaterialExternoForm">
+        <input type="text" placeholder="Concepto" name="concepto" id="addMaterialExternoConcepto" />
+        <button type="button" id="addMaterialExternoButton" class="btn btn-primary">Añadir</button>
+      </form>
+    </div>
+
+    <div class="row">
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Índice</th>
+              <th scope="col">Concepto</th>
+              <th scope="col">Provedor Externo</th>
+              <th scope="col">Unidades</th>
+              <th scope="col">Ancho (mm)</th>
+              <th scope="col">Alto (mm)</th>
+              <th scope="col">M2</th>
+              <th scope="col">Precio Und.</th>
+              <th scope="col">Precio Total</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            @foreach($presupuesto->material_externos as $key => $value)
+                <tr>
+                  <td>{{$value->id}}</td>
+                  <td class="editable">
+                    <p>{{$value->concepto}}</p>
+                    <input name="concepto" class="form-control small-input" type="hidden" value="{{$value->concepto}}">
+                  </td>
+                  <td class="editable">
+                    <p>{{$value->proveedor_externo}}</p>
+                    <input name="proveedor_externo" class="form-control small-input" type="hidden" value="{{$value->proveedor_externo}}">
+                  </td>
+                  <td class="editable">
+                    <p>{{$value->unidades}}</p>
+                    <input name="unidades" class="form-control small-input" type="hidden" value="{{$value->unidades}}">
+                  </td>
+                  <td class="editable">
+                    <p>{{$value->ancho}}</p>
+                    <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
+                  </td>
+                  <td class="editable">
+                    <p>{{$value->alto}}</p>
+                    <input name="alto" class="form-control small-input" type="hidden" value="{{$value->alto}}">
+                  </td>
+                  <td>{{$value->m2}}</td>
+                  <td class="editable">
+                    <p>{{$value->precio_unidad}}</p>
+                    <input name="precio_unidad" class="form-control small-input" type="hidden" value="{{$value->precio_unidad}}">
+                  </td>
+                  <td>{{$value->precio_total}}</td>
+                  <td>
+                    <?php $rutaEliminarExterno = route('destroyExterno', ['id' => $value->id]); ?>
+
+                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterialExterno({{$value->id}},this)">Editar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterialExterno({{ $value->id }}, this)">Borrar</button>
+                    <input type="hidden" value="{{ route('editarExterno', ['id' => $value->id]) }}">
+                    <input type="hidden" value="{{ $value->id }}">
+                    <input type="hidden" value="{{ $rutaEliminarExterno }}">
+                  </td>
+                </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+
+
 
   <div class="row mt-5 p-3 border">
     <div class="col-md-12">
@@ -815,6 +894,25 @@ $(function() {
   });
 
 
+  // STORE Material Externo
+  $('#addMaterialExternoButton').click(function(event){
+    event.preventDefault();
+
+    var form_action = $("#addMaterialExternoForm").attr("action");
+    var concepto = $("#addMaterialExternoConcepto").val();
+    var presupuesto_id = {{ $presupuesto->id }};
+
+    $.ajax({
+        dataType: 'json',
+        type:'POST',
+        url: form_action,
+        data:{concepto:concepto, presupuesto_id:presupuesto_id }
+    }).done(function(data){
+        location.reload();
+    });
+  });
+
+
   $('.editarP').click(function(event){
     var n = document.getElementsByClassName('editarP');
     for(var i=0;i<n.length;i++){
@@ -1030,6 +1128,21 @@ function editarMaterial(materialID, parteID, elemento){
 }
 
 /*
+* Editar Material Externo.
+*
+* Habilita los inputs para la edición.
+* Cambiamos el botón para guardar y cambiamos su función onclick.
+* @input materialID
+* @input elemento -> this para el botón en el que ha pulsado el usuario
+*/
+function editarMaterialExterno(materialID, elemento){
+  $(elemento).html('Guardar');
+  $(elemento).parent().parent().find('.editable input').prop("type", "text");
+  $(elemento).parent().parent().find('.editable p').hide();
+  $(elemento).attr("onclick","guardarMaterialExterno("+materialID+", this)");
+}
+
+/*
 * Guardar Material Editado
 *
 * Seleccionamos los datos y los enviamos
@@ -1053,6 +1166,35 @@ function guardarMaterialEditado(materialID, parteID, elemento){
 }
 
 /*
+* Guardar Material Externo Editado
+*
+* Seleccionamos los datos y los enviamos
+* @return Actualizamos la página
+*/
+function guardarMaterialExterno(materialID, elemento){
+  var tr = $(elemento).parent().parent();
+  var form_action = $(elemento).next().next().val();
+  var concepto = tr.find('input[name="concepto"]').val();
+  var proveedor_externo = tr.find('input[name="proveedor_externo"]').val();
+  var unidades = tr.find('input[name="unidades"]').val();
+  var alto = tr.find('input[name="alto"]').val();
+  var ancho = tr.find('input[name="ancho"]').val();
+  var precio_unidad = tr.find('input[name="precio_unidad"]').val()
+  var presupuesto_id = $("#id").val();
+
+
+  $.ajax({
+      dataType: 'json',
+      type:'POST',
+      url: form_action,
+      data: {concepto: concepto, proveedor_externo: proveedor_externo, presupuesto_id: presupuesto_id,
+              unidades: unidades, ancho: ancho, alto: alto, precio_unidad: precio_unidad},
+  }).done(function(data){
+      location.reload();
+  });
+}
+
+/*
 * Eliminar Material
 */
 
@@ -1064,6 +1206,24 @@ var form_action = $(elemento).next().next().next().val();
       type:'POST',
       url: form_action,
       data: {parte: parte_id},
+  }).done(function(data){
+      location.reload();
+  });
+}
+
+/*
+* Eliminar Material Externo
+*/
+
+function eliminarMaterialExterno(material_id, elemento){
+var form_action = $(elemento).next().next().next().val();
+var presupuesto_id = $("#id").val();
+
+  $.ajax({
+      dataType: 'json',
+      type:'POST',
+      url: form_action,
+      data: {presupuesto_id: presupuesto_id},
   }).done(function(data){
       location.reload();
   });

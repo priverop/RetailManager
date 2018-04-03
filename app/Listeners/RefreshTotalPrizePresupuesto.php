@@ -44,6 +44,10 @@ class RefreshTotalPrizePresupuesto
 
       $precioTotal = 0;
 
+      foreach($presupuesto->material_externos as $key => $mvalue){
+        $precioTotal += $mvalue->precio_total;
+      }
+
       foreach($prizes as $key => $value){
         $precioTotal += $value->precio_total;
       }

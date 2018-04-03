@@ -27,6 +27,13 @@ class Presupuesto extends Model
     return $this->hasMany('App\Plano');
   }
 
+  /**
+  * Obtiene sus Planos
+  */
+  public function material_externos(){
+    return $this->hasMany('App\MaterialExterno');
+  }
+
 
   /**
      * The attributes that are mass assignable.
