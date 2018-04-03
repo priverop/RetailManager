@@ -43,12 +43,11 @@ class ObraController extends Controller
     public function store(Request $request)
     {
         $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
-
         $obra = Obra::create([
           'fecha' => $request->input('fecha'),
+          'beneficio' => $request->input('beneficio'),
           'cliente_id' => $cliente->id
         ]);
-
         return response()->json($obra);
     }
 

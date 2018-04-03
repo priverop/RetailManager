@@ -20,7 +20,9 @@ Route::get('/', function () {
 Route::post('/materiales/storeWithProveedor', 'PivotMaterialController@storeWithProveedor')->name('storeWithProveedor');
 Route::get('/materiales/indexWithProveedores/{tipo}', 'PivotMaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
 Route::post('/materiales/updateWithParte/{id}', 'PivotMaterialController@updateWithParte')->name('updateMaterialWithParte');
+Route::post('/materiales/editarExterno/{id}', 'MaterialExternoController@editarExterno')->name('editarExterno');
 Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
+Route::post('/materiales/destroyExterno/{id}', 'MaterialExternoController@destroyExterno')->name('destroyExterno');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
 
 /* FIN MATERIALES PIVOT */
@@ -28,11 +30,11 @@ Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropiert
 // Clientes autocomplete
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
 
-
-
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');
 Route::resource('partes', 'ParteController');
+Route::resource('planos', 'PlanoController');
 Route::resource('presupuestos', 'PresupuestoController');
 Route::resource('clientes', 'ClienteController');
+Route::resource('material_externos', 'MaterialExternoController');

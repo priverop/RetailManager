@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use View;
 use Illuminate\Support\Facades\DB;
 
+use App\Events\PresupuestoModificado;
+use App\Events\MaterialParteModificado;
+
 class PresupuestoController extends Controller
 {
 
@@ -42,9 +45,10 @@ class PresupuestoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
+          'beneficio' => $request->input('beneficio'),
           'obra_id' => $request->input('obra_id')
         ]);
         return response()->json($presupuesto);
@@ -90,6 +94,9 @@ class PresupuestoController extends Controller
       $presupuesto->save();
 
       $presupuesto->update($request->all());
+      $presupuesto = Presupuesto::find($id);
+
+      event(new PresupuestoModificado($presupuesto));
 
       return response()->json($presupuesto);
     }

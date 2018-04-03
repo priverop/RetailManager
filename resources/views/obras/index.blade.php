@@ -15,6 +15,7 @@
         <th>#</th>
         <th>Fecha</th>
         <th>Cliente</th>
+        <th>Beneficio</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -24,6 +25,7 @@
           <td>{{ $key }}</td>
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
+          <td>{{ $value->beneficio }}</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
