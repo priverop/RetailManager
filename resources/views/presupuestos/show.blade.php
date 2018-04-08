@@ -78,8 +78,12 @@
   <div class="col"><div class="row m-3">
     <div class="col-xs-12">
       <h3>Planos del presupuesto</h3>
-      <form id="planosForm"><input type="file" name="img" multiple></form>
-      <button class="btn btn-primary" id="addPlanos">Añadir</button>
+      <form enctype="multipart/form-data" action="{{ route('planos.store') }}" method="POST">
+        <input type="file" name="img[]" multiple>
+        <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
+        {{ csrf_field() }}
+        <input type="submit" class="btn btn-primary" value="Añadir">
+      </form>
       @if(count($presupuesto->planos) >= 1)
       <button class="btn btn-primary">Ver planos</button>
       <div class="">
@@ -777,24 +781,7 @@ $(function() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-
-  /*
-  * Enviar Planos adjuntos
-  */
-  $("#addPlanos").click(function(event){
-    event.preventDefault();
-    var form_action = "{{ route('planos.store', ['presupuesto_id' => $presupuesto->id]) }}";
-    var formulario = $("#planosForm").serialize();
-
-    $.ajax({
-        type:'POST',
-        url: form_action,
-        data: formulario
-    }).done(function(data){
-        location.reload();
-    });
-  });
-
+  
   /*
   * Añadir Material - Modal
   */

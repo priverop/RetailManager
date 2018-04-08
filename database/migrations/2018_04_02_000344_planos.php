@@ -19,6 +19,7 @@ class Planos extends Migration
         $table->foreign('presupuesto_id')->references('id')
             ->on('presupuestos')->onDelete('cascade');
         $table->string('filename');
+        $table->timestamps();
       });
     }
 
