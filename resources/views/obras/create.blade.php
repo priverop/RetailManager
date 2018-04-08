@@ -29,6 +29,16 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="content"><strong>Beneficio:</strong></label>
+            <p>
+              Seleccione un porcentaje de beneficio para el presupuesto.
+            </p>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="beneficio" value="30" placeholder="%">
+            </div>
+          </div>
+
         </form>
         <div class="modal-footer">
           <button id="addObraButton" type="button" class="btn btn-success add">
