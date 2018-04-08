@@ -90,9 +90,6 @@ class PresupuestoController extends Controller
     {
       $presupuesto = Presupuesto::find($id);
 
-      $presupuesto->precio_total = $presupuesto->precio_total_unidad * $presupuesto->unidades;
-      $presupuesto->save();
-
       $presupuesto->update($request->all());
       $presupuesto = Presupuesto::find($id);
 

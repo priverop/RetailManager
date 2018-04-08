@@ -318,7 +318,7 @@
         Y se suma automáticamente al total del presupuesto.
       </p>
       <input type="text" name="desperdicio" placeholder="Desperdicio (%)" value="{{ $presupuesto->desperdicio }}" />
-      <button class="btn btn-primary">Actualizar</button>
+      <button class="btn btn-primary" id="updateDesperdicio">Actualizar</button>
     </div>
 
   </div>
@@ -864,6 +864,24 @@ $(function() {
         prepareDataTable(parte_id);
     });
 
+  });
+
+  /*
+  * Actualizar Desperdicio
+  */
+  $("#updateDesperdicio").click(function(event){
+    event.preventDefault();
+    var form_action = "{{ route('presupuestos.update', ['id' => $presupuesto->id]) }}";
+    var desperdicio = $('input[name="desperdicio"]').val();
+
+    $.ajax({
+        dataType: 'json',
+        type:'PUT',
+        url: form_action,
+        data: { desperdicio:desperdicio }
+    }).done(function(data){
+        location.reload();
+    });
   });
 
   /*

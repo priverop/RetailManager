@@ -72,11 +72,56 @@ class RefreshTotalPrizePresupuesto
       $precioTotal += $presupuesto->total_transporte;
       $precioTotal += $presupuesto->total_imprevistos;
 
-      $precioTotal = $precioTotal * (1 + ($presupuesto->beneficio * 0.01) );
+      if($presupuesto->desperdicio > 0 ){
+          $precioTotal = $precioTotal + $this->getDesperdicioTotal($presupuesto->desperdicio, $this->getMaderaPrecioTotal($presupuesto_id));
+      }
+      if($presupuesto->beneficio > 0 ){
+          $precioTotal = $precioTotal * (1 + ($presupuesto->beneficio * 0.01) );
+      }
+
       $presupuesto->precio_total_unidad = $precioTotal;
       $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
 
       $presupuesto->save();
 
     }
+
+    /**
+     * Devolvemos el precio total de las maderas de un presupuesto.
+     *
+     * @param int $presupuesto_id
+     * @return int
+     */
+    private function getMaderaPrecioTotal(int $presupuesto_id){
+      $prizes = DB::table("material_parte")
+      ->select('precio_total')
+      ->join('partes', function($join) use ($presupuesto_id){
+        $join->on('material_parte.parte_id', '=', 'partes.id')
+        ->where('partes.presupuesto_id', '=', $presupuesto_id);
+      })
+      ->join('materials', function($join){
+        $join->on('material_parte.material_id', '=', 'materials.id')
+        ->where('materials.tipo', '=', 'madera');
+      })
+      ->get();
+
+      $sumaMadera = 0;
+      foreach ($prizes as $key => $value) {
+        $sumaMadera += $value->precio_total;
+      }
+      return $sumaMadera;
+    }
+
+    /**
+     * Devolvemos el desperdicio total
+     *
+     * @param int $desperdicio
+     * @param int $precioMaderaTotal
+     * @return int
+     */
+
+    private function getDesperdicioTotal(int $desperdicio, int $precioMaderaTotal){
+      return $desperdicio * $precioMaderaTotal / 100;
+    }
+
 }
