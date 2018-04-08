@@ -85,10 +85,14 @@
         <input type="submit" class="btn btn-primary" value="Añadir">
       </form>
       @if(count($presupuesto->planos) >= 1)
-      <button class="btn btn-primary">Ver planos</button>
-      <div class="">
+      <button class="btn btn-primary" id="mostrarPlanos">Ver planos</button>
+      <div class="gallery-container">
         @foreach($presupuesto->planos as $key => $plano)
-          {{ $plano->filename }}
+          <div class="gallery-item">
+            <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
+              <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+            </a>
+          </div>
         @endforeach
       </div>
       @endif
@@ -781,7 +785,7 @@ $(function() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  
+
   /*
   * Añadir Material - Modal
   */
@@ -796,6 +800,15 @@ $(function() {
         prepareDataTable(parte_id);
     });
 
+  });
+
+  /*
+  * Mostrar Planos
+  * Al pulsar mostramos div gallery-container
+  * Si volvemos a pulsar desaparece
+  */
+  $("#mostrarPlanos").click(function(event){
+    $(".gallery-container").toggle();
   });
 
   // STORE Parte
@@ -1118,5 +1131,31 @@ function editar1(id) {
      n[i].hidden = false;
   }
 }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script>
+$('.image-popup').magnificPopup({
+  type: 'image',
+  removalDelay: 300,
+  mainClass: 'mfp-with-zoom',
+  gallery:{
+    enabled:true
+  },
+  zoom: {
+    enabled: true, // By default it's false, so don't forget to enable it
+
+    duration: 300, // duration of the effect, in milliseconds
+    easing: 'ease-in-out', // CSS transition easing function
+
+    // The "opener" function should return the element from which popup will be zoomed in
+    // and to which popup will be scaled down
+    // By defailt it looks for an image tag:
+    opener: function(openerElement) {
+    // openerElement is the element on which popup was initialized, in this case its <a> tag
+    // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+    return openerElement.is('img') ? openerElement : openerElement.find('img');
+    }
+  }
+});
 </script>
 @endsection

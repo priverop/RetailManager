@@ -58,6 +58,15 @@ input:disabled{
   width: 65px;
 }
 
+/* Galería de planos */
+.gallery-container{
+  display: none;
+}
+.gallery-item{
+  max-width: 200px;
+  display: inline-block;
+}
+
 /* ============================ */
 /* == FIN PRESUPUESTO - SHOW == */
 /* ============================ */
