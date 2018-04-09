@@ -30,6 +30,6 @@ class Planos extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('planos');
     }
 }
