@@ -213,10 +213,8 @@
                   <td>{{$mvalue->pivot->precio_total}}</td>
                   <td>
 
-                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $mvalue->pivot->id }}, this)">Borrar</button>
-                    <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
-                    <input type="hidden" value="{{ $value->id }}">
+                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{ $mvalue->pivot->id }}, this)">Editar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $mvalue->pivot->id }})">Borrar</button>
                   </td>
                 </tr>
                 @endif
@@ -1108,12 +1106,8 @@ function editarInfo(elemento){
 }
 
 /*
-* Editar Material.
+* Eliminar Parte
 *
-* Habilita los inputs para la edición.
-* Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
 */
 function deleteParte(elemento){
   var form_action = $(elemento).next().val();
@@ -1133,14 +1127,14 @@ function deleteParte(elemento){
 *
 * Habilita los inputs para la edición.
 * Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
+* @param materialparteID
+* @param elemento -> this para el botón en el que ha pulsado el usuario
 */
-function editarMaterial(materialID, parteID, elemento){
+function editarMaterial(materialparteID, elemento){
   $(elemento).html('Guardar');
   $(elemento).parent().parent().find('.editable input').prop("type", "text");
   $(elemento).parent().parent().find('.editable p').hide();
-  $(elemento).attr("onclick","guardarMaterialEditado("+materialID+", "+parteID+", this)");
+  $(elemento).attr("onclick", "guardarMaterialEditado("+materialparteID+", this)");
 }
 
 /*
@@ -1148,8 +1142,8 @@ function editarMaterial(materialID, parteID, elemento){
 *
 * Habilita los inputs para la edición.
 * Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
+* @param materialID
+* @param elemento -> this para el botón en el que ha pulsado el usuario
 */
 function editarMaterialExterno(materialID, elemento){
   $(elemento).html('Guardar');
@@ -1164,9 +1158,9 @@ function editarMaterialExterno(materialID, elemento){
 * Seleccionamos los datos y los enviamos
 * @return Actualizamos la página
 */
-function guardarMaterialEditado(materialID, parteID, elemento){
+function guardarMaterialEditado(materialparteID, elemento){
   var tr = $(elemento).parent().parent();
-  var form_action = $(elemento).next().next().val();
+  var form_action = "{{ route('updateMaterialWithParte', ['presupuesto_id' => $presupuesto->id]) }}";
   var unidades = tr.find('input[name="unidades"]').val();
   var alto = tr.find('input[name="alto"]').val();
   var ancho = tr.find('input[name="ancho"]').val();
@@ -1175,7 +1169,7 @@ function guardarMaterialEditado(materialID, parteID, elemento){
       dataType: 'json',
       type:'POST',
       url: form_action,
-      data: {parte: parteID, unidades: unidades, alto: alto, ancho: ancho},
+      data: {id: materialparteID, unidades: unidades, alto: alto, ancho: ancho},
   }).done(function(data){
       location.reload();
   });
@@ -1214,7 +1208,7 @@ function guardarMaterialExterno(materialID, elemento){
 * Eliminar Material
 */
 
-function eliminarMaterial(material_parte_id, elemento){
+function eliminarMaterial(material_parte_id){
 var form_action = "{{ route('destroyMaterialWithParte', ['presupuesto_id' => $presupuesto->id]) }}";
 
   $.ajax({
