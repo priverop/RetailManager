@@ -212,13 +212,11 @@
                   <td>{{$mvalue->precio}}</td>
                   <td>{{$mvalue->pivot->precio_total}}</td>
                   <td>
-                    <?php $rutaEliminar = route('destroyMaterialWithParte', ['id' => $mvalue->id]); ?>
 
                     <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $value->id }}, this)">Borrar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $mvalue->pivot->id }}, this)">Borrar</button>
                     <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
                     <input type="hidden" value="{{ $value->id }}">
-                    <input type="hidden" value="{{ $rutaEliminar }}">
                   </td>
                 </tr>
                 @endif
@@ -1216,14 +1214,14 @@ function guardarMaterialExterno(materialID, elemento){
 * Eliminar Material
 */
 
-function eliminarMaterial(parte_id, elemento){
-var form_action = $(elemento).next().next().next().val();
+function eliminarMaterial(material_parte_id, elemento){
+var form_action = "{{ route('destroyMaterialWithParte', ['presupuesto_id' => $presupuesto->id]) }}";
 
   $.ajax({
       dataType: 'json',
       type:'POST',
       url: form_action,
-      data: {parte: parte_id},
+      data: {id: material_parte_id},
   }).done(function(data){
       location.reload();
   });

@@ -106,21 +106,16 @@ class PivotMaterialController extends Controller
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroyWithParte(Request $request, $material)
+    public function destroyWithParte(Request $request, $presupuesto_id)
     {
-      $parte_id = $request->input('parte');
+      //MaterialParte_ID
+      $id = $request->input('id');
 
       $delete = DB::table('material_parte')
-      ->where('material_id', $material)
-      ->where('parte_id', $parte_id)
+      ->where('id', $id)
       ->delete();
 
-      $presupuesto_id = DB::table('partes')
-      ->select('presupuesto_id')
-      ->where('id', '=', $parte_id)
-      ->first();
-
-      $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+      $presupuesto = Presupuesto::find($presupuesto_id);
 
       event(new PresupuestoModificado($presupuesto));
 
