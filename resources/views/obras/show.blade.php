@@ -35,6 +35,7 @@
               <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
                 <button class="btn btn-outline-primary btn-sm">Ver</button>
               </a>
+              <button class="btn btn-outline-primary btn-sm" id="duplicateButton">Duplicar</button>
             </td>
           </tr>
         @endforeach
@@ -95,13 +96,26 @@ $(function(){
       }
   });
 
-  // Enviamos formulario
+  // Traemos el modal del concepto del presupuesto duplicado
+  $("#duplicateButton").click(function(event){
+    event.preventDefault();
+    var form_action = "{{ route('duplicateForm') }}";
 
+    $.ajax({
+      type: 'GET',
+      url: form_action
+    }).done(function(data){
+      $("#addPresupuesto").next().prepend(data);
+      $("#duplicateModal").modal('show');
+    });
+  });
+
+  // Enviamos formulario de añadir presupuesto nuevo
   $("#addPresupuestoButton").click(function(event){
     event.preventDefault();
     var form_action = "{{route('presupuestos.store')}}";
     var formulario = $("#addPresupuestoForm").serialize();
-console.log(formulario);
+
     $.ajax({
       type: 'POST',
       url: form_action,

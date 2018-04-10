@@ -32,8 +32,6 @@ class PresupuestoController extends Controller
      */
     public function create()
     {
-        //
-
         return View::make('presupuestos.create')->with('presupuestos', $presupuestos);
     }
 
@@ -68,14 +66,16 @@ class PresupuestoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Formulario para duplicar presupuesto
      *
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Presupuesto $presupuesto)
+    public function duplicateForm(Presupuesto $presupuesto)
     {
-        //
+      $html = View::make('presupuestos.duplicate')->render();
+
+      return response()->json($html);
     }
 
     /**
