@@ -68,11 +68,15 @@ class RefreshTotalPrizePresupuesto
       $precioTotal += $presupuesto->total_oficial_2;
       $precioTotal += $presupuesto->total_ayudante;
 
+      $presupuesto->total_desplazamiento = $precioTotal * ($presupuesto->desplazamiento_unidad * 0.01);
+      $presupuesto->total_transporte = $precioTotal * ($presupuesto->transporte_unidad * 0.01);
+      $presupuesto->total_imprevistos = $precioTotal * ($presupuesto->imprevistos_unidad * 0.01);
+
       $precioTotal += $presupuesto->total_desplazamiento;
       $precioTotal += $presupuesto->total_transporte;
       $precioTotal += $presupuesto->total_imprevistos;
 
-      $precioTotal = $precioTotal * (1 + ($presupuesto->beneficio * 0.01) );
+      // $precioTotal = $precioTotal * (1 + ($presupuesto->beneficio * 0.01) );
       $presupuesto->precio_total_unidad = $precioTotal;
       $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
 

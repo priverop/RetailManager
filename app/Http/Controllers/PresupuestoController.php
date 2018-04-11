@@ -45,7 +45,7 @@ class PresupuestoController extends Controller
      */
     public function store(Request $request)
     {
-
+        \Debugbar::info($request);
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
           'beneficio' => $request->input('beneficio'),
@@ -90,11 +90,27 @@ class PresupuestoController extends Controller
     {
       $presupuesto = Presupuesto::find($id);
 
-      $presupuesto->precio_total = $presupuesto->precio_total_unidad * $presupuesto->unidades;
-      $presupuesto->save();
-
       $presupuesto->update($request->all());
       $presupuesto = Presupuesto::find($id);
+
+      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora * $presupuesto->precio_t_seccionadora;
+      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora * $presupuesto->precio_t_seccionadora;
+      $presupuesto->total_elaboracion = $presupuesto->t_elaboracion * $presupuesto->precio_t_elaboracion;
+      $presupuesto->total_escuadradora = $presupuesto->t_escuadradora * $presupuesto->precio_t_escuadradora;
+      $presupuesto->total_canteadora = $presupuesto->t_canteadora * $presupuesto->precio_t_canteadora;
+      $presupuesto->total_punto = $presupuesto->t_punto * $presupuesto->precio_t_punto;
+      $presupuesto->total_prensa = $presupuesto->t_prensa * $presupuesto->precio_t_prensa;
+
+      $presupuesto->total_maquinas = ($presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario) * $presupuesto->maquinas_precio_unidad;
+      $presupuesto->total_bancos = ($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad;
+      $presupuesto->total_maquinas_oficial_1 = ($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad;
+      $presupuesto->total_producto_ter_1 = ($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad;
+      $presupuesto->total_productor_ter_2 = ($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad;
+      $presupuesto->total_oficial_1 = ($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad;
+      $presupuesto->total_oficial_2 = ($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad;
+      $presupuesto->total_ayudante = ($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad;
+
+      $presupuesto->save();
 
       event(new PresupuestoModificado($presupuesto));
 

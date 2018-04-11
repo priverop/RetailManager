@@ -21,11 +21,13 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>Presupuesto Individual</h1>
-      <h3>Precio Total: {{$presupuesto->precio_total_unidad}}</h3>
+      <h4>Precio: {{$presupuesto->precio_total_unidad}}</h4>
+      <h4>Beneficio: {{$presupuesto->precio_total_unidad * ($presupuesto->beneficio * 0.01) }}</h4>
+      <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($presupuesto->beneficio * 0.01) )}}</h4>
     </div>
   </div>
 
-  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+  <form action="" method="POST" class="infoPre" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-6">
         <div onclick="editar1('concepto')">
@@ -315,7 +317,7 @@
 
   </div>
 
-  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+  <form action="" method="POST" class="infoPre" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-12">
         <h2 class="mr-5">MÁQUINAS</h2>
@@ -482,7 +484,7 @@
     </div>
   </form>
 
-  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+  <form action="" method="POST" class="infoPre" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-12">
         <h2 class="mr-5">MANO DE OBRA</h2>
@@ -745,7 +747,7 @@
     </div>
   </form>
 
-  <form action="{{ action('PresupuestoController@update', ['presupuesto_id' => $presupuesto->id]) }}" method="POST" id="updatePresupuesto">
+  <form action="" method="POST"  class="infoPre" id="updatePresupuesto">
     <div class="row mt-5 p-3 border">
       <div class="col-md-12">
         <h2 class="mr-5">COSTES ADICIONALES</h2>
@@ -933,130 +935,13 @@ $(function() {
   });
 
   $('.guardarP').click(function(event){
-    var form_action = $("#updatePresupuesto").attr("action");
-    console.log($("#id").val());
-    var id = $("#id").val();
-    var obra_id = $("#obra_id").val();
-    var fecha = $("#fecha").val();
-    var concepto = $("#concepto").val();
-    var caracteristicas = $("#caracteristicas").val();
-    var unidades = $("#unidades").val();
-    var estado = $("#estado").val();
-    var beneficio = $("#beneficio").val();
-    var precio_final = $("#precio_final").val();
+    var form_action = "{{ route('presupuestos.update', ['id' => $presupuesto->id]) }}";
 
-    var t_seccionadora = $("#t_seccionadora").val();
-    var o_seccionadora = $("#o_seccionadora").val();
-    var precio_t_seccionadora = $("#precio_t_seccionadora").val();
-    var total_seccionadora = t_seccionadora * precio_t_seccionadora;
-    var t_elaboracion = $("#t_elaboracion").val();
-    var o_elaboracion = $("#o_elaboracion").val();
-    var precio_t_elaboracion = $("#precio_t_elaboracion").val();
-    var total_elaboracion = t_elaboracion * precio_t_elaboracion;
-    var t_escuadradora = $("#t_escuadradora").val();
-    var o_escuadradora = $("#o_escuadradora").val();
-    var precio_t_escuadradora = $("#precio_t_escuadradora").val();
-    var total_escuadradora = t_escuadradora * precio_t_escuadradora;
-    var t_canteadora = $("#t_canteadora").val();
-    var o_canteadora = $("#o_canteadora").val();
-    var precio_t_canteadora = $("#precio_t_canteadora").val();
-    var total_canteadora = t_canteadora * precio_t_canteadora;
-    var t_punto = $("#t_punto").val();
-    var o_punto = $("#o_punto").val();
-    var precio_t_punto = $("#precio_t_punto").val();
-    var total_punto = t_punto * precio_t_punto;
-    var t_prensa = $("#t_prensa").val();
-    var o_prensa = $("#o_prensa").val();
-    var precio_t_prensa = $("#precio_t_prensa").val();
-    var total_prensa = t_prensa * precio_t_prensa;
-
-
-
-    var maquinas_operarios = $("#maquinas_operarios").val();
-    var maquinas_horas_operario = $("#maquinas_horas_operario").val();
-    var maquinas_operacion = $("#maquinas_operacion").val();
-    var maquinas_precio_unidad = $("#maquinas_precio_unidad").val();
-    var total_maquinas = (maquinas_operarios * maquinas_horas_operario) * maquinas_precio_unidad;
-    var bancos_operarios = $("#bancos_operarios").val();
-    var bancos_horas_operario = $("#bancos_horas_operario").val();
-    var bancos_operacion = $("#bancos_operacion").val();
-    var bancos_precio_unidad = $("#bancos_precio_unidad").val();
-    var total_bancos = (bancos_operarios * bancos_horas_operario) * bancos_precio_unidad;
-    var maquinas_oficial_1_operarios = $("#maquinas_oficial_1_operarios").val();
-    var maquinas_oficial_1_horas_operario = $("#maquinas_oficial_1_horas_operario").val();
-    var maquinas_oficial_1_operacion = $("#maquinas_oficial_1_operacion").val();
-    var maquinas_oficial_1_precio_unidad = $("#maquinas_oficial_1_precio_unidad").val();
-    var total_maquinas_oficial_1 = (maquinas_oficial_1_operarios * maquinas_oficial_1_horas_operario) * maquinas_oficial_1_precio_unidad;
-    var producto_ter_1_operarios = $("#producto_ter_1_operarios").val();
-    var producto_ter_1_horas_operario = $("#producto_ter_1_horas_operario").val();
-    var producto_ter_1_operacion = $("#producto_ter_1_operacion").val();
-    var producto_ter_1_precio_unidad = $("#producto_ter_1_precio_unidad").val();
-    var total_producto_ter_1 = (producto_ter_1_operarios * producto_ter_1_horas_operario) * producto_ter_1_precio_unidad;
-    var productor_ter_2_operarios = $("#productor_ter_2_operarios").val();
-    var productor_ter_2_horas_operario = $("#productor_ter_2_horas_operario").val();
-    var productor_ter_2_operacion = $("#productor_ter_2_operacion").val();
-    var productor_ter_2_precio_unidad = $("#productor_ter_2_precio_unidad").val();
-    var total_productor_ter_2 = (productor_ter_2_operarios * productor_ter_2_horas_operario) * productor_ter_2_precio_unidad;
-    var oficial_1_operarios = $("#oficial_1_operarios").val();
-    var oficial_1_horas_operario = $("#oficial_1_horas_operario").val();
-    var oficial_1_operacion = $("#oficial_1_operacion").val();
-    var oficial_1_precio_unidad = $("#oficial_1_precio_unidad").val();
-    var total_oficial_1 = (oficial_1_operarios * oficial_1_horas_operario) * oficial_1_precio_unidad;
-    var oficial_2_operarios = $("#oficial_2_operarios").val();
-    var oficial_2_horas_operario = $("#oficial_2_horas_operario").val();
-    var oficial_2_operacion = $("#oficial_2_operacion").val();
-    var oficial_2_precio_unidad = $("#oficial_2_precio_unidad").val();
-    var total_oficial_2 = (oficial_2_operarios * oficial_2_horas_operario) * oficial_2_precio_unidad;
-    var ayudante_operarios = $("#ayudante_operarios").val();
-    var ayudante_horas_operario = $("#ayudante_horas_operario").val();
-    var ayudante_operacion = $("#ayudante_operacion").val();
-    var ayudante_precio_unidad = $("#ayudante_precio_unidad").val();
-    var total_ayudante = (ayudante_operarios * ayudante_horas_operario) * ayudante_precio_unidad;
-
-    var desplazamiento_unidad = $("#desplazamiento_unidad").val();
-    var total_desplazamiento = {{ $presupuesto->precio_total_unidad }} * (desplazamiento_unidad * 0.01);
-    var transporte_unidad = $("#transporte_unidad").val();
-    var total_transporte = {{ $presupuesto->precio_total_unidad }} * (transporte_unidad * 0.01);
-    var imprevistos_unidad = $("#imprevistos_unidad").val();
-    var total_imprevistos = {{ $presupuesto->precio_total_unidad }} * (imprevistos_unidad * 0.01);
-
+    var info_serialize = $(".infoPre").serialize();
     $.ajax({
-        dataType: 'json',
         type:'PUT',
         url: form_action,
-        data: {id: id, obra_id: obra_id, fecha: fecha,
-          concepto: concepto, caracteristicas: caracteristicas,
-          unidades: unidades, estado: estado, beneficio: beneficio,
-          precio_final: precio_final,
-
-          t_seccionadora: t_seccionadora, o_seccionadora: o_seccionadora, precio_t_seccionadora: precio_t_seccionadora, total_seccionadora: total_seccionadora,
-          t_escuadradora: t_escuadradora, o_escuadradora: o_escuadradora, precio_t_escuadradora: precio_t_escuadradora, total_escuadradora: total_escuadradora,
-          t_elaboracion: t_elaboracion, o_elaboracion: o_elaboracion, precio_t_elaboracion: precio_t_elaboracion, total_elaboracion: total_elaboracion,
-          t_canteadora: t_canteadora, o_canteadora: o_canteadora, precio_t_canteadora: precio_t_canteadora, total_canteadora: total_canteadora,
-          t_punto: t_punto, o_punto: o_punto, precio_t_punto: precio_t_punto, total_punto: total_punto,
-          t_prensa: t_prensa, o_prensa: o_prensa, precio_t_prensa: precio_t_prensa, total_prensa: total_prensa,
-
-          desplazamiento_unidad: desplazamiento_unidad, total_desplazamiento: total_desplazamiento,
-          transporte_unidad: transporte_unidad, total_transporte: total_transporte,
-          imprevistos_unidad: imprevistos_unidad, total_imprevistos: total_imprevistos,
-
-          maquinas_operarios: maquinas_operarios, maquinas_horas_operario: maquinas_horas_operario,
-          maquinas_operacion: maquinas_operacion, maquinas_precio_unidad: maquinas_precio_unidad, total_maquinas: total_maquinas,
-          bancos_operarios: bancos_operarios, bancos_horas_operario: bancos_horas_operario, bancos_operacion: bancos_operacion,
-          bancos_precio_unidad: bancos_precio_unidad, total_bancos: total_bancos,
-          maquinas_oficial_1_operarios: maquinas_oficial_1_operarios, maquinas_oficial_1_horas_operario: maquinas_oficial_1_horas_operario,
-          maquinas_oficial_1_operacion: maquinas_oficial_1_operacion, maquinas_oficial_1_precio_unidad: maquinas_oficial_1_precio_unidad,
-          total_maquinas_oficial_1: total_maquinas_oficial_1, producto_ter_1_operarios: producto_ter_1_operarios,
-          producto_ter_1_horas_operario: producto_ter_1_horas_operario, producto_ter_1_operacion: producto_ter_1_operacion,
-          producto_ter_1_precio_unidad: producto_ter_1_precio_unidad, total_producto_ter_1: total_producto_ter_1,
-          productor_ter_2_operarios: productor_ter_2_operarios, productor_ter_2_horas_operario: productor_ter_2_horas_operario,
-          productor_ter_2_operacion: productor_ter_2_operacion, productor_ter_2_precio_unidad: productor_ter_2_precio_unidad,
-          total_productor_ter_2: total_productor_ter_2, oficial_1_operarios: oficial_1_operarios,
-          oficial_1_horas_operario: oficial_1_horas_operario, oficial_1_operacion: oficial_1_operacion, oficial_1_precio_unidad: oficial_1_precio_unidad,
-          total_oficial_1: total_oficial_1, oficial_2_operarios: oficial_2_operarios, oficial_2_horas_operario: oficial_2_horas_operario,
-          oficial_2_operacion: oficial_2_operacion, oficial_2_precio_unidad: oficial_2_precio_unidad, total_oficial_2: total_oficial_2,
-          ayudante_operarios: ayudante_operarios, ayudante_horas_operario: ayudante_horas_operario, ayudante_operacion: ayudante_operacion,
-          ayudante_precio_unidad: ayudante_precio_unidad, total_ayudante: total_ayudante },
+        data: info_serialize,
     }).done(function(data){
         location.reload();
     });
