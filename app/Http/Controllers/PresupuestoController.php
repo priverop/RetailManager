@@ -65,15 +65,70 @@ class PresupuestoController extends Controller
         return View::make('presupuestos.show')->with('presupuesto', $presupuesto);
     }
 
+
+    /**
+     * Duplicar presupuesto
+     *
+     * @param  \App\Presupuesto  $presupuesto
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate(Request $request, $presupuesto_id)
+    {
+      $presupuesto = Presupuesto::find($presupuesto_id);
+
+      $nuevoPresupuesto = $presupuesto->replicate();
+      $nuevoPresupuesto->concepto = $request->input('concepto');
+      $nuevoPresupuesto->push();
+
+      foreach ($presupuesto->material_externos as $key => $mexterno) {
+        $nuevoMaterialExterno = $mexterno->replicate();
+        $nuevoMaterialExterno->presupuesto_id = $nuevoPresupuesto->id;
+        $nuevoMaterialExterno->push();
+
+      }
+      foreach ($presupuesto->planos as $key => $plano) {
+        $nuevoPlano = $plano->replicate();
+        $nuevoPlano->presupuesto_id = $nuevoPresupuesto->id;
+        $nuevoPlano->push();
+      }
+      foreach ($presupuesto->partes as $key => $parte) {
+        $nuevaParte = $parte->replicate();
+        $nuevaParte->presupuesto_id = $nuevoPresupuesto->id;
+        $nuevaParte->push();
+        
+        foreach ($parte->materialespartes as $key => $mparte) {
+
+          $result = DB::table('material_parte')->insert(
+            [
+              'parte_id'      => $nuevaParte->id,
+              'material_id'   => $mparte->pivot->material_id,
+              'proveedor_id'  => $mparte->pivot->proveedor_id,
+              'unidades'      => $mparte->pivot->unidades,
+              'ancho'         => $mparte->pivot->ancho,
+              'alto'          => $mparte->pivot->alto,
+              'm2'            => $mparte->pivot->m2,
+              'total_m2'      => $mparte->pivot->total_m2,
+              'precio_total'  => $mparte->pivot->precio_total
+            ]
+          );
+        }
+      }
+
+      event(new PresupuestoModificado($nuevoPresupuesto));
+
+      // return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
+      return View::make('presupuestos.show')->with('presupuesto', $nuevoPresupuesto);
+    }
+
     /**
      * Formulario para duplicar presupuesto
      *
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function duplicateForm(Presupuesto $presupuesto)
+    public function duplicateForm(Request $request)
     {
-      $html = View::make('presupuestos.duplicate')->render();
+      $html = View::make('presupuestos.duplicate')->with('presupuesto_id', $request->input('presupuesto_id'))->render();
 
       return response()->json($html);
     }

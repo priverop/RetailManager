@@ -15,7 +15,6 @@
               <input type="text" class="form-control" name="concepto" autofocus>
             </div>
           </div>
-          <!-- <input type="hidden" class="form-control" name="obra_id" value=" $obra->id "> -->
         </form>
         <div class="modal-footer">
           <button id="duplicatePresupuestoButton" type="button" class="btn btn-success add">
@@ -29,3 +28,32 @@
     </div>
   </div>
 </div>
+
+
+<script>
+$(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $("#duplicatePresupuestoButton").click(function(event){
+    event.preventDefault();
+    var form_action = "{{ route('duplicatePresupuesto', ['presupuesto_id' => $presupuesto_id]) }}";
+    var formulario = $("#duplicatePresupuestoForm").serialize();
+
+    $.ajax({
+        dataType: 'json',
+        type: 'POST',
+        url: form_action,
+        data: formulario
+    }).done(function(data){
+      
+      window.location.replace(data);
+
+    });
+
+  });
+});
+</script>

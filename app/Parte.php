@@ -26,6 +26,11 @@ class Parte extends Model
                 //SELECT * FROM `material_parte` INNER JOIN proveedors ON material_parte.proveedor_id = proveedors.id
   }
 
+  public function materialespartes(){
+    return $this->belongsToMany('App\Material', 'material_parte')
+    ->withPivot('id', 'parte_id', 'material_id', 'proveedor_id', 'unidades', 'ancho', 'alto', 'm2', 'total_m2', 'precio_total');
+  }
+
   /**
      * The attributes that are mass assignable.
      *

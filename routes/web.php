@@ -31,7 +31,8 @@ Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropiert
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
 
 // Duplicar Presupuesto
-Route::get('/presupuestos/duplicate', 'PresupuestoController@duplicateForm')->name('duplicateForm');
+Route::get('/presupuestos/duplicateForm', 'PresupuestoController@duplicateForm')->name('duplicateForm');
+Route::get('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->name('duplicatePresupuesto');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
