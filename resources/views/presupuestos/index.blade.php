@@ -20,6 +20,7 @@
         <th>Estado</th>
         <th>Características</th>
         <th>Beneficio</th>
+        <th>Beneficio Global</th>
         <th>Precio Final</th>
         <th>ID Presupuesto</th>
       </tr>
@@ -35,7 +36,19 @@
           <td> {{ $value->fecha }} </td>
           <td> {{ $value->estado }} </td>
           <td> {{ $value->caracteristicas }} </td>
-          <td> {{ $value->beneficio }} </td>
+          @if ($value->uso_beneficio_global === 1)
+            <?php
+                $beneficio = $value->obra->beneficio;
+                $b_global = "Activado";
+            ?>
+          @else
+            <?php
+              $beneficio = $value->beneficio;
+              $b_global = "Desactivado";
+            ?>
+          @endif
+          <td> {{ $beneficio }} </td>
+          <td> {{ $b_global }} </td>
           <td> {{ $value->precio_final }} </td>
           <td>{{ $value->id}}</td>
         <td><button type="button" id="eliminar" class="btn btn-danger eliminar" data-dismiss="modal">

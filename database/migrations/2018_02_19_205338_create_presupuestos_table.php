@@ -26,6 +26,7 @@ class CreatePresupuestosTable extends Migration
             $table->integer('desperdicio')->default(10);
             $table->double('precio_total_unidad', 8, 2)->default(0);
             $table->double('precio_total', 8, 2)->default(0);
+            $table->boolean('uso_beneficio_global')->default(true);
 
             $table->integer('t_seccionadora')->default(0);
             $table->string('o_seccionadora')->default('Corte');

@@ -22,8 +22,13 @@
     <div class="col-xs-12">
       <h1>Presupuesto Individual</h1>
       <h4>Precio: {{$presupuesto->precio_total_unidad}}</h4>
-      <h4>Beneficio: {{$presupuesto->precio_total_unidad * ($presupuesto->beneficio * 0.01) }}</h4>
-      <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($presupuesto->beneficio * 0.01) )}}</h4>
+      @if ($presupuesto->uso_beneficio_global === 1)
+        <?php $beneficio = $presupuesto->obra->beneficio;?>
+      @else
+        <?php $beneficio = $presupuesto->beneficio;?>
+      @endif
+      <h4>Beneficio: {{$presupuesto->precio_total_unidad * ($beneficio * 0.01) }}</h4>
+      <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01) )}}</h4>
     </div>
   </div>
 
@@ -61,10 +66,23 @@
           <b>Estado: </b>
           <input type="text" id="estado" placeholder="Estado" name="estado" value="{{ $presupuesto->estado }} " class="infoPresupuesto"  disabled/>
         </div>
-        <div onclick="editar1('beneficio')">
-          <b>Beneficio: </b>
-          <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $presupuesto->beneficio }} " class="infoPresupuesto"  disabled/>
-        </div>
+        @if ($presupuesto->uso_beneficio_global === 1)
+          <div>
+            <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked>
+            <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled hidden>
+            <b> Beneficio Global</b>
+          </div>
+        @else
+          <div onclick="editar1('beneficio')">
+            <b>Beneficio: </b>
+            <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $beneficio }} " class="infoPresupuesto" disabled/>
+          </div>
+          <div>
+            <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled>
+            <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked hidden>
+            <b> Beneficio Global </b>
+          </div>
+        @endif
         <div onclick="editar1('caracteristicas')">
           <b>Características: </b>
           <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
@@ -936,7 +954,6 @@ $(function() {
 
   $('.guardarP').click(function(event){
     var form_action = "{{ route('presupuestos.update', ['id' => $presupuesto->id]) }}";
-
     var info_serialize = $(".infoPre").serialize();
     $.ajax({
         type:'PUT',
@@ -1168,6 +1185,20 @@ function guardar1(id) {
   console.log("guarda");
   console.log(id);
   document.getElementById(id).disabled = true;
+}
+
+function desmarcarCheckBox(){
+  if ($('#uso_beneficio_global_1').is(":checked")){
+    $('#uso_beneficio_global_0').prop('checked',false);
+  }else{
+    $('#uso_beneficio_global_0').prop('checked',true);
+  }
+
+  if ($('#uso_beneficio_global_0').is(":checked")){
+    $('#uso_beneficio_global_1').prop('checked',false);
+  }else{
+    $('#uso_beneficio_global_1').prop('checked',true);
+  }
 }
 function editar1(id) {
   console.log("click");
