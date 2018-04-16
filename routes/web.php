@@ -25,6 +25,8 @@ Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destro
 Route::post('/materiales/destroyExterno/{id}', 'MaterialExternoController@destroyExterno')->name('destroyExterno');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
 Route::post('/obras/export/{id}', 'ObraController@export')->name('export');
+Route::get('/obras/createInfHoras/{id}', 'ObraController@createInfHoras')->name('createInfHoras');
+Route::get('/obras/createInfCompras/{id}', 'ObraController@createInfCompras')->name('createInfCompras');
 
 /* FIN MATERIALES PIVOT */
 

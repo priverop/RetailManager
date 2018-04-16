@@ -12,6 +12,8 @@
   <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Presupuesto</button>
   <a href="{{  route('ExportPRE', ['id'=>$obra->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
+  <button class="btn btn-primary" id="infHoras">Informe Horas</button>
+  <button class="btn btn-primary" id="infCompras">Informe Compras</button>
 
   <div class="row mt-5 p-3 border">
     <table id="presupuestoIndex">
@@ -142,6 +144,37 @@ console.log(formulario);
   });
 
 });
+
+$('#infHoras').click(function(event){
+  event.preventDefault();
+  var form_action = "{{ route('createInfHoras', ['id' => $obra->id]) }}";
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: form_action
+  }).done(function(data){
+    $('#addPresupuesto').parent().prepend(data);
+    $('#addModalInfHoras').modal('show');
+  });
+
+});
+
+$('#infCompras').click(function(event){
+  event.preventDefault();
+  var form_action = "{{ route('createInfCompras', ['id' => $obra->id]) }}";
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: form_action
+  }).done(function(data){
+    $('#addPresupuesto').parent().prepend(data);
+    $('#addModalInfCompras').modal('show');
+  });
+
+});
+
 
 function desmarcarCheckBox(){
   if ($('#uso_beneficio_global_1').is(":checked")){

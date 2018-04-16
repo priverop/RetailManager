@@ -40,6 +40,28 @@ class ObraController extends Controller
       return response()->json($html);
     }
 
+    public function createInfHoras($id)
+    {
+      $obra = Obra::find($id);
+
+      $html = view('obras.informe-horas', [
+        'obra' => $obra,
+      ])->render();
+
+      return response()->json($html);
+    }
+
+    public function createInfCompras($id)
+    {
+      $obra = Obra::find($id);
+
+      $html = view('obras.informe-compras', [
+        'obra' => $obra,
+      ])->render();
+
+      return response()->json($html);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
