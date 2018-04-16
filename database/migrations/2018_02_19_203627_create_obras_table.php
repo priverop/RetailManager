@@ -18,6 +18,7 @@ class CreateObrasTable extends Migration
             $table->date('fecha');
             $table->double('beneficio')->default(30);
             $table->double('precio_total', 8, 2)->default(0);
+            $table->double('precio_total_beneficio', 8, 2)->default(0);
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();

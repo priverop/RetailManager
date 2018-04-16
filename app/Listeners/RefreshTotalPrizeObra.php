@@ -37,12 +37,20 @@ class RefreshTotalPrizeObra
         $obra = Obra::find($presupuesto->obra_id);
 
         $totalPrize = 0;
+        $totalPrizeB = 0;
 
         foreach($obra->presupuestos as $key => $value){
           $totalPrize += $value->precio_total;
+          if($value->uso_beneficio_global === 1){
+            $beneficio = $obra->beneficio;
+          }else{
+            $beneficio = $value->beneficio;
+          }
+          $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01)); 
         }
 
         $obra->precio_total = $totalPrize;
+        $obra->precio_total_beneficio = $totalPrizeB;
         $obra->save();
 
     }

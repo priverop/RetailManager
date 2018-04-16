@@ -15,7 +15,9 @@
         <th>#</th>
         <th>Fecha</th>
         <th>Cliente</th>
+        <th>Precio Total</th>
         <th>Beneficio</th>
+        <th>Precio + Beneficio</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -25,7 +27,9 @@
           <td>{{ $key }}</td>
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
+          <td>{{ $value->precio_total}}</td>
           <td>{{ $value->beneficio }}</td>
+          <td>{{ $value->precio_total_beneficio}}</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>

@@ -9,7 +9,9 @@
   <h4>{{ $obra->fecha }}</h4>
   <p>Identificador de obra: {{ $obra->id }}</p>
   <p>Precio total de obra: {{ $obra->precio_total }}</p>
+  <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Presupuesto</button>
+  <button class="btn btn-primary" id="exportFactusol">Exportar a Factusol</button>
 
   <div class="row mt-5 p-3 border">
     <table id="presupuestoIndex">
@@ -20,6 +22,9 @@
           <th>Precio und.</th>
           <th>Unidades</th>
           <th>Precio Total</th>
+          <th>Beneficio</th>
+          <th>Beneficio Global</th>
+          <th>Precio + Beneficio</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -31,6 +36,20 @@
             <td>{{$presupuesto->precio_total_unidad}}</td>
             <td>{{$presupuesto->unidades}}</td>
             <td>{{$presupuesto->precio_total}}</td>
+            @if ($presupuesto->uso_beneficio_global === 1)
+              <?php
+                $beneficio = $presupuesto->obra->beneficio;
+                $b_global = "Activado";
+              ?>
+            @else
+              <?php
+                $beneficio = $presupuesto->beneficio;
+                $b_global = "Desactivado";
+              ?>
+            @endif
+            <td>{{$beneficio}}</td>
+            <td>{{$b_global}}</td>
+            <td>{{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01)) }}</td>
             <td>
               <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
                 <button class="btn btn-outline-primary btn-sm">Ver</button>
@@ -66,6 +85,11 @@
               <div class="col-sm-10">
                 <input type="text" class="form-control" name="beneficio" value="{{ $obra->beneficio }}" placeholder="%" autofocus>
               </div>
+            </div>
+            <div class="form-group">
+              <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="form-control"  onclick="desmarcarCheckBox()">
+              <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="form-control"  onclick="desmarcarCheckBox()" checked hidden>
+              <label class="control-label col-sm-2" for="title"><strong>Beneficio Global</strong>:</label>
             </div>
             <input type="hidden" class="form-control" name="obra_id" value="{{ $obra->id }}">
           </form>
@@ -117,6 +141,20 @@ console.log(formulario);
     $("#addModal").modal('show');
   });
 });
+
+function desmarcarCheckBox(){
+  if ($('#uso_beneficio_global_1').is(":checked")){
+    $('#uso_beneficio_global_0').prop('checked',false);
+  }else{
+    $('#uso_beneficio_global_0').prop('checked',true);
+  }
+
+  if ($('#uso_beneficio_global_0').is(":checked")){
+    $('#uso_beneficio_global_1').prop('checked',false);
+  }else{
+    $('#uso_beneficio_global_1').prop('checked',true);
+  }
+}
 </script>
 
 
