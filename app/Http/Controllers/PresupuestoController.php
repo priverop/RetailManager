@@ -45,7 +45,6 @@ class PresupuestoController extends Controller
      */
     public function store(Request $request)
     {
-        \Debugbar::info($request);
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
           'beneficio' => $request->input('beneficio'),

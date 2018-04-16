@@ -6,6 +6,8 @@ use App\Obra;
 use App\Cliente;
 use Illuminate\Http\Request;
 
+use App\Events\PresupuestoModificado;
+
 use View;
 
 class ObraController extends Controller
@@ -95,6 +97,19 @@ class ObraController extends Controller
           'beneficio' => $request->input('beneficio'),
           'cliente_id' => $cliente->id
         ]);
+
+        $totalPrizeB = 0;
+        foreach($obra->presupuestos as $key => $value){
+          if($value->uso_beneficio_global === 1){
+            $beneficio = $obra->beneficio;
+          }else{
+            $beneficio = $value->beneficio;
+          }
+          $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01));
+        }
+
+        $obra->precio_total_beneficio = $totalPrizeB;
+        $obra->save();
 
         return response()->json($obra);
 
