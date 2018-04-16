@@ -34,6 +34,8 @@
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
             </a>
+            <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
           </td>
         </tr>
       @endforeach
@@ -72,4 +74,44 @@ $('#addObra').click(function(event){
 
 </script>
 
+<script type="text/javascript">
+      $(function() {
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+    });
+
+</script>
+
+<script>
+
+function eliminar(id){
+  $.ajax({
+      dataType: 'json',
+
+      type:'delete',
+
+      url: 'obras/'+id
+  }).done(function(data){
+      location.reload();
+ });
+}
+
+
+function editar(id){
+  var form_action = "{{route('obras.create')}}";
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: form_action,
+    data: {id: id}
+  }).done(function(data){
+    $('#addObra').parent().prepend(data);
+    $('#addModal').modal('show');
+  });
+}
+</script>
 @endsection

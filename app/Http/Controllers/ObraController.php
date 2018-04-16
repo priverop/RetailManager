@@ -27,11 +27,15 @@ class ObraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $html = View::make('obras.create')->render();
+      $obra = Obra::find($request->input('id'));
 
-        return response()->json($html);
+      $html = view('obras.create', [
+        'obra' => $obra,
+      ])->render();
+
+      return response()->json($html);
     }
 
     /**
@@ -82,9 +86,18 @@ class ObraController extends Controller
      * @param  \App\Obra  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Obra $proveedor)
+    public function update(Request $request)
     {
-        //
+        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
+        $obra = Obra::find($request->input('id'));
+        $obra->update([
+          'fecha' => $request->input('fecha'),
+          'beneficio' => $request->input('beneficio'),
+          'cliente_id' => $cliente->id
+        ]);
+
+        return response()->json($obra);
+
     }
 
     /**
@@ -93,8 +106,9 @@ class ObraController extends Controller
      * @param  \App\Obra  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Obra $proveedor)
+    public function destroy($id)
     {
-        //
+      Obra::find($id)->delete();
+      return response()->json(['done']);
     }
 }

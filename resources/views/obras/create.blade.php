@@ -7,15 +7,24 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
+        <!-- <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm"> -->
+        @isset($obra)
+        <form class="form-horizontal" role="form" action="{{ route('obras.update', ['id' => $obra->id]) }}" method="POST" id="addObrasForm">
+          <input type="text" class="form-control" name="id" value="{{$obra->id}}" hidden>
+        @else
         <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm">
-
+        @endisset
           <div class="form-group">
             <label class="control-label col-sm-2" for="title"><strong>Cliente</strong>:</label>
             <p>
               Escriba el nombre del cliente y le aparecerá una lista de los clientes similares
             </p>
             <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="typeahead form-control" name="nombre" placeholder="Buscar cliente" value="{{$obra->cliente->nombre}}" autofocus>
+              @else
               <input type="text" class="typeahead form-control" name="nombre" placeholder="Buscar cliente" autofocus>
+              @endisset
             </div>
           </div>
 
@@ -25,7 +34,16 @@
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
             </p>
             <div class="col-sm-10">
+              @isset($obra)
+              <?php
+                $date = $obra->fecha;
+                $date = strtotime($date);
+                $date = date("Y-m-d", $date);
+              ?>
+              <input type="date" class="form-control" value="{{ $date }}" name="fecha">
+              @else
               <input type="date" class="form-control" name="fecha">
+              @endisset
             </div>
           </div>
 
@@ -35,14 +53,23 @@
               Seleccione un porcentaje de beneficio para el presupuesto.
             </p>
             <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="beneficio" value="{{$obra->beneficio}}" placeholder="%">
+              @else
               <input type="text" class="form-control" name="beneficio" value="30" placeholder="%">
+              @endisset
             </div>
           </div>
 
         </form>
         <div class="modal-footer">
           <button id="addObraButton" type="button" class="btn btn-success add">
-            <span class='glyphicon glyphicon-check'></span> Añadir
+            <span class='glyphicon glyphicon-check'></span>
+            @isset($obra)
+            Actualizar
+            @else
+            Añadir
+            @endisset
           </button>
           <button type="button" class="btn btn-warning" data-dismiss="modal">
             <span class='glyphicon glyphicon-remove'></span> Cerrar
@@ -70,7 +97,11 @@ $(function(){
     console.log(formulario);
 
     $.ajax({
+      @isset($obra)
+        type: 'PUT',
+      @else
         type: 'POST',
+      @endisset
         url: form_action,
         data: formulario
     }).done(function(data){
