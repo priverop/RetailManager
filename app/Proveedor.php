@@ -12,4 +12,10 @@ class Proveedor extends Model
   public function materiales(){
     return $this->belongsToMany('App\Material', 'material_proveedor');
   }
+
+  protected $fillable = [
+
+      'nombre', 'direccion', 'provincia', 'telefono', 'codigo-postal', 'nif'
+
+  ];
 }
