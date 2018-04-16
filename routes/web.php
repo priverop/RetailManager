@@ -24,11 +24,13 @@ Route::post('/materiales/editarExterno/{id}', 'MaterialExternoController@editarE
 Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 Route::post('/materiales/destroyExterno/{id}', 'MaterialExternoController@destroyExterno')->name('destroyExterno');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
+Route::post('/obras/export/{id}', 'ObraController@export')->name('export');
 
 /* FIN MATERIALES PIVOT */
 
 // Clientes autocomplete
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
+Route::get('ExportPRE/{id}', 'excelController@ExportPRE')->name('ExportPRE');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');

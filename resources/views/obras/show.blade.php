@@ -11,7 +11,7 @@
   <p>Precio total de obra: {{ $obra->precio_total }}</p>
   <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Presupuesto</button>
-  <button class="btn btn-primary" id="exportFactusol">Exportar a Factusol</button>
+  <a href="{{  route('ExportPRE', ['id'=>$obra->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
 
   <div class="row mt-5 p-3 border">
     <table id="presupuestoIndex">
@@ -140,6 +140,7 @@ console.log(formulario);
   $("#addPresupuesto").click(function(){
     $("#addModal").modal('show');
   });
+
 });
 
 function desmarcarCheckBox(){
