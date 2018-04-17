@@ -25,9 +25,15 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      $proveedor = Proveedor::find($request->input('id'));
+
+      $html = view('proveedores.create', [
+        'proveedor' => $proveedor,
+      ])->render();
+
+      return response()->json($html);
     }
 
     /**
@@ -36,12 +42,11 @@ class ProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+     public function store(Request $request)
+     {
          $proveedor = Proveedor::create($request->all());
-        return response()->json($proveedor);
-    }
+         return response()->json($proveedor);
+     }
 
     /**
      * Display the specified resource.
@@ -53,10 +58,10 @@ class ProveedorController extends Controller
     {
         //
         $proveedor = Proveedor::find($indice);
-        
-        
-        
-        
+
+
+
+
         return View::make('proveedores.show')->with('proveedor', $proveedor);
     }
 
@@ -78,20 +83,15 @@ class ProveedorController extends Controller
      * @param  \App\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request,  $id)
     {
-        //
-    }
+        $edit = Proveedor::find($id)->update($request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Proveedor  $proveedor
-     * @return \Illuminate\Http\Response
-     */
+        return response()->json($edit);
+    }
     public function destroy($id)
     {
-        
+
          Proveedor::find($id)->delete();
 
         return response()->json(['done']);
