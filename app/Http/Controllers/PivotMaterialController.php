@@ -72,28 +72,25 @@ class PivotMaterialController extends Controller
      * @param  integer $material
      * @return \Illuminate\Http\Response
      */
-    public function updateWithParte(Request $request, $material)
+    public function updateWithParte(Request $request, $presupuesto_id)
     {
-
-        $parte_id = $request->input('parte');
+        $materialparte_id = $request->input('id');
 
         $update = DB::table('material_parte')
-        ->where('material_id', $material)
-        ->where('parte_id', $parte_id)
+        ->where('id', $materialparte_id)
         ->update(
           ['unidades' => $request->input('unidades'),
           'ancho' => $request->input('ancho'),
           'alto' => $request->input('alto')]
         );
 
-        event(new MaterialParteModificado($material, $parte_id));
-
-        $presupuesto_id = DB::table('partes')
-        ->select('presupuesto_id')
-        ->where('id', '=', $parte_id)
+        $materialparte = DB::table('material_parte')
+        ->where('id', $materialparte_id)
         ->first();
+        // \Debugbar::info($materialparte);
+        event(new MaterialParteModificado($materialparte->material_id, $materialparte->parte_id));
 
-        $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+        $presupuesto = Presupuesto::find($presupuesto_id);
 
         event(new PresupuestoModificado($presupuesto));
 
@@ -106,21 +103,16 @@ class PivotMaterialController extends Controller
      * @param  \App\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroyWithParte(Request $request, $material)
+    public function destroyWithParte(Request $request, $presupuesto_id)
     {
-      $parte_id = $request->input('parte');
+      //MaterialParte_ID
+      $id = $request->input('id');
 
       $delete = DB::table('material_parte')
-      ->where('material_id', $material)
-      ->where('parte_id', $parte_id)
+      ->where('id', $id)
       ->delete();
 
-      $presupuesto_id = DB::table('partes')
-      ->select('presupuesto_id')
-      ->where('id', '=', $parte_id)
-      ->first();
-
-      $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
+      $presupuesto = Presupuesto::find($presupuesto_id);
 
       event(new PresupuestoModificado($presupuesto));
 

@@ -71,7 +71,7 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-      
+
       // Comprobamos que no exista
       if(!Material::where('nombre', '=', $request->input('nombre'))->exists()){
         $material = Material::create($request->all());
@@ -132,7 +132,7 @@ class MaterialController extends Controller
 
         if($request->input('proveedorID')){
           $newProveedorID = $request->input('proveedorID');
-          $newProveedorID++;
+          $newProveedorID++; // Aumentamos uno dado que el ID de la tabla front empieza en 0
           $update = DB::table('material_proveedor')
           ->where('material_id', $material)
           ->where('proveedor_id', $request->input('proveedor_id'))

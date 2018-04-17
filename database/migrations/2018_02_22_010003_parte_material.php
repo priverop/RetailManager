@@ -15,6 +15,8 @@ class ParteMaterial extends Migration
     {
       Schema::create('material_parte', function (Blueprint $table) {
 
+        $table->increments('id')->unsigned()->unique();
+
         $table->integer('parte_id')->unsigned();
         $table->foreign('parte_id')->references('id')
             ->on('partes')->onDelete('cascade');

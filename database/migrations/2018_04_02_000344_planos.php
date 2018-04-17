@@ -19,6 +19,7 @@ class Planos extends Migration
         $table->foreign('presupuesto_id')->references('id')
             ->on('presupuestos')->onDelete('cascade');
         $table->string('filename');
+        $table->timestamps();
       });
     }
 
@@ -29,6 +30,6 @@ class Planos extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('planos');
     }
 }

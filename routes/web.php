@@ -34,6 +34,10 @@ Route::get('/obras/createInfCompras/{id}', 'ObraController@createInfCompras')->n
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
 Route::get('ExportPRE/{id}', 'excelController@ExportPRE')->name('ExportPRE');
 
+// Duplicar Presupuesto
+Route::get('/presupuestos/duplicateForm', 'PresupuestoController@duplicateForm')->name('duplicateForm');
+Route::get('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->name('duplicatePresupuesto');
+
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');

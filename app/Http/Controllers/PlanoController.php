@@ -25,11 +25,17 @@ class PlanoController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Plano::create($request->all());
 
         // Almacenamos la foto
+        foreach ($request->img as $key => $value) {
+          $path = $value->store('public/planos');
+          Plano::create([
+            'presupuesto_id' => $request->input('presupuesto_id'),
+            'filename' => $path
+          ]);
+        }
 
-        return response()->json($cliente);
+        return redirect('presupuestos/'.$request->input('presupuesto_id'));
     }
 
     /**

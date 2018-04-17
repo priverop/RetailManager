@@ -98,13 +98,21 @@
   <div class="col"><div class="row m-3">
     <div class="col-xs-12">
       <h3>Planos del presupuesto</h3>
-      <form id="planosForm"><input type="file" name="img" multiple></form>
-      <button class="btn btn-primary" id="addPlanos">Añadir</button>
+      <form enctype="multipart/form-data" action="{{ route('planos.store') }}" method="POST">
+        <input type="file" name="img[]" multiple>
+        <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
+        {{ csrf_field() }}
+        <input type="submit" class="btn btn-primary" value="Añadir">
+      </form>
       @if(count($presupuesto->planos) >= 1)
-      <button class="btn btn-primary">Ver planos</button>
-      <div class="">
+      <button class="btn btn-primary" id="mostrarPlanos">Ver planos</button>
+      <div class="gallery-container">
         @foreach($presupuesto->planos as $key => $plano)
-          {{ $plano->filename }}
+          <div class="gallery-item">
+            <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
+              <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+            </a>
+          </div>
         @endforeach
       </div>
       @endif
@@ -224,13 +232,9 @@
                   <td>{{$mvalue->precio}}</td>
                   <td>{{$mvalue->pivot->precio_total}}</td>
                   <td>
-                    <?php $rutaEliminar = route('destroyMaterialWithParte', ['id' => $mvalue->id]); ?>
 
-                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{$mvalue->id}}, {{ $value->id }}, this)">Editar</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $value->id }}, this)">Borrar</button>
-                    <input type="hidden" value="{{ route('updateMaterialWithParte', ['id' => $mvalue->id]) }}">
-                    <input type="hidden" value="{{ $value->id }}">
-                    <input type="hidden" value="{{ $rutaEliminar }}">
+                    <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial({{ $mvalue->pivot->id }}, this)">Editar</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial({{ $mvalue->pivot->id }})">Borrar</button>
                   </td>
                 </tr>
                 @endif
@@ -330,7 +334,7 @@
         Y se suma automáticamente al total del presupuesto.
       </p>
       <input type="text" name="desperdicio" placeholder="Desperdicio (%)" value="{{ $presupuesto->desperdicio }}" />
-      <button class="btn btn-primary">Actualizar</button>
+      <button class="btn btn-primary" id="updateDesperdicio">Actualizar</button>
     </div>
 
   </div>
@@ -863,23 +867,6 @@ $(function() {
   });
 
   /*
-  * Enviar Planos adjuntos
-  */
-  $("#addPlanos").click(function(event){
-    event.preventDefault();
-    var form_action = "{{ route('planos.store', ['presupuesto_id' => $presupuesto->id]) }}";
-    var formulario = $("#planosForm").serialize();
-
-    $.ajax({
-        type:'POST',
-        url: form_action,
-        data: formulario
-    }).done(function(data){
-        location.reload();
-    });
-  });
-
-  /*
   * Añadir Material - Modal
   */
   $(".addMaterial").click(function(){
@@ -893,6 +880,33 @@ $(function() {
         prepareDataTable(parte_id);
     });
 
+  });
+
+  /*
+  * Actualizar Desperdicio
+  */
+  $("#updateDesperdicio").click(function(event){
+    event.preventDefault();
+    var form_action = "{{ route('presupuestos.update', ['id' => $presupuesto->id]) }}";
+    var desperdicio = $('input[name="desperdicio"]').val();
+
+    $.ajax({
+        dataType: 'json',
+        type:'PUT',
+        url: form_action,
+        data: { desperdicio:desperdicio }
+    }).done(function(data){
+        location.reload();
+    });
+  });
+
+  /*
+  * Mostrar Planos
+  * Al pulsar mostramos div gallery-container
+  * Si volvemos a pulsar desaparece
+  */
+  $("#mostrarPlanos").click(function(event){
+    $(".gallery-container").toggle();
   });
 
   // STORE Parte
@@ -994,12 +1008,8 @@ function editarInfo(elemento){
 }
 
 /*
-* Editar Material.
+* Eliminar Parte
 *
-* Habilita los inputs para la edición.
-* Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
 */
 function deleteParte(elemento){
   var form_action = $(elemento).next().val();
@@ -1019,14 +1029,14 @@ function deleteParte(elemento){
 *
 * Habilita los inputs para la edición.
 * Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
+* @param materialparteID
+* @param elemento -> this para el botón en el que ha pulsado el usuario
 */
-function editarMaterial(materialID, parteID, elemento){
+function editarMaterial(materialparteID, elemento){
   $(elemento).html('Guardar');
   $(elemento).parent().parent().find('.editable input').prop("type", "text");
   $(elemento).parent().parent().find('.editable p').hide();
-  $(elemento).attr("onclick","guardarMaterialEditado("+materialID+", "+parteID+", this)");
+  $(elemento).attr("onclick", "guardarMaterialEditado("+materialparteID+", this)");
 }
 
 /*
@@ -1034,8 +1044,8 @@ function editarMaterial(materialID, parteID, elemento){
 *
 * Habilita los inputs para la edición.
 * Cambiamos el botón para guardar y cambiamos su función onclick.
-* @input materialID
-* @input elemento -> this para el botón en el que ha pulsado el usuario
+* @param materialID
+* @param elemento -> this para el botón en el que ha pulsado el usuario
 */
 function editarMaterialExterno(materialID, elemento){
   $(elemento).html('Guardar');
@@ -1050,9 +1060,9 @@ function editarMaterialExterno(materialID, elemento){
 * Seleccionamos los datos y los enviamos
 * @return Actualizamos la página
 */
-function guardarMaterialEditado(materialID, parteID, elemento){
+function guardarMaterialEditado(materialparteID, elemento){
   var tr = $(elemento).parent().parent();
-  var form_action = $(elemento).next().next().val();
+  var form_action = "{{ route('updateMaterialWithParte', ['presupuesto_id' => $presupuesto->id]) }}";
   var unidades = tr.find('input[name="unidades"]').val();
   var alto = tr.find('input[name="alto"]').val();
   var ancho = tr.find('input[name="ancho"]').val();
@@ -1061,7 +1071,7 @@ function guardarMaterialEditado(materialID, parteID, elemento){
       dataType: 'json',
       type:'POST',
       url: form_action,
-      data: {parte: parteID, unidades: unidades, alto: alto, ancho: ancho},
+      data: {id: materialparteID, unidades: unidades, alto: alto, ancho: ancho},
   }).done(function(data){
       location.reload();
   });
@@ -1100,14 +1110,14 @@ function guardarMaterialExterno(materialID, elemento){
 * Eliminar Material
 */
 
-function eliminarMaterial(parte_id, elemento){
-var form_action = $(elemento).next().next().next().val();
+function eliminarMaterial(material_parte_id){
+var form_action = "{{ route('destroyMaterialWithParte', ['presupuesto_id' => $presupuesto->id]) }}";
 
   $.ajax({
       dataType: 'json',
       type:'POST',
       url: form_action,
-      data: {parte: parte_id},
+      data: {id: material_parte_id},
   }).done(function(data){
       location.reload();
   });
@@ -1212,5 +1222,31 @@ function editar1(id) {
      n[i].hidden = false;
   }
 }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script>
+$('.image-popup').magnificPopup({
+  type: 'image',
+  removalDelay: 300,
+  mainClass: 'mfp-with-zoom',
+  gallery:{
+    enabled:true
+  },
+  zoom: {
+    enabled: true, // By default it's false, so don't forget to enable it
+
+    duration: 300, // duration of the effect, in milliseconds
+    easing: 'ease-in-out', // CSS transition easing function
+
+    // The "opener" function should return the element from which popup will be zoomed in
+    // and to which popup will be scaled down
+    // By defailt it looks for an image tag:
+    opener: function(openerElement) {
+    // openerElement is the element on which popup was initialized, in this case its <a> tag
+    // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+    return openerElement.is('img') ? openerElement : openerElement.find('img');
+    }
+  }
+});
 </script>
 @endsection
