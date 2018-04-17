@@ -40,11 +40,16 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        $cliente = Cliente::all();
-        return View::make('clientes.create')->with('clientes', $cliente);
+      $cliente = Cliente::find($request->input('id'));
+
+      $html = view('clientes.create', [
+        'cliente' => $cliente,
+      ])->render();
+
+      return response()->json($html);
+
     }
 
     /**
@@ -55,13 +60,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         $cliente = Cliente::create($request->all());
         return response()->json($cliente);
-
-
-
     }
 
     /**
