@@ -17,7 +17,7 @@ class CreateProveedorsTable extends Migration
             $table->increments('id')->unsigned()->unique();
             $table->string('nombre');
             $table->string('direccion');
-            $table->integer('codigo-postal');
+            $table->integer('cp');
             $table->string('provincia');
             $table->integer('telefono');
             $table->string('nif');

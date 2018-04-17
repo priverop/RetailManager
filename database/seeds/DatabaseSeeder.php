@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         DB::table('proveedors')->insert([
           'nombre'        => "Sin Proveedor",
           'direccion'     => "Sin dirección",
-          'codigo-postal' => 000000,
+          'cp'            => 000000,
           'provincia'     => "Madrid",
           'telefono'      => 666666666,
           'nif'           => 00000000,

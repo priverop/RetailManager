@@ -20,7 +20,7 @@ class Cliente extends Model
      */
     protected $fillable = [
 
-        'nombre', 'direccion', 'provincia', 'telefono', 'codigo-postal', 'nif'
+        'nombre', 'direccion', 'provincia', 'telefono', 'cp', 'nif'
 
     ];
 }
