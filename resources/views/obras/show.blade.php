@@ -188,7 +188,7 @@ function desmarcarCheckBox(){
   }else{
     $('#uso_beneficio_global_1').prop('checked',true);
   }
-
+}
 // Traemos el modal del concepto del presupuesto duplicado
 function getDuplicateForm(presupuesto_id){
   event.preventDefault();
