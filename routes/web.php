@@ -36,7 +36,7 @@ Route::get('ExportPRE/{id}', 'excelController@ExportPRE')->name('ExportPRE');
 
 // Duplicar Presupuesto
 Route::get('/presupuestos/duplicateForm', 'PresupuestoController@duplicateForm')->name('duplicateForm');
-Route::get('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->name('duplicatePresupuesto');
+Route::post('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->name('duplicatePresupuesto');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
