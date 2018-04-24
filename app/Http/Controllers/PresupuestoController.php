@@ -116,8 +116,7 @@ class PresupuestoController extends Controller
 
       event(new PresupuestoModificado($nuevoPresupuesto));
 
-      // return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
-      return View::make('presupuestos.show')->with('presupuesto', $nuevoPresupuesto);
+      return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
     }
 
     /**
