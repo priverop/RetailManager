@@ -23,45 +23,44 @@
         <th>Beneficio Global</th>
         <th>Precio Final</th>
         <th>ID Presupuesto</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
 
-          @foreach($presupuestos as $key => $value)
-        <tr>
-          <td> <a href='presupuestos/{{ $value->id }}'> {{ $value->concepto }}</a> </td>
-          <td> {{ $value->unidades }} </td>
-          <td>{{ $value->obra->id}}</td>
-          <td>{{ $value->obra->cliente->nombre }}</td>
-          <td> {{ $value->fecha }} </td>
-          <td> {{ $value->estado }} </td>
-          <td> {{ $value->caracteristicas }} </td>
-          @if ($value->uso_beneficio_global === 1)
-            <?php
-                $beneficio = $value->obra->beneficio;
-                $b_global = "Activado";
-            ?>
-          @else
-            <?php
-              $beneficio = $value->beneficio;
-              $b_global = "Desactivado";
-            ?>
-          @endif
-          <td> {{ $beneficio }} </td>
-          <td> {{ $b_global }} </td>
-          <td> {{ $value->precio_final }} </td>
-          <td>{{ $value->id}}</td>
-        <td><button type="button" id="eliminar" class="btn btn-danger eliminar" data-dismiss="modal">
-          <span class='glyphicon glyphicon-remove'></span> X
-        </button>
-              <input type=“hidden” value='{{ $value->id }}' id='cliente_id' style="display:none;">
+      @foreach($presupuestos as $key => $value)
+      <tr>
+        <td> <a href='presupuestos/{{ $value->id }}'> {{ $value->concepto }}</a> </td>
+        <td> {{ $value->unidades }} </td>
+        <td>{{ $value->obra->id}}</td>
+        <td>{{ $value->obra->cliente->nombre }}</td>
+        <td> {{ $value->fecha }} </td>
+        <td> {{ $value->estado }} </td>
+        <td> {{ $value->caracteristicas }} </td>
+        @if ($value->uso_beneficio_global === 1)
+          <?php
+          $beneficio = $value->obra->beneficio;
+          $b_global = "Activado";
+          ?>
+        @else
+          <?php
+          $beneficio = $value->beneficio;
+          $b_global = "Desactivado";
+          ?>
+        @endif
+        <td> {{ $beneficio }} </td>
+        <td> {{ $b_global }} </td>
+        <td> {{ $value->precio_final }} </td>
+        <td>{{ $value->id}}</td>
+        <td>
+          <button type="button" id="eliminar" class="btn btn-danger eliminar" data-dismiss="modal">
+            Borrar
+          </button>
+          <input type="hidden" value='{{ $value->id }}' id="cliente_id">
         </td>
-        </tr>
+      </tr>
 
-
-          @endforeach
-
-
+      @endforeach
 
     </tbody>
   </table>
