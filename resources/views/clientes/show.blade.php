@@ -4,17 +4,20 @@
 
 @section('content')
 
+<h1>{{ $cliente->nombre }}</h1>
+
 <div class="row">
-  <h1>{{ $cliente->nombre }}</h1>
+
+
   <div class="row mt-5 p-3 border">
     <div class="col-xs-12">
 
-      <p>ID cliente: {{ $cliente-> id}}</p>
-      <p>Nombre: {{ $cliente->nombre }}</p>
-      <p>Direccion: {{ $cliente->direccion }}</p>
-      <p>Provincia: {{ $cliente->provincia }}</p>
-      <p>Telefono: {{ $cliente->telefono }}</p>
-      <p>Obras: </p>
+      <p><b>ID:</b> {{ $cliente-> id}}</p>
+      <p><b>Nombre:</b> {{ $cliente->nombre }}</p>
+      <p><b>Direccion:</b> {{ $cliente->direccion }}</p>
+      <p><b>Provincia:</b> {{ $cliente->provincia }}</p>
+      <p><b>Telefono:</b> {{ $cliente->telefono }}</p>
+      <p><b>Obras:</b> </p>
       <ul>
         @foreach($cliente->obras as $keys => $obras)
           <li><a href="{{route('obras.show', ['id' => $obras->id])}}">{{ $obras->fecha }}</a></li>

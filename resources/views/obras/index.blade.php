@@ -28,7 +28,7 @@
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
           <td>{{ $value->precio_total}}</td>
-          <td>{{ $value->beneficio }}</td>
+          <td>{{ $value->beneficio }}%</td>
           <td>{{ $value->precio_total_beneficio}}</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">

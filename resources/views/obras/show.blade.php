@@ -49,7 +49,7 @@
                 $b_global = "Desactivado";
               ?>
             @endif
-            <td>{{$beneficio}}</td>
+            <td>{{$beneficio}}%</td>
             <td>{{$b_global}}</td>
             <td>{{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01)) }}</td>
             <td>

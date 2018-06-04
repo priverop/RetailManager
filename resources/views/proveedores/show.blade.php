@@ -5,20 +5,20 @@
 @section('content')
 
 <div class="pt-5" id="clienteContainer">
-  <h1>Proveedor Determinado</h1>
+  <h1>{{ $proveedor->nombre }}</h1>
   <div class="row mt-5 p-3 border">
     <div class="col-xs-12">
-    <p>Nombre: {{ $proveedor->nombre }} </p>
-    <p>Dirección: {{ $proveedor->direccion }}</p>
-    <p>Provincia:{{ $proveedor->provincia }}</p>
-    <p>Teléfono: {{ $proveedor->telefono }} </p>
-    <p>Nif: {{ $proveedor->nif }}</p>
-    <p>Id: {{ $proveedor->id }}</p>
-      
+    <p><b>ID:</b> {{ $proveedor->id }}</p>
+    <p><b>Nombre:</b> {{ $proveedor->nombre }} </p>
+    <p><b>Dirección:</b> {{ $proveedor->direccion }}</p>
+    <p><b>Provincia:</b> {{ $proveedor->provincia }}</p>
+    <p><b>Teléfono:</b> {{ $proveedor->telefono }} </p>
+    <p><b>Nif:</b> {{ $proveedor->nif }}</p>
+
     </div>
   </div>
-  
-  
+
+
 </div>
 
 
