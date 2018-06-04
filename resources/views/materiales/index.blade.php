@@ -6,9 +6,9 @@
 
   <h2>Lista de Materiales</h2>
 
-<div class="row">
+<input type="button" id="addMaterial" class="btn btn-primary mt-4 mb-4" value="Añadir Material">
 
-  <input type="button" id="addMaterial" class="btn btn-primary mt-4 mb-4" value="Añadir Material">
+<div class="row">
 
   <table id="indexMaterial" class="display" style="width:100%">
     <thead>
