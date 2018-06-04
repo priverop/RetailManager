@@ -12,6 +12,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>#</th>
         <th>Concepto</th>
         <th>Unidades</th>
         <th>Obra</th>
@@ -30,7 +31,8 @@
 
       @foreach($presupuestos as $key => $value)
       <tr>
-        <td> <a href='presupuestos/{{ $value->id }}'> {{ $value->concepto }}</a> </td>
+        <td>{{$value->id}}</td>
+        <td> <a href="{{ route('presupuestos.show', ['id' => $value->id]) }}"> {{ $value->concepto }}</a> </td>
         <td> {{ $value->unidades }} </td>
         <td>{{ $value->obra->id}}</td>
         <td>{{ $value->obra->cliente->nombre }}</td>
@@ -53,10 +55,8 @@
         <td> {{ $value->precio_final }} </td>
         <td>{{ $value->id}}</td>
         <td>
-          <button type="button" id="eliminar" class="btn btn-danger eliminar" data-dismiss="modal">
-            Borrar
-          </button>
-          <input type="hidden" value='{{ $value->id }}' id="cliente_id">
+          <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarPresupuesto(this)">Borrar</button>
+          <input type="hidden" value="{{route('presupuestos.destroy', ['id' => $value->id])}}">
         </td>
       </tr>
 
@@ -74,26 +74,19 @@
           }
         });
 
-        $("body").on("click",".eliminar",function(){
-
-           var id_bueno=$(this).next().val();
-           var form_action = $("#addClienteForm").attr("action");
-           var c_obj = $(this).parents("tr");
-
-            $.ajax({
-                dataType: 'json',
-
-                type:'delete',
-
-                url: 'presupuestos/'+id_bueno
-            }).done(function(data){
-                c_obj.remove();
-                location.reload();
-
-            });
-
-        });
     });
+
+    function eliminarPresupuesto(elemento){
+      var form_action = $(elemento).next().val();
+
+      $.ajax({
+        dataType: 'json',
+        type: 'DELETE',
+        url: form_action
+      }).done(function(data){
+        location.reload();
+      });
+    }
 </script>
 
 @endsection
