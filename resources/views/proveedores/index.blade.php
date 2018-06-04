@@ -24,18 +24,19 @@
     <tbody>
       @foreach($proveedores as $key => $value)
       <tr>
-          <td>{{ $key }}</td>
-          <td>{{ $value->nombre }}</td>
+          <td>{{ $value->id }}</td>
+          <td><a href="{{ route('proveedores.show', ['id' => $value->id]) }}">{{ $value->nombre }}</a></td>
           <td>{{ $value->direccion }}</td>
           <td>{{ $value->provincia}}</td>
           <td>{{ $value->telefono }}</td>
           <td>{{ $value->nif}}</td>
           <td>
-            <a href="{{ route('proveedores.show', ['id' => $value->id]) }}">
+            <!-- <a href="{{ route('proveedores.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
-            </a>
+            </a> -->
             <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
-            <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( this )">Borrar</button>
+            <input type="hidden" value="{{route('proveedores.destroy', ['id' => $value->id])}}">
           </td>
         </tr>
       @endforeach
@@ -87,16 +88,16 @@ $('#addProveedor').click(function(event){
 
 <script>
 
-function eliminar(id){
+function eliminar(elemento){
+  var form_action = $(elemento).next().val();
+
   $.ajax({
-      dataType: 'json',
-
-      type:'delete',
-
-      url: 'proveedores/'+id
+    dataType: 'json',
+    type: 'DELETE',
+    url: form_action
   }).done(function(data){
-      location.reload();
- });
+    location.reload();
+  });
 }
 
 
