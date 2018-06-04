@@ -25,8 +25,8 @@
     <tbody>
       @foreach($clientes as $key => $value)
       <tr>
-          <td>{{ $key }}</td>
-          <td>{{ $value->nombre }}</td>
+          <td>{{ $value->id }}</td>
+          <td><a href="{{route('clientes.show', ['id' => $value->id])}}"> {{ $value->nombre }}</a></td>
           <td>{{ $value->direccion }}</td>
           <td>{{ $value->provincia}}</td>
           <td>{{ $value->telefono }}</td>
@@ -37,11 +37,12 @@
             @endforeach
           </td>
           <td>
-            <a href="{{ route('clientes.show', ['id' => $value->id]) }}">
+            <!-- <a href="{{ route('clientes.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
-            </a>
+            </a> -->
             <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
-            <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( this )">Borrar</button>
+            <input type="hidden" value="{{route('clientes.destroy', ['id' => $value->id])}}">
           </td>
         </tr>
       @endforeach
@@ -51,6 +52,12 @@
 
 <script>
 $(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   $('#index').DataTable({
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
@@ -78,33 +85,17 @@ $('#addCliente').click(function(event){
 
 });
 
-</script>
+function eliminar(elemento){
+  var form_action = $(elemento).next().val();
 
-<script type="text/javascript">
-      $(function() {
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-    });
-
-</script>
-
-<script>
-
-function eliminar(id){
   $.ajax({
-      dataType: 'json',
-
-      type:'delete',
-
-      url: 'clientes/'+id
+    dataType: 'json',
+    type: 'DELETE',
+    url: form_action
   }).done(function(data){
-      location.reload();
- });
+    location.reload();
+  });
 }
-
 
 function editar(id){
   var form_action = "{{route('clientes.create')}}";

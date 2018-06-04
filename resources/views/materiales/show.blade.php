@@ -5,13 +5,11 @@
 @section('content')
 
 <div class="pt-5" id="clienteContainer">
-  <h1>Material Determinado</h1>
+  <h1>{{ $material->nombre }}</h1>
   <div class="row mt-5 p-3 border">
     <div class="col-xs-12">
-      <p>Nombre: {{ $material->nombre }}</p>
-      <p>Precio: {{ $material->precio }}</p>
-      
-      <p>Material id: {{ $material->id}}</p>
+      <p><b>Nombre:</b> {{ $material->nombre }}</p>
+      <p><b>ID:</b> {{ $material->id}}</p>
 
     </div>
   </div>
