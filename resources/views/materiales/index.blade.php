@@ -25,14 +25,14 @@
       @foreach($pivotTable as $key => $value)
       <tr>
         <td>{{ $value->material_id }}</td>
-        <td><a href='materiales/{{ $value->material_id }}'> {{ $value->m_nombre}}</a> </td>
+        <td><a href="{{route('materiales.show', ['id' => $value->material_id])}}"> {{ $value->m_nombre}}</a> </td>
         <td>{{ $value->m_tipo}}</td>
-        <td><a href='proveedores/{{ $value->proveedor_id }}'>{{ $value->p_nombre }}</a> </td>
+        <td><a href="{{route('proveedores.show', ['id' => $value->proveedor_id])}}">{{ $value->p_nombre }}</a> </td>
         <td>{{ $value->precio }}</td>
         <td>
           <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial( {{$value->material_id}}, {{ $value->proveedor_id }})">Editar</button>
           <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterial(this)">Borrar</button>
-          <button type="hidden" value="{{route('materiales.destroy', ['id' => $value->material_id])}}">
+          <input type="hidden" value="{{route('materiales.destroy', ['id' => $value->material_id])}}">
         </td>
       </tr>
       @endforeach
@@ -74,20 +74,6 @@ $('#addMaterial').click(function(event){
   });
 
 });
-
-function editarMaterial(material_id, proveedor_id){
-  var form_action = "{{route('materiales.create')}}";
-
-  $.ajax({
-    dataType: 'json',
-    type: 'GET',
-    url: form_action,
-    data: {material_id: material_id, proveedor_id: proveedor_id }
-  }).done(function(data){
-    $('#addMaterial').parent().prepend(data);
-    $('#addModal').modal('show');
-  });
-}
 
 function editarMaterial(material_id, proveedor_id){
   var form_action = "{{route('materiales.create')}}";
