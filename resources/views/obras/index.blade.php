@@ -18,7 +18,7 @@
         <th>Cliente</th>
         <th>Precio Coste</th>
         <th>Beneficio</th>
-        <th>Precio + Beneficio</th>
+        <th>Precio Total</th>
         <th>Acciones</th>
       </tr>
     </thead>
