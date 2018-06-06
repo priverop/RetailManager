@@ -13,9 +13,10 @@
     <thead>
       <tr>
         <th>#</th>
+        <th>Nombre</th>
         <th>Fecha</th>
         <th>Cliente</th>
-        <th>Precio Total</th>
+        <th>Precio Coste</th>
         <th>Beneficio</th>
         <th>Precio + Beneficio</th>
         <th>Acciones</th>
@@ -24,7 +25,8 @@
     <tbody>
       @foreach($obras as $key => $value)
       <tr>
-          <td>{{ $key }}</td>
+          <td>{{ $value->id }}</td>
+          <td>{{ $value->nombre }}</td>
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
           <td>{{ $value->precio_total}}</td>

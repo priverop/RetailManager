@@ -29,6 +29,17 @@
           </div>
 
           <div class="form-group">
+            <label class="control-label col-sm-2" for="content"><strong>Nombre:</strong></label>
+            <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="nombre" value="{{$obra->nombre}}">
+              @else
+              <input type="text" class="form-control" name="nombre" placeholder="Nombre de la obra">
+              @endisset
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Fecha:</strong></label>
             <p>
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
@@ -50,7 +61,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Beneficio:</strong></label>
             <p>
-              Seleccione un porcentaje de beneficio para el presupuesto.
+              Seleccione un porcentaje de beneficio para el presupuesto (puede modificarse posteriormente, puede dejarlo en 0 de momento).
             </p>
             <div class="col-sm-10">
               @isset($obra)

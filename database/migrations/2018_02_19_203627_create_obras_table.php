@@ -15,6 +15,7 @@ class CreateObrasTable extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
+            $table->string('nombre');
             $table->date('fecha');
             $table->double('beneficio')->default(30);
             $table->double('precio_total', 8, 2)->default(0);

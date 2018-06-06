@@ -23,10 +23,10 @@
           <th>Concepto</th>
           <th>Precio und.</th>
           <th>Unidades</th>
-          <th>Precio Total</th>
+          <th>Precio Coste</th>
           <th>Beneficio</th>
           <th>Beneficio Global</th>
-          <th>Precio + Beneficio</th>
+          <th>Precio Total</th>
           <th>Acciones</th>
         </tr>
       </thead>
