@@ -18,7 +18,7 @@
         <th>Provincia</th>
         <th>Teléfono</th>
         <th>Nif</th>
-        <th>Obras</th>
+        <th>Número de Obras</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -31,11 +31,7 @@
           <td>{{ $value->provincia}}</td>
           <td>{{ $value->telefono }}</td>
           <td>{{ $value->nif}}</td>
-          <td>
-            @foreach ($value->obras as $indice => $obra)
-            <a href="{{ route('obras.show', ['id' => $obra->id]) }}">{{ $obra -> id }}</a>
-            @endforeach
-          </td>
+          <td>{{count($value->obras)}}</td>
           <td>
             <!-- <a href="{{ route('clientes.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
