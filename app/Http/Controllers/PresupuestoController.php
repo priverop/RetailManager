@@ -36,6 +36,20 @@ class PresupuestoController extends Controller
     }
 
     /**
+     * Devuelve la ventana modal para añadir Presupuestos Existentes
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createExist($obra_id)
+    {
+      $presupuestos = Presupuesto::all();
+
+      $html = view('presupuestos.create-exist', ['presupuestos' => $presupuestos, 'obra_id' => $obra_id])->render();
+
+      return response()->json($html);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -72,12 +86,17 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function duplicate(Request $request, $presupuesto_id)
+    public function duplicate($presupuesto_id, $obra_id = null, Request $request = null)
     {
       $presupuesto = Presupuesto::find($presupuesto_id);
 
       $nuevoPresupuesto = $presupuesto->replicate();
-      $nuevoPresupuesto->concepto = $request->input('concepto');
+      if($request){
+          $nuevoPresupuesto->concepto = $request->input('concepto');
+      }
+      if($obra_id != null){
+        $nuevoPresupuesto->obra_id = $obra_id;
+      }
       $nuevoPresupuesto->push();
 
       foreach ($presupuesto->material_externos as $key => $mexterno) {
@@ -95,7 +114,7 @@ class PresupuestoController extends Controller
         $nuevaParte = $parte->replicate();
         $nuevaParte->presupuesto_id = $nuevoPresupuesto->id;
         $nuevaParte->push();
-        
+
         foreach ($parte->materialespartes as $key => $mparte) {
 
           $result = DB::table('material_parte')->insert(
@@ -116,7 +135,27 @@ class PresupuestoController extends Controller
 
       event(new PresupuestoModificado($nuevoPresupuesto));
 
-      return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
+      if($obra_id != null){
+        return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
+      }
+      else{
+        return response()->json('done');
+      }
+
+    }
+
+    /**
+     * Duplicar presupuestos a una obra concreta
+     *
+     * @param  \App\Presupuesto  $presupuesto
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicateToObra(Request $request, $obra_id){
+      $muebles = $request->input('muebles');
+
+      foreach ($muebles as $key => $value) {
+        $this->duplicate($value, $obra_id);
+      }
     }
 
     /**

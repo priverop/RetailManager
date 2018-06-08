@@ -10,7 +10,8 @@
   <p>Identificador de obra: {{ $obra->id }}</p>
   <p>Precio total de obra: {{ $obra->precio_total }}</p>
   <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
-  <button class="btn btn-primary" id="addPresupuesto">Nuevo Presupuesto</button>
+  <button class="btn btn-primary" id="addPresupuesto">Nuevo Mueble</button>
+  <button class="btn btn-primary" id="addMuebleExistente">Añadir Muebles Existentes</button>
   <a href="{{  route('ExportPRE', ['id'=>$obra->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
   <button class="btn btn-primary" id="infHoras">Informe Horas</button>
   <button class="btn btn-primary" id="infCompras">Informe Compras</button>
@@ -65,7 +66,7 @@
   </div>
 
   <!-- Modal form to add a post -->
-  <div id="addModal" class="modal fade" role="dialog">
+  <div id="addObraModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -122,6 +123,20 @@ $(function(){
       }
   });
 
+  // Mostramos modal Muebles Existentes
+  $("#addMuebleExistente").click(function(event){
+    var form_action = "{{route('createExist', ['obra_id' => $obra->id])}}";
+
+    $.ajax({
+      dataType: 'json',
+      type: 'GET',
+      url: form_action
+    }).done(function(data){
+      $('#addObraModal').parent().prepend(data);
+      $('#existModal').modal('show');
+    });
+  });
+
   // Enviamos formulario de añadir presupuesto nuevo
   $("#addPresupuestoButton").click(function(event){
     event.preventDefault();
@@ -138,9 +153,8 @@ $(function(){
   });
 
   // Mostramos ventana modal
-
   $("#addPresupuesto").click(function(){
-    $("#addModal").modal('show');
+    $("#addObraModal").modal('show');
   });
 
 });
@@ -189,6 +203,7 @@ function desmarcarCheckBox(){
     $('#uso_beneficio_global_1').prop('checked',true);
   }
 }
+
 // Traemos el modal del concepto del presupuesto duplicado
 function getDuplicateForm(presupuesto_id){
   event.preventDefault();
@@ -199,7 +214,7 @@ function getDuplicateForm(presupuesto_id){
     url: form_action,
     data: {presupuesto_id: presupuesto_id}
   }).done(function(data){
-    $("#addPresupuesto").next().prepend(data);
+    $("#presupuestoIndex").parent().prepend(data);
     $("#duplicateModal").modal('show');
   });
 }
