@@ -5,8 +5,10 @@
 @section('content')
 
 
-  <h1>{{ $obra->cliente->nombre }}</h1>
+  <h1>{{ $obra->nombre }}</h1>
   <h4>{{ $obra->fecha }}</h4>
+  <h6>Cliente: {{ $obra->cliente->nombre }}</h6>
+
   <p>Identificador de obra: {{ $obra->id }}</p>
   <p>Precio total de obra: {{ $obra->precio_total }}</p>
   <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
