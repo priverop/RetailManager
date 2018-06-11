@@ -25,7 +25,6 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="title"><strong>Tipo</strong>:</label>
             <div class="col-sm-10">
-
               <select class="form-control" name="tipo" id="selectTipo">
                 <option value="madera"
                   @isset($material) @if($material->tipo === "madera") selected
@@ -87,7 +86,7 @@
                 <tbody>
                   @foreach($proveedores as $key => $value)
                   <tr>
-                    <td>{{ $key }}</td>
+                    <td>{{ $value->id }}</td>
                     <td>{{ $value->nombre }}</td>
                   </tr>
                   @endforeach
@@ -99,7 +98,7 @@
         </form>
         <div class="modal-footer">
           <button id="addMaterialButton" type="button" class="btn btn-success add">
-            <span class='glyphicon glyphicon-check'></span> Añadir
+            <span class='glyphicon glyphicon-check'></span>@isset($material) Actualizar @else Añadir @endisset
           </button>
           <button type="button" class="btn btn-warning" data-dismiss="modal">
             <span class='glyphicon glyphicon-remove'></span> Cerrar
@@ -134,7 +133,10 @@ $(function() {
     var form_action = $("#addMaterialForm").attr("action");
     var nRows = table.rows('.selected').data().length;
 
-    if(nRows > 1){
+    if(nRows == 0){
+      alert('Por favor elija un proveedor.');
+    }
+    else if(nRows > 1){
       alert('Por favor elija solo un proveedor');
     }
     else if(nRows == 1){
