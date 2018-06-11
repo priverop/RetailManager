@@ -88,8 +88,10 @@ class PresupuestoController extends Controller
      */
     public function duplicate($presupuesto_id, $obra_id = null, Request $request = null)
     {
+      // Encontramos el presupuesto a duplicar
       $presupuesto = Presupuesto::find($presupuesto_id);
 
+      // Duplicamos el presupuesto y modificamos nombre y obra
       $nuevoPresupuesto = $presupuesto->replicate();
       if($request){
           $nuevoPresupuesto->concepto = $request->input('concepto');
@@ -97,19 +99,22 @@ class PresupuestoController extends Controller
       if($obra_id != null){
         $nuevoPresupuesto->obra_id = $obra_id;
       }
+      // Guardamos cambios
       $nuevoPresupuesto->push();
 
+      // Duplicamos materiales_externos
       foreach ($presupuesto->material_externos as $key => $mexterno) {
         $nuevoMaterialExterno = $mexterno->replicate();
         $nuevoMaterialExterno->presupuesto_id = $nuevoPresupuesto->id;
         $nuevoMaterialExterno->push();
-
       }
+      // Duplicamos planos
       foreach ($presupuesto->planos as $key => $plano) {
         $nuevoPlano = $plano->replicate();
         $nuevoPlano->presupuesto_id = $nuevoPresupuesto->id;
         $nuevoPlano->push();
       }
+      // Duplicamos partes y sus materiales
       foreach ($presupuesto->partes as $key => $parte) {
         $nuevaParte = $parte->replicate();
         $nuevaParte->presupuesto_id = $nuevoPresupuesto->id;
@@ -133,6 +138,7 @@ class PresupuestoController extends Controller
         }
       }
 
+      // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
 
       if($obra_id != null){

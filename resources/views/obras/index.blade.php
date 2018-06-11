@@ -38,6 +38,7 @@
             </a>
             <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="duplicarObra( {{$value->id}} )">Duplicar</button>
           </td>
         </tr>
       @endforeach
@@ -113,6 +114,20 @@ function editar(id){
   }).done(function(data){
     $('#addObra').parent().prepend(data);
     $('#addModal').modal('show');
+  });
+}
+
+function duplicarObra(obra_id){
+  var form_action = "{{ route('duplicateObra', ['obra_id' => ":obra_id"]) }}";
+
+  form_action = form_action.replace(':obra_id', obra_id);
+
+  $.ajax({
+    dataType: 'json',
+    type: 'POST',
+    url: form_action
+  }).done(function(data){
+    window.location.replace(data);
   });
 }
 </script>

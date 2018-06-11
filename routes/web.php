@@ -40,6 +40,9 @@ Route::post('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->
 Route::post('/presupuestos/duplicateToObra/{obra_id}', 'PresupuestoController@duplicateToObra')->name('duplicateToObra');
 Route::get('/presupuestos/createExist/{obra_id}', 'PresupuestoController@createExist')->name('createExist');
 
+// Duplicar Obra
+Route::post('/obras/{id}/duplicate', 'ObraController@duplicate')->name('duplicateObra');
+
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('obras', 'ObraController');
