@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', 'DashboardController@index');
 
 /* MATERIALES PIVOTS */
 
