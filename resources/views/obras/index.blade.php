@@ -53,6 +53,11 @@ $(function(){
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 });
 
 /*
@@ -74,21 +79,6 @@ $('#addObra').click(function(event){
   });
 
 });
-
-</script>
-
-<script type="text/javascript">
-      $(function() {
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-    });
-
-</script>
-
-<script>
 
 function eliminar(id){
   $.ajax({
