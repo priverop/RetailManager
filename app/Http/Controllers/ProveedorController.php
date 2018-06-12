@@ -56,24 +56,9 @@ class ProveedorController extends Controller
      */
     public function show(int $indice)
     {
-        //
         $proveedor = Proveedor::find($indice);
 
-
-
-
         return View::make('proveedores.show')->with('proveedor', $proveedor);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Proveedor  $proveedor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Proveedor $proveedor)
-    {
-        //
     }
 
     /**
