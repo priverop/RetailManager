@@ -33,7 +33,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="control-label col-sm-6" for="desde"><b>DESDE:</b></label>
-              <div class="col-sm-10"><input type="date" name="desde" value="2018-01-01"></div>
+              <div class="col-sm-10"><input type="date" name="desde" value="2000-01-01"></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
@@ -46,7 +46,7 @@
     </div>
     <div class="col-sm-4 p-3">
       <h5>Total Presupuestado:</h5>
-      <p id="totalPresupuestado"></p>
+      <p id="totalPresupuestado">Cargando...</p>
     </div>
   </div>
 
@@ -105,7 +105,7 @@ function actualizarTotalPresupuesto(){
     url: form_action,
     data: form_data
   }).done(function(data){
-    $('#totalPresupuestado').html(data);
+    $('#totalPresupuestado').html(data + '€');
   });
 }
 </script>
