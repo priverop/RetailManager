@@ -21,7 +21,6 @@ class ParteController extends Controller
         return View::make('partes.index')->with('partes', $partes);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,29 +34,6 @@ class ParteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Parte  $proveedor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parte $proveedor)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Parte  $proveedor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Parte $proveedor)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Parte  $proveedor
@@ -65,7 +41,6 @@ class ParteController extends Controller
      */
     public function destroy($id)
     {
-
       $parte = Parte::find($id)->delete();
 
       return response()->json($parte);
