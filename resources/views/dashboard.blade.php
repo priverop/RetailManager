@@ -23,60 +23,91 @@
   </div>
 </div>
 
-<div class="row mt-5">
-  <div class="col border p-3">
-    <h4>Informe Total Presupuestado</h4>
-    <p>Puede modificar las fechas y pulse en actualizar.</p>
-    <div class="mt-5">
-      <form>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="control-label col-sm-6" for="desde"><b>DESDE:</b></label>
-            <div class="col-sm-10"><input type="date" name="desde" value="2018-01-01"></div>
+<div class="row border  mt-5">
+  <div class="row p-3">
+    <div class="col-sm-8">
+      <h4>Informe Total Presupuestado</h4>
+      <p>Puede modificar las fechas y pulse en actualizar.</p>
+      <div class="mt-5">
+        <form id="informeForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="control-label col-sm-6" for="desde"><b>DESDE:</b></label>
+              <div class="col-sm-10"><input type="date" name="desde" value="2018-01-01"></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
+              <div class="col-sm-10"><input type="date" name="hasta" value="2019-01-01"></div>
+            </div>
+            <input type="button" class="btn btn-primary" onclick="actualizarTotalPresupuesto()" value="Actualizar">
           </div>
-          <div class="form-group">
-            <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
-            <div class="col-sm-10"><input type="date" name="hasta" value="2019-01-01"></div>
-          </div>
-          <button class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-    <table id="indexObra">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Fecha</th>
-          <th>Cliente</th>
-          <th>Precio Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($obras as $key => $value)
-        <tr>
+    <div class="col-sm-4 p-3">
+      <h5>Total Presupuestado:</h5>
+      <p id="totalPresupuestado"></p>
+    </div>
+  </div>
+
+  <div class="row p-3">
+    <div class="col">
+      <table id="indexObra">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Precio Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($obras as $key => $value)
+          <tr>
             <td>{{ $value->id }}</td>
             <td>{{ $value->nombre }}</td>
             <td>{{ $value->fecha }}</td>
             <td>{{ $value->cliente->nombre }}</td>
             <td>{{ $value->precio_total_beneficio}}</td>
           </tr>
-        @endforeach
-      </tbody>
-    </table>
-
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
 $(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
   $('#indexObra').DataTable({
-    
+
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
+  actualizarTotalPresupuesto();
 });
+
+/* Actualizamos el total presupuestado con las fechas */
+function actualizarTotalPresupuesto(){
+
+  var form_data = $('#informeForm').serialize();
+  var form_action = "{{route('actualizarTotalPresupuesto')}}";
+
+  $.ajax({
+    type: 'POST',
+    url: form_action,
+    data: form_data
+  }).done(function(data){
+    $('#totalPresupuestado').html(data);
+  });
+}
 </script>
 
 @endsection
