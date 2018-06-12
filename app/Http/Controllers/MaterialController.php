@@ -42,15 +42,18 @@ class MaterialController extends Controller
 
         $material = Material::find($request->input('material_id'));
         $proveedor = Proveedor::find($request->input('proveedor_id'));
-        $precio = DB::table('material_proveedor')
+        $seleccion = DB::table('material_proveedor')
         ->where('material_id', $request->input('material_id'))
         ->where('proveedor_id', $request->input('proveedor_id'))
-        ->select('precio')->first();
+        ->select('precio', 'unidad', 'descuento', 'min_unidades')->first();
 
         $html = view('materiales.create', [
           'proveedores' => $proveedores,
           'material' => $material,
-          'precio' => $precio->precio,
+          'precio' => $seleccion->precio,
+          'unidad' => $seleccion->unidad,
+          'descuento' => $seleccion->descuento,
+          'min_unidades' => $seleccion->min_unidades,
           'proveedor' => $proveedor,
           ])->render();
       }
@@ -86,6 +89,9 @@ class MaterialController extends Controller
           'material_id'   => $material->id,
           'proveedor_id'  => $request->input('proveedorID'),
           'precio'        => $request->input('precio'),
+          'unidad'       => $request->input('unidad'),
+          'descuento'       => $request->input('descuento'),
+          'min_unidades'       => $request->input('min_unidades')
         ]
       );
 
@@ -132,12 +138,15 @@ class MaterialController extends Controller
 
         if($request->input('proveedorID')){
           $newProveedorID = $request->input('proveedorID');
-          
+
           $update = DB::table('material_proveedor')
           ->where('material_id', $material)
           ->where('proveedor_id', $request->input('proveedor_id'))
           ->update(
             ['precio'       => $request->input('precio'),
+             'unidad'       => $request->input('unidad'),
+             'descuento'       => $request->input('descuento'),
+             'min_unidades'       => $request->input('min_unidades'),
              'proveedor_id' => $newProveedorID]
           );
         }
@@ -147,7 +156,10 @@ class MaterialController extends Controller
           ->where('material_id', $material)
           ->where('proveedor_id', $request->input('proveedor_id'))
           ->update(
-            ['precio' => $request->input('precio')]
+            ['precio' => $request->input('precio'),
+             'unidad'       => $request->input('unidad'),
+             'descuento'       => $request->input('descuento'),
+             'min_unidades'       => $request->input('min_unidades')]
           );
 
         }

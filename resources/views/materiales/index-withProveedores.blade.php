@@ -6,6 +6,7 @@
       <th>Material</th>
       <th>Proveedor</th>
       <th>Precio</th>
+      <th>Descuento</th>
       <th>Material ID</th>
       <th>Proveedor ID</th>
     </tr>
@@ -16,7 +17,8 @@
       <td>{{ $key }}</td>
       <td>{{ $value->m_nombre }}</td>
       <td>{{ $value->p_nombre }}</td>
-      <td>{{ $value->precio }}</td>
+      <td>{{ $value->precio }} € / {{ $value->unidad }}</td>
+      <td>{{ $value->descuento }} % superando {{ $value->min_unidades }}{{ $value->unidad }}</td>
       <td>{{ $value->material_id }}</td>
       <td>{{ $value->proveedor_id }}</td>
     </tr>

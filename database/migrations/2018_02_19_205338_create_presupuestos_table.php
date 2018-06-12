@@ -103,6 +103,11 @@ class CreatePresupuestosTable extends Migration
             $table->double('total_transporte')->default(0);
             $table->double('imprevistos_unidad')->default(0);
             $table->double('total_imprevistos')->default(0);
+            $table->double('iva_unidad')->default(0);
+            $table->double('total_iva')->default(0);
+            $table->double('tasa_coste')->default(0);
+            $table->double('tasa_comercial')->default(0);
+
             $table->timestamps();
         });
     }

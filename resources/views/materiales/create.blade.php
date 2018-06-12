@@ -59,6 +59,48 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="control-label col-sm-2" for="title"><strong>Unidad</strong>:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="unidad" id="selectTipo">
+                <option value="unidad"
+                  @isset($material) @if($unidad === "unidad") selected
+                  @endif @endisset
+                >Unidad
+                </option>
+                <option value="m2"
+                  @isset($material) @if($unidad === "m2") selected
+                  @endif @endisset
+                >m2
+                </option>
+                <option value="m3"
+                  @isset($material) @if($unidad === "m3") selected
+                  @endif @endisset
+                >m3
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="content"><strong>Descuento:</strong></label>
+            <div class="col-sm-10">
+              @isset($descuento)
+              <input class="form-control" name="descuento" value="{{$descuento}}">
+              @else
+              <input class="form-control" name="descuento">
+              @endisset
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="content"><strong>Cantidad mínima para aplicar descuento:</strong></label>
+            <div class="col-sm-10">
+              @isset($min_unidades)
+              <input class="form-control" name="min_unidades" value="{{$min_unidades}}">
+              @else
+              <input class="form-control" name="min_unidades">
+              @endisset
+            </div>
+          </div>
+          <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Precio:</strong></label>
             <div class="col-sm-10">
               @isset($precio)

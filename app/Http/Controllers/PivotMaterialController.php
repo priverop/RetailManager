@@ -80,6 +80,7 @@ class PivotMaterialController extends Controller
         ->where('id', $materialparte_id)
         ->update(
           ['unidades' => $request->input('unidades'),
+          'largo' => $request->input('largo'),
           'ancho' => $request->input('ancho'),
           'alto' => $request->input('alto')]
         );
