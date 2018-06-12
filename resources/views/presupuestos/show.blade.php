@@ -348,7 +348,7 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Tiempo</th>
+              <th scope="col">Tiempo (minutos)</th>
               <th scope="col">Máquina Sección</th>
               <th scope="col">Operación</th>
               <th scope="col">Precio por Hora</th>
@@ -516,11 +516,11 @@
           <thead>
             <tr>
               <th scope="col">Operarios</th>
-              <th scope="col">Horas por Operario</th>
+              <th scope="col">Tiempo por Operario (minutos)</th>
               <th scope="col">Sección</th>
               <th scope="col">Operración</th>
               <th scope="col">Total Horas</th>
-              <th scope="col">Precio Unidad</th>
+              <th scope="col">Precio por Hora</th>
               <th scope="col">Total</th>
             </tr>
           </thead>
@@ -544,7 +544,7 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario }}" class="form-control small-input"  disabled/>
+                <input type="text" id="" placeholder="Total Horas" name="" value="{{ $presupuesto->maquinas_operarios * ($presupuesto->maquinas_horas_operario/60) }}" class="form-control small-input"  disabled/>
               </td>
               <td>
                 <div onclick="editar1('maquinas_precio_unidad')">
