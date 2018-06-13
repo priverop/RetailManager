@@ -276,14 +276,17 @@
                   <th scope="col">Índice</th>
                   <th scope="col">Concepto</th>
                   <th scope="col">Provedor Externo</th>
+                  <th scope="col">Material</th>
                   <th scope="col">Unidades</th>
                   <th scope="col">Largo (mm)</th>
                   <th scope="col">Alto (mm)</th>
                   <th scope="col">Ancho (mm)</th>
                   <th scope="col">M2</th>
+                  <th scope="col">Total M2</th>
                   <th scope="col">M3</th>
-                  <th scope="col">Unidad</th>
+                  <th scope="col">Total M3</th>
                   <th scope="col">Precio Und.</th>
+                  <th scope="col">Unidad</th>
                   <th scope="col">Precio Total</th>
                   <th scope="col">Acciones</th>
                 </tr>
@@ -302,21 +305,36 @@
                         <input name="proveedor_externo" class="form-control small-input" type="hidden" value="{{$value->proveedor_externo}}">
                       </td>
                       <td class="editable">
+                        <p>{{$value->tipo_material}}</p>
+                        <input name="tipo_material" class="form-control small-input" type="hidden" value="{{$value->tipo_material}}">
+                      </td>
+                      <td class="editable">
                         <p>{{$value->unidades}}</p>
                         <input name="unidades" class="form-control small-input" type="hidden" value="{{$value->unidades}}">
                       </td>
                       <td class="editable">
-                        <p>{{$value->ancho}}</p>
-                        <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
+                        <p>{{$value->largo}}</p>
+                        <input name="largo" class="form-control small-input" type="hidden" value="{{$value->largo}}">
                       </td>
                       <td class="editable">
                         <p>{{$value->alto}}</p>
                         <input name="alto" class="form-control small-input" type="hidden" value="{{$value->alto}}">
                       </td>
+                      <td class="editable">
+                        <p>{{$value->ancho}}</p>
+                        <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
+                      </td>
                       <td>{{$value->m2}}</td>
+                      <td>{{$value->total_m2}}</td>
+                      <td>{{$value->m3}}</td>
+                      <td>{{$value->total_m3}}</td>
                       <td class="editable">
                         <p>{{$value->precio_unidad}}</p>
                         <input name="precio_unidad" class="form-control small-input" type="hidden" value="{{$value->precio_unidad}}">
+                      </td>
+                      <td class="editable">
+                        <p>{{$value->unidad}}</p>
+                        <input name="unidad" class="form-control small-input" type="hidden" value="{{$value->unidad}}">
                       </td>
                       <td>{{$value->precio_total}}</td>
                       <td>
@@ -1110,10 +1128,13 @@ function guardarMaterialExterno(materialID, elemento){
   var form_action = $(elemento).next().next().val();
   var concepto = tr.find('input[name="concepto"]').val();
   var proveedor_externo = tr.find('input[name="proveedor_externo"]').val();
+  var tipo_material = tr.find('input[name="tipo_material"]').val();
   var unidades = tr.find('input[name="unidades"]').val();
+  var largo = tr.find('input[name="largo"]').val();
   var alto = tr.find('input[name="alto"]').val();
   var ancho = tr.find('input[name="ancho"]').val();
   var precio_unidad = tr.find('input[name="precio_unidad"]').val()
+  var unidad = tr.find('input[name="unidad"]').val()
   var presupuesto_id = $("#id").val();
 
 
@@ -1121,8 +1142,8 @@ function guardarMaterialExterno(materialID, elemento){
       dataType: 'json',
       type:'POST',
       url: form_action,
-      data: {concepto: concepto, proveedor_externo: proveedor_externo, presupuesto_id: presupuesto_id,
-              unidades: unidades, ancho: ancho, alto: alto, precio_unidad: precio_unidad},
+      data: {concepto: concepto, proveedor_externo: proveedor_externo, tipo_material: tipo_material, presupuesto_id: presupuesto_id,
+              unidades: unidades, largo: largo, ancho: ancho, alto: alto, unidad: unidad, precio_unidad: precio_unidad},
   }).done(function(data){
       location.reload();
   });
