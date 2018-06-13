@@ -128,10 +128,16 @@ class PresupuestoController extends Controller
               'material_id'   => $mparte->pivot->material_id,
               'proveedor_id'  => $mparte->pivot->proveedor_id,
               'unidades'      => $mparte->pivot->unidades,
+              'largo'         => $mparte->pivot->largo,
               'ancho'         => $mparte->pivot->ancho,
               'alto'          => $mparte->pivot->alto,
+              'm'            => $mparte->pivot->m,
+              'total_m'      => $mparte->pivot->total_m,
               'm2'            => $mparte->pivot->m2,
               'total_m2'      => $mparte->pivot->total_m2,
+              'm3'            => $mparte->pivot->m3,
+              'total_m3'      => $mparte->pivot->total_m3,
+              'descuento'      => $mparte->pivot->descuento,
               'precio_total'  => $mparte->pivot->precio_total
             ]
           );

@@ -190,6 +190,8 @@
                   <th scope="col">Largo (mm)</th>
                   <th scope="col">Alto (mm)</th>
                   <th scope="col">Ancho (mm)</th>
+                  <th scope="col">M</th>
+                  <th scope="col">Total M</th>
                   <th scope="col">M2</th>
                   <th scope="col">Total M2</th>
                   <th scope="col">M3</th>
@@ -208,7 +210,7 @@
                     @if($mvalue->tipo === $type)
                       @if(!$tipoExiste[$type])
                       <tr>
-                        <td colspan="15" class="head_material_especial">
+                        <td colspan="17" class="head_material_especial">
                           {{$title}}
                         </td>
                       </tr>
@@ -233,6 +235,8 @@
                         <p>{{$mvalue->pivot->ancho}}</p>
                         <input name="ancho" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->ancho}}">
                       </td>
+                      <td>{{$mvalue->pivot->m}}</td>
+                      <td>{{$mvalue->pivot->total_m}}</td>
                       <td>{{$mvalue->pivot->m2}}</td>
                       <td>{{$mvalue->pivot->total_m2}}</td>
                       <td>{{$mvalue->pivot->m3}}</td>
@@ -281,6 +285,8 @@
                   <th scope="col">Largo (mm)</th>
                   <th scope="col">Alto (mm)</th>
                   <th scope="col">Ancho (mm)</th>
+                  <th scope="col">M</th>
+                  <th scope="col">Total M</th>
                   <th scope="col">M2</th>
                   <th scope="col">Total M2</th>
                   <th scope="col">M3</th>
@@ -324,6 +330,8 @@
                         <p>{{$value->ancho}}</p>
                         <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
                       </td>
+                      <td>{{$value->m}}</td>
+                      <td>{{$value->total_m}}</td>
                       <td>{{$value->m2}}</td>
                       <td>{{$value->total_m2}}</td>
                       <td>{{$value->m3}}</td>

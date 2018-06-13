@@ -67,6 +67,11 @@
                   @endif @endisset
                 >Unidad
                 </option>
+                <option value="m"
+                  @isset($material) @if($unidad === "m") selected
+                  @endif @endisset
+                >m
+                </option>
                 <option value="m2"
                   @isset($material) @if($unidad === "m2") selected
                   @endif @endisset
