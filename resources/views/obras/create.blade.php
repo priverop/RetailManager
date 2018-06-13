@@ -15,21 +15,21 @@
         <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm">
         @endisset
           <div class="form-group">
-            <label class="control-label col-sm-2" for="title"><strong>Cliente</strong>:</label>
+            <label class="control-label col-sm-2" for="cliente"><strong>Cliente</strong>:</label>
             <p>
               Escriba el nombre del cliente y le aparecerá una lista de los clientes similares
             </p>
             <div class="col-sm-10">
               @isset($obra)
-              <input type="text" class="typeahead form-control" name="nombre" placeholder="Buscar cliente" value="{{$obra->cliente->nombre}}" autofocus>
+              <input type="text" class="typeahead form-control" name="cliente" placeholder="Buscar cliente" value="{{$obra->cliente->nombre}}" autofocus>
               @else
-              <input type="text" class="typeahead form-control" name="nombre" placeholder="Buscar cliente" autofocus>
+              <input type="text" class="typeahead form-control" name="cliente" placeholder="Buscar cliente" autofocus>
               @endisset
             </div>
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-2" for="content"><strong>Nombre:</strong></label>
+            <label class="control-label col-sm-2" for="nombre"><strong>Nombre:</strong></label>
             <div class="col-sm-10">
               @isset($obra)
               <input type="text" class="form-control" name="nombre" value="{{$obra->nombre}}">
@@ -40,7 +40,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-2" for="content"><strong>Fecha:</strong></label>
+            <label class="control-label col-sm-2" for="fecha"><strong>Fecha:</strong></label>
             <p>
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
             </p>
@@ -59,7 +59,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-2" for="content"><strong>Beneficio:</strong></label>
+            <label class="control-label col-sm-2" for="beneficio"><strong>Beneficio:</strong></label>
             <p>
               Seleccione un porcentaje de beneficio para el presupuesto (puede modificarse posteriormente, puede dejarlo en 0 de momento).
             </p>
@@ -116,7 +116,7 @@ $(function(){
         url: form_action,
         data: formulario
     }).done(function(data){
-        location.reload();
+        window.location.replace(data);
     });
 
   });
