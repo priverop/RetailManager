@@ -48,12 +48,12 @@ class RefreshPropertiesMaterial
         $descuento = 0;
       }
 
-      if($precio->unidad == 'unidad'){
-        $total = ( $precio->precio * $material_parte->unidades ) * ( 1 - ($descuento / 100) );
-      }else if($precio->unidad == 'm2'){
+      if($precio->unidad == 'm2'){
         $total = ( $precio->precio * $total_m2 ) * ( 1 - ($descuento / 100) );
       }else if($precio->unidad == 'm3'){
         $total = ( $precio->precio * $total_m3 ) * ( 1 - ($descuento / 100) );
+      }else{
+        $total = ( $precio->precio * $material_parte->unidades ) * ( 1 - ($descuento / 100) );
       }
 
       $update = DB::table('material_parte')
