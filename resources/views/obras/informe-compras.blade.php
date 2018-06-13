@@ -20,6 +20,7 @@
                   <th>Largo</th>
                   <th>Alto</th>
                   <th>Ancho</th>
+                  <th>Total M</th>
                   <th>Total M2</th>
                   <th>Total M3</th>
                   <th>Precio Unidad</th>
@@ -41,6 +42,7 @@
                         <td>{{$material->pivot->largo}}</td>
                         <td>{{$material->pivot->alto}}</td>
                         <td>{{$material->pivot->ancho}}</td>
+                        <td>{{$material->pivot->total_m}}</td>
                         <td>{{$material->pivot->total_m2}}</td>
                         <td>{{$material->pivot->total_m3}}</td>
                         <td>{{$material->precio}}€ / {{$material->unidad}}</td>

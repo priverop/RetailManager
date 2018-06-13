@@ -37,8 +37,10 @@ class RefreshPropertiesMaterial
       ->where('proveedor_id', $material_parte->proveedor_id)
       ->select('precio', 'unidad', 'descuento', 'min_unidades')->first();
 
+      $m = $material_parte->largo / 1000;
       $m2 = ($material_parte->largo * $material_parte->alto) / 1000000;
       $m3 = ($material_parte->largo * $material_parte->ancho * $material_parte->alto) / 1000000000;
+      $total_m = $m * $material_parte->unidades;
       $total_m2 = $m2 * $material_parte->unidades;
       $total_m3 = $m3 * $material_parte->unidades;
 
@@ -48,7 +50,9 @@ class RefreshPropertiesMaterial
         $descuento = 0;
       }
 
-      if($precio->unidad == 'm2'){
+      if($precio->unidad == 'm'){
+        $total = ( $precio->precio * $total_m ) * ( 1 - ($descuento / 100) );
+      }else if($precio->unidad == 'm2'){
         $total = ( $precio->precio * $total_m2 ) * ( 1 - ($descuento / 100) );
       }else if($precio->unidad == 'm3'){
         $total = ( $precio->precio * $total_m3 ) * ( 1 - ($descuento / 100) );
@@ -60,7 +64,9 @@ class RefreshPropertiesMaterial
       ->where('material_id', $material_parte->material_id)
       ->where('parte_id', $material_parte->parte_id)
       ->update(
-        ['m2' => $m2,
+        ['m' => $m,
+        'total_m' => $total_m,
+        'm2' => $m2,
         'total_m2' => $total_m2,
         'm3' => $m3,
         'total_m3' => $total_m3,
