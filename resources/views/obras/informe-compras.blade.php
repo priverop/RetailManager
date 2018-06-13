@@ -33,7 +33,7 @@
                   @foreach($presupuesto->partes as $pkey=> $parte)
                     @foreach($parte->materiales as $mkey=> $material)
                       <tr>
-                        <td>{{$mkey}}</td>
+                        <td>{{$material->id}}</td>
                         <td>{{$presupuesto->concepto}}</td>
                         <td>{{$material->nombre}}</td>
                         <td>{{$material->pivot->proveedors_nombre}}</td>
