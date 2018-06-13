@@ -30,10 +30,16 @@ class ParteMaterial extends Migration
             ->on('proveedors')->onDelete('cascade');
 
         $table->integer('unidades')->default(1);
-        $table->integer('ancho')->default(0);
+        $table->integer('largo')->default(0);
         $table->integer('alto')->default(0);
+        $table->integer('ancho')->default(0);
+        $table->double('m', 5, 4)->default(0);
+        $table->double('total_m', 5, 4)->default(0);
         $table->double('m2', 5, 4)->default(0);
         $table->double('total_m2', 5, 4)->default(0);
+        $table->double('m3', 5, 4)->default(0);
+        $table->double('total_m3', 5, 4)->default(0);
+        $table->integer('descuento')->default(0);
         $table->double('precio_total', 8, 2)->default(0);
 
         $table->timestamps();

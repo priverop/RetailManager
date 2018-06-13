@@ -14,7 +14,7 @@
         <form class="form-horizontal" role="form" action="{{ route('clientes.store') }}" method="POST" id="addClientesForm">
         @endisset
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>Nombre</strong>:</label>
+            <label class="control-label col-sm-6" for="nombre"><strong>Nombre</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="nombre" placeholder="Nombre del cliente" value="{{$cliente->nombre}}" autofocus>
@@ -25,7 +25,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>Dirección</strong>:</label>
+            <label class="control-label col-sm-6" for="direccion"><strong>Dirección</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="direccion" placeholder="Dirección del cliente" value="{{$cliente->direccion}}" autofocus>
@@ -36,7 +36,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>Código Postal</strong>:</label>
+            <label class="control-label col-sm-6" for="cp"><strong>Código Postal</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="cp" placeholder="CP del cliente" value="{{$cliente->cp}}" autofocus>
@@ -47,7 +47,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>Provincia</strong>:</label>
+            <label class="control-label col-sm-6" for="provincia"><strong>Provincia</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="provincia" placeholder="Provincia del cliente" value="{{$cliente->provincia}}" autofocus>
@@ -58,7 +58,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>Teléfono</strong>:</label>
+            <label class="control-label col-sm-6" for="telefono"><strong>Teléfono</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="telefono" placeholder="Teléfono del cliente" value="{{$cliente->telefono}}" autofocus>
@@ -69,7 +69,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-6" for="title"><strong>NIF</strong>:</label>
+            <label class="control-label col-sm-6" for="nif"><strong>NIF</strong>:</label>
             <div class="col-sm-10">
               @isset($cliente)
               <input type="text" class="typeahead form-control" name="nif" placeholder="NIF del cliente" value="{{$cliente->nif}}" autofocus>

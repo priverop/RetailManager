@@ -17,7 +17,10 @@
         <th>Material</th>
         <th>Tipo</th>
         <th>Proveedor</th>
-        <th>Precio</th>
+        <th>Unidad</th>
+        <th>Descuento</th>
+        <th>Cantidad mínima</th>
+        <th>Precio Unidad</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -28,6 +31,9 @@
         <td><a href="{{route('materiales.show', ['id' => $value->material_id])}}"> {{ $value->m_nombre}}</a> </td>
         <td>{{ $value->m_tipo}}</td>
         <td><a href="{{route('proveedores.show', ['id' => $value->proveedor_id])}}">{{ $value->p_nombre }}</a> </td>
+        <td>{{ $value->unidad }}</td>
+        <td>{{ $value->descuento }}</td>
+        <td>{{ $value->min_unidades }}</td>
         <td>{{ $value->precio }}</td>
         <td>
           <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterial( {{$value->material_id}}, {{ $value->proveedor_id }})">Editar</button>

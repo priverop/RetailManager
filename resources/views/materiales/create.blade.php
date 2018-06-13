@@ -25,7 +25,6 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="title"><strong>Tipo</strong>:</label>
             <div class="col-sm-10">
-
               <select class="form-control" name="tipo" id="selectTipo">
                 <option value="madera"
                   @isset($material) @if($material->tipo === "madera") selected
@@ -60,6 +59,53 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="control-label col-sm-2" for="title"><strong>Unidad</strong>:</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="unidad" id="selectTipo">
+                <option value="unidad"
+                  @isset($material) @if($unidad === "unidad") selected
+                  @endif @endisset
+                >Unidad
+                </option>
+                <option value="m"
+                  @isset($material) @if($unidad === "m") selected
+                  @endif @endisset
+                >m
+                </option>
+                <option value="m2"
+                  @isset($material) @if($unidad === "m2") selected
+                  @endif @endisset
+                >m2
+                </option>
+                <option value="m3"
+                  @isset($material) @if($unidad === "m3") selected
+                  @endif @endisset
+                >m3
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="content"><strong>Descuento:</strong></label>
+            <div class="col-sm-10">
+              @isset($descuento)
+              <input class="form-control" name="descuento" value="{{$descuento}}">
+              @else
+              <input class="form-control" name="descuento">
+              @endisset
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" for="content"><strong>Cantidad mínima para aplicar descuento:</strong></label>
+            <div class="col-sm-10">
+              @isset($min_unidades)
+              <input class="form-control" name="min_unidades" value="{{$min_unidades}}">
+              @else
+              <input class="form-control" name="min_unidades">
+              @endisset
+            </div>
+          </div>
+          <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Precio:</strong></label>
             <div class="col-sm-10">
               @isset($precio)
@@ -87,7 +133,7 @@
                 <tbody>
                   @foreach($proveedores as $key => $value)
                   <tr>
-                    <td>{{ $key }}</td>
+                    <td>{{ $value->id }}</td>
                     <td>{{ $value->nombre }}</td>
                   </tr>
                   @endforeach
@@ -99,7 +145,7 @@
         </form>
         <div class="modal-footer">
           <button id="addMaterialButton" type="button" class="btn btn-success add">
-            <span class='glyphicon glyphicon-check'></span> Añadir
+            <span class='glyphicon glyphicon-check'></span>@isset($material) Actualizar @else Añadir @endisset
           </button>
           <button type="button" class="btn btn-warning" data-dismiss="modal">
             <span class='glyphicon glyphicon-remove'></span> Cerrar
@@ -134,7 +180,10 @@ $(function() {
     var form_action = $("#addMaterialForm").attr("action");
     var nRows = table.rows('.selected').data().length;
 
-    if(nRows > 1){
+    if(nRows == 0){
+      alert('Por favor elija un proveedor.');
+    }
+    else if(nRows > 1){
       alert('Por favor elija solo un proveedor');
     }
     else if(nRows == 1){

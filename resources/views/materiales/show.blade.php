@@ -10,7 +10,6 @@
     <div class="col-xs-12">
       <p><b>Nombre:</b> {{ $material->nombre }}</p>
       <p><b>ID:</b> {{ $material->id}}</p>
-
     </div>
   </div>
 

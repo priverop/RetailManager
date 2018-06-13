@@ -36,6 +36,20 @@ class PresupuestoController extends Controller
     }
 
     /**
+     * Devuelve la ventana modal para añadir Presupuestos Existentes
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createExist($obra_id)
+    {
+      $presupuestos = Presupuesto::all();
+
+      $html = view('presupuestos.create-exist', ['presupuestos' => $presupuestos, 'obra_id' => $obra_id])->render();
+
+      return response()->json($html);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -72,30 +86,40 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function duplicate(Request $request, $presupuesto_id)
+    public function duplicate($presupuesto_id, $obra_id = null, Request $request = null)
     {
+      // Encontramos el presupuesto a duplicar
       $presupuesto = Presupuesto::find($presupuesto_id);
 
+      // Duplicamos el presupuesto y modificamos nombre y obra
       $nuevoPresupuesto = $presupuesto->replicate();
-      $nuevoPresupuesto->concepto = $request->input('concepto');
+      if($request){
+          $nuevoPresupuesto->concepto = $request->input('concepto');
+      }
+      if($obra_id != null){
+        $nuevoPresupuesto->obra_id = $obra_id;
+      }
+      // Guardamos cambios
       $nuevoPresupuesto->push();
 
+      // Duplicamos materiales_externos
       foreach ($presupuesto->material_externos as $key => $mexterno) {
         $nuevoMaterialExterno = $mexterno->replicate();
         $nuevoMaterialExterno->presupuesto_id = $nuevoPresupuesto->id;
         $nuevoMaterialExterno->push();
-
       }
+      // Duplicamos planos
       foreach ($presupuesto->planos as $key => $plano) {
         $nuevoPlano = $plano->replicate();
         $nuevoPlano->presupuesto_id = $nuevoPresupuesto->id;
         $nuevoPlano->push();
       }
+      // Duplicamos partes y sus materiales
       foreach ($presupuesto->partes as $key => $parte) {
         $nuevaParte = $parte->replicate();
         $nuevaParte->presupuesto_id = $nuevoPresupuesto->id;
         $nuevaParte->push();
-        
+
         foreach ($parte->materialespartes as $key => $mparte) {
 
           $result = DB::table('material_parte')->insert(
@@ -104,19 +128,46 @@ class PresupuestoController extends Controller
               'material_id'   => $mparte->pivot->material_id,
               'proveedor_id'  => $mparte->pivot->proveedor_id,
               'unidades'      => $mparte->pivot->unidades,
+              'largo'         => $mparte->pivot->largo,
               'ancho'         => $mparte->pivot->ancho,
               'alto'          => $mparte->pivot->alto,
+              'm'            => $mparte->pivot->m,
+              'total_m'      => $mparte->pivot->total_m,
               'm2'            => $mparte->pivot->m2,
               'total_m2'      => $mparte->pivot->total_m2,
+              'm3'            => $mparte->pivot->m3,
+              'total_m3'      => $mparte->pivot->total_m3,
+              'descuento'      => $mparte->pivot->descuento,
               'precio_total'  => $mparte->pivot->precio_total
             ]
           );
         }
       }
 
+      // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
 
-      return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
+      if($obra_id != null){
+        return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
+      }
+      else{
+        return response()->json('done');
+      }
+
+    }
+
+    /**
+     * Duplicar presupuestos a una obra concreta
+     *
+     * @param  \App\Presupuesto  $presupuesto
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicateToObra(Request $request, $obra_id){
+      $muebles = $request->input('muebles');
+
+      foreach ($muebles as $key => $value) {
+        $this->duplicate($value, $obra_id);
+      }
     }
 
     /**
@@ -147,22 +198,22 @@ class PresupuestoController extends Controller
       $presupuesto->update($request->all());
       $presupuesto = Presupuesto::find($id);
 
-      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora * $presupuesto->precio_t_seccionadora;
-      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora * $presupuesto->precio_t_seccionadora;
-      $presupuesto->total_elaboracion = $presupuesto->t_elaboracion * $presupuesto->precio_t_elaboracion;
-      $presupuesto->total_escuadradora = $presupuesto->t_escuadradora * $presupuesto->precio_t_escuadradora;
-      $presupuesto->total_canteadora = $presupuesto->t_canteadora * $presupuesto->precio_t_canteadora;
-      $presupuesto->total_punto = $presupuesto->t_punto * $presupuesto->precio_t_punto;
-      $presupuesto->total_prensa = $presupuesto->t_prensa * $presupuesto->precio_t_prensa;
+      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora/60 * $presupuesto->precio_t_seccionadora;
+      $presupuesto->total_seccionadora = $presupuesto->t_seccionadora/60 * $presupuesto->precio_t_seccionadora;
+      $presupuesto->total_elaboracion = $presupuesto->t_elaboracion/60 * $presupuesto->precio_t_elaboracion;
+      $presupuesto->total_escuadradora = $presupuesto->t_escuadradora/60 * $presupuesto->precio_t_escuadradora;
+      $presupuesto->total_canteadora = $presupuesto->t_canteadora/60 * $presupuesto->precio_t_canteadora;
+      $presupuesto->total_punto = $presupuesto->t_punto/60 * $presupuesto->precio_t_punto;
+      $presupuesto->total_prensa = $presupuesto->t_prensa/60 * $presupuesto->precio_t_prensa;
 
-      $presupuesto->total_maquinas = ($presupuesto->maquinas_operarios * $presupuesto->maquinas_horas_operario) * $presupuesto->maquinas_precio_unidad;
-      $presupuesto->total_bancos = ($presupuesto->bancos_operarios * $presupuesto->bancos_horas_operario) * $presupuesto->bancos_precio_unidad;
-      $presupuesto->total_maquinas_oficial_1 = ($presupuesto->maquinas_oficial_1_operarios * $presupuesto->maquinas_oficial_1_horas_operario) * $presupuesto->maquinas_oficial_1_precio_unidad;
-      $presupuesto->total_producto_ter_1 = ($presupuesto->producto_ter_1_operarios * $presupuesto->producto_ter_1_horas_operario) * $presupuesto->producto_ter_1_precio_unidad;
-      $presupuesto->total_productor_ter_2 = ($presupuesto->productor_ter_2_operarios * $presupuesto->productor_ter_2_horas_operario) * $presupuesto->productor_ter_2_precio_unidad;
-      $presupuesto->total_oficial_1 = ($presupuesto->oficial_1_operarios * $presupuesto->oficial_1_horas_operario) * $presupuesto->oficial_1_precio_unidad;
-      $presupuesto->total_oficial_2 = ($presupuesto->oficial_2_operarios * $presupuesto->oficial_2_horas_operario) * $presupuesto->oficial_2_precio_unidad;
-      $presupuesto->total_ayudante = ($presupuesto->ayudante_operarios * $presupuesto->ayudante_horas_operario) * $presupuesto->ayudante_precio_unidad;
+      $presupuesto->total_maquinas = ($presupuesto->maquinas_operarios * ($presupuesto->maquinas_horas_operario/60)) * $presupuesto->maquinas_precio_unidad;
+      $presupuesto->total_bancos = ($presupuesto->bancos_operarios * ($presupuesto->bancos_horas_operario/60)) * $presupuesto->bancos_precio_unidad;
+      $presupuesto->total_maquinas_oficial_1 = ($presupuesto->maquinas_oficial_1_operarios * ($presupuesto->maquinas_oficial_1_horas_operario/60)) * $presupuesto->maquinas_oficial_1_precio_unidad;
+      $presupuesto->total_producto_ter_1 = ($presupuesto->producto_ter_1_operarios * ($presupuesto->producto_ter_1_horas_operario/60)) * $presupuesto->producto_ter_1_precio_unidad;
+      $presupuesto->total_productor_ter_2 = ($presupuesto->productor_ter_2_operarios * ($presupuesto->productor_ter_2_horas_operario/60)) * $presupuesto->productor_ter_2_precio_unidad;
+      $presupuesto->total_oficial_1 = ($presupuesto->oficial_1_operarios * ($presupuesto->oficial_1_horas_operario/60)) * $presupuesto->oficial_1_precio_unidad;
+      $presupuesto->total_oficial_2 = ($presupuesto->oficial_2_operarios * ($presupuesto->oficial_2_horas_operario/60)) * $presupuesto->oficial_2_precio_unidad;
+      $presupuesto->total_ayudante = ($presupuesto->ayudante_operarios * ($presupuesto->ayudante_horas_operario/60)) * $presupuesto->ayudante_precio_unidad;
 
       $presupuesto->save();
 

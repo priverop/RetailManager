@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Obra;
 use App\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Events\PresupuestoModificado;
 
@@ -12,6 +13,68 @@ use View;
 
 class ObraController extends Controller
 {
+
+  /**
+   * Duplicar obra y todo su contenido.
+   *
+   * @return \Illuminate\Http\Response
+   */
+   public function duplicate(Request $request, $obra_id)
+   {
+     // Encontramos la obra a duplicar
+     $obra = Obra::find($obra_id);
+
+     $nuevaObra = $obra->replicate();
+     $nuevaObra->nombre = $nuevaObra->nombre . ' Copia';
+     $nuevaObra->push();
+
+     foreach ($obra->presupuestos as $key => $presupuesto) {
+
+       // Duplicamos el presupuesto y le ponemos la obra nueva
+       $nuevoPresupuesto = $presupuesto->replicate();
+       $nuevoPresupuesto->obra_id = $nuevaObra->id;
+       $nuevoPresupuesto->push();
+
+       // Duplicamos materiales_externos
+       foreach ($presupuesto->material_externos as $key => $mexterno) {
+         $nuevoMaterialExterno = $mexterno->replicate();
+         $nuevoMaterialExterno->presupuesto_id = $nuevoPresupuesto->id;
+         $nuevoMaterialExterno->push();
+       }
+       // Duplicamos planos
+       foreach ($presupuesto->planos as $key => $plano) {
+         $nuevoPlano = $plano->replicate();
+         $nuevoPlano->presupuesto_id = $nuevoPresupuesto->id;
+         $nuevoPlano->push();
+       }
+       // Duplicamos partes y sus materiales
+       foreach ($presupuesto->partes as $key => $parte) {
+         $nuevaParte = $parte->replicate();
+         $nuevaParte->presupuesto_id = $nuevoPresupuesto->id;
+         $nuevaParte->push();
+
+         foreach ($parte->materialespartes as $key => $mparte) {
+
+           $result = DB::table('material_parte')->insert(
+             [
+               'parte_id'      => $nuevaParte->id,
+               'material_id'   => $mparte->pivot->material_id,
+               'proveedor_id'  => $mparte->pivot->proveedor_id,
+               'unidades'      => $mparte->pivot->unidades,
+               'ancho'         => $mparte->pivot->ancho,
+               'alto'          => $mparte->pivot->alto,
+               'm2'            => $mparte->pivot->m2,
+               'total_m2'      => $mparte->pivot->total_m2,
+               'precio_total'  => $mparte->pivot->precio_total
+             ]
+           );
+         } // Foreach materialespartes
+       } // Foreach partes
+     } // Foreach presupuestos
+
+     return response()->json(route('obras.show', ['id' => $nuevaObra->id]));
+   }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,13 +133,16 @@ class ObraController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
+        $cliente = Cliente::where('nombre', '=', $request->input('cliente'))->first();
+
         $obra = Obra::create([
-          'fecha' => $request->input('fecha'),
-          'beneficio' => $request->input('beneficio'),
-          'cliente_id' => $cliente->id
+          'nombre'      => $request->input('nombre'),
+          'fecha'       => $request->input('fecha'),
+          'beneficio'   => $request->input('beneficio'),
+          'cliente_id'  => $cliente->id
         ]);
-        return response()->json($obra);
+
+        return response()->json(route('obras.show', ['id' => $obra->id]));
     }
 
     /**
@@ -90,17 +156,6 @@ class ObraController extends Controller
         $obra = Obra::find($obra);
 
         return View::make('obras.show')->with('obra', $obra);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Obra  $proveedor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Obra $proveedor)
-    {
-        //
     }
 
     /**

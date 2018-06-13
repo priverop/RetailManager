@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', 'DashboardController@index');
 
 /* MATERIALES PIVOTS */
 
@@ -37,6 +35,14 @@ Route::get('ExportPRE/{id}', 'excelController@ExportPRE')->name('ExportPRE');
 // Duplicar Presupuesto
 Route::get('/presupuestos/duplicateForm', 'PresupuestoController@duplicateForm')->name('duplicateForm');
 Route::post('/presupuestos/{id}/duplicate', 'PresupuestoController@duplicate')->name('duplicatePresupuesto');
+Route::post('/presupuestos/duplicateToObra/{obra_id}', 'PresupuestoController@duplicateToObra')->name('duplicateToObra');
+Route::get('/presupuestos/createExist/{obra_id}', 'PresupuestoController@createExist')->name('createExist');
+
+// Duplicar Obra
+Route::post('/obras/{id}/duplicate', 'ObraController@duplicate')->name('duplicateObra');
+
+// DASHBOARD - Actualizar Total Presupuestado
+Route::post('/totalPresupuestado', 'DashboardController@totalPresupuestado')->name('actualizarTotalPresupuesto');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');

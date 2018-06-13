@@ -28,7 +28,7 @@
               <li><a href="{{ route('materiales.index') }}">Materiales</a></li>
               <li><a href="{{ route('clientes.index') }}">Clientes</a></li>
               <li><a href="{{ route('obras.index') }}">Obras</a></li>
-              <li><a href="{{ route('presupuestos.index') }}">Presupuestos</a></li>
+              <li><a href="{{ route('presupuestos.index') }}">Muebles</a></li>
               <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             </ul>
           </div>
@@ -37,7 +37,7 @@
       </div>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        
+
 
     </body>
 </html>
