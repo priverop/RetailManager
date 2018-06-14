@@ -1,6 +1,6 @@
 <!-- Modal form to add a post -->
 <div id="addModalInfCompras" class="modal fade " role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-grande">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Informe de Compras</h4>
