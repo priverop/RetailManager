@@ -133,17 +133,18 @@ class MaterialController extends Controller
      */
     public function update(Request $request, $material)
     {
-        // Actualizamos el material
-        $material = Material::find($material)->update($request->all());
+
+      $precio = str_replace(',', '.', $request->input('precio'));
 
         if($request->input('proveedorID')){
+
           $newProveedorID = $request->input('proveedorID');
 
           $update = DB::table('material_proveedor')
           ->where('material_id', $material)
           ->where('proveedor_id', $request->input('proveedor_id'))
           ->update(
-            ['precio'       => $request->input('precio'),
+            ['precio'       => $precio,
              'unidad'       => $request->input('unidad'),
              'descuento'       => $request->input('descuento'),
              'min_unidades'       => $request->input('min_unidades'),
@@ -156,13 +157,16 @@ class MaterialController extends Controller
           ->where('material_id', $material)
           ->where('proveedor_id', $request->input('proveedor_id'))
           ->update(
-            ['precio' => $request->input('precio'),
+            ['precio' => $precio,
              'unidad'       => $request->input('unidad'),
              'descuento'       => $request->input('descuento'),
              'min_unidades'       => $request->input('min_unidades')]
           );
 
         }
+
+        // Actualizamos el material
+        $material = Material::find($material)->update($request->all());
 
         return response()->json($update);
 

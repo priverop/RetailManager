@@ -180,10 +180,7 @@ $(function() {
     var form_action = $("#addMaterialForm").attr("action");
     var nRows = table.rows('.selected').data().length;
 
-    if(nRows == 0){
-      alert('Por favor elija un proveedor.');
-    }
-    else if(nRows > 1){
+    if(nRows > 1){
       alert('Por favor elija solo un proveedor');
     }
     else if(nRows == 1){
@@ -204,19 +201,23 @@ $(function() {
         });
       });
     }
-    else{
-      var formulario = $("#addMaterialForm").serialize();
-      $.ajax({
-          @isset($material)
+    else{ // 0 Proveedores seleccionados
+
+      // Si está el modo edición, podemos enviarlo tal cual
+      @isset($material)
+        var formulario = $("#addMaterialForm").serialize();
+        $.ajax({
             type: 'PUT',
-          @else
-            type: 'POST',
-          @endisset
-          url: form_action,
-          data: formulario
-      }).done(function(data){
-          location.reload();
-      });
+            url: form_action,
+            data: formulario
+        }).done(function(data){
+            location.reload();
+        });
+      @else
+      // Si no está el modo edición, mostramos error
+        alert('Por favor, elija un proveedor.');
+      @endisset
+
     }
 
   });

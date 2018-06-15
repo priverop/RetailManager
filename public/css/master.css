@@ -28,7 +28,10 @@ a{
 /* Modal más grande */
 @media (min-width: 576px){
   .modal-dialog {
-      max-width: inherit;
+      max-width: 800px;
+  }
+  .modal-grande{
+    max-width: inherit !important;
   }
 }
 
