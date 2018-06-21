@@ -98,7 +98,7 @@ $(function(){
       { data: "id", name: "id" },
       { data: "nombre", name: "nombre" },
       { data: "fecha", name: "fecha" },
-      { data: "cliente_id", name: "cliente_id" },
+      { data: "cliente.nombre", name: "cliente" },
       { data: "precio_total_beneficio", name: "precio_total_beneficio" }
     ]
   });

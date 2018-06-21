@@ -62,11 +62,18 @@ class DashboardController extends Controller
       $desde = \Carbon\Carbon::parse($request->input('desde'))->format('Y-m-d');
       $hasta = \Carbon\Carbon::parse($request->input('hasta'))->format('Y-m-d');
 
-      $obras = Obra::whereDate('fecha', '<', $hasta)->whereDate('fecha', '>', $desde)->get();
+      $obras = Obra::whereDate('fecha', '<', $hasta)->whereDate('fecha', '>', $desde)->with('cliente')->get();
 
       return $obras;
     }
 
+    /**
+     * Devolvemos las obras entre las fechas dadas EN JSON
+     *
+     * @param date desde
+     * @param date hasta
+     * @return \Illuminate\Http\Response
+     */
     public function obrasPresupuestadasJSON(Request $request){
       return datatables()->of($this->obrasPresupuestadas($request))->toJson();
     }
