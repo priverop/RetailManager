@@ -78,12 +78,15 @@ $(function(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
+  $.fn.dataTable.moment('DD-MM-YYYY');
+
   var table = $('#indexObra').DataTable({
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
-      },
-          processing: true,
-    serverSide: true,
+    },
+    processing: true,
+    serverSide: false,
     "ajax": {
       "url": '{!! route('obrasPresupuestadas') !!}',
       "type": 'POST',
