@@ -42,6 +42,7 @@ Route::get('/presupuestos/createExist/{obra_id}', 'PresupuestoController@createE
 Route::post('/obras/{id}/duplicate', 'ObraController@duplicate')->name('duplicateObra');
 
 // DASHBOARD - Actualizar Total Presupuestado
+Route::post('/obrasPresupuestadas', 'DashboardController@obrasPresupuestadasJSON')->name('obrasPresupuestadas');
 Route::post('/totalPresupuestado', 'DashboardController@totalPresupuestado')->name('actualizarTotalPresupuesto');
 
 Route::resource('materiales', 'MaterialController');

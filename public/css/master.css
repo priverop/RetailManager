@@ -17,6 +17,18 @@ a{
   margin-bottom: 30px;
 }
 
+/* ================ */
+/* == DASHBOARD  == */
+/* ================ */
+
+.form-group.fullfather{
+  width: 83%;
+}
+
+.form-group.fullfather > div, .form-group.fullfather input{
+  width: 100%;
+}
+
 /* ========================= */
 /* == PRESUPUESTO - SHOW  ==*/
 /* ========================= */
