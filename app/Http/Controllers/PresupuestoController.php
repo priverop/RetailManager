@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Events\PresupuestoModificado;
 use App\Events\MaterialParteModificado;
 
+use Barryvdh\DomPDF\PDF;
+
 class PresupuestoController extends Controller
 {
 
@@ -77,6 +79,14 @@ class PresupuestoController extends Controller
         $presupuesto = Presupuesto::find($presupuesto_id);
 
         return View::make('presupuestos.show')->with('presupuesto', $presupuesto);
+    }
+
+    public function getPDF($presupuesto_id){
+      $presupuesto = Presupuesto::find($presupuesto_id);
+
+      $pdf = \PDF::loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
+
+      return $pdf->stream();
     }
 
 
