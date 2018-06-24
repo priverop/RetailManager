@@ -49,6 +49,13 @@
 <script>
 $(function(){
   $('#index').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        { extend: 'copyHtml5', text: 'Copiar',  exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6]} },
+        { extend: 'excelHtml5',  exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6]} },
+        { extend: 'csvHtml5',  exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6]} },
+        { extend: 'pdfHtml5', exportOptions: {columns: [0, 1, 2, 3, 4, 5, 6]}  }
+    ],
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
