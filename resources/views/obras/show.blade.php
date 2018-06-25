@@ -4,8 +4,7 @@
 
 @section('content')
 
-
-  <h1>{{ $obra->nombre }}</h1>
+  <h1>{{ $obra->nombre }} <button class="btn-sm btn-primary" id="editarObra">Editar Obra</button></h1>
   <h4>{{ $obra->fecha }}</h4>
   <h6>Cliente: {{ $obra->cliente->nombre }}</h6>
 
@@ -124,6 +123,24 @@ $(function(){
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
+
+  // EDITAR OBRA
+  $("#editarObra").click(function(e){
+    e.preventDefault();
+
+    var form_action = "{{route('obras.create')}}";
+    var id = "{{$obra->id}}";
+
+    $.ajax({
+      dataType: 'json',
+      type: 'GET',
+      url: form_action,
+      data: {id: id}
+    }).done(function(data){
+      $('#presupuestoIndex').parent().prepend(data);
+      $('#addModal').modal('show');
+    });
+  })
 
   // Mostramos modal Muebles Existentes
   $("#addMuebleExistente").click(function(event){

@@ -7,7 +7,6 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
-        <!-- <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm"> -->
         @isset($obra)
         <form class="form-horizontal" role="form" action="{{ route('obras.update', ['id' => $obra->id]) }}" method="POST" id="addObrasForm">
           <input type="text" class="form-control" name="id" value="{{$obra->id}}" hidden>
@@ -116,7 +115,11 @@ $(function(){
         url: form_action,
         data: formulario
     }).done(function(data){
+      @isset($obra)
+        location.reload();
+      @else
         window.location.replace(data);
+      @endisset
     });
 
   });

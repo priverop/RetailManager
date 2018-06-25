@@ -167,12 +167,13 @@ class ObraController extends Controller
      */
     public function update(Request $request)
     {
-        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
+        $cliente = Cliente::where('nombre', '=', $request->input('cliente'))->first();
         $obra = Obra::find($request->input('id'));
         $obra->update([
-          'fecha' => $request->input('fecha'),
-          'beneficio' => $request->input('beneficio'),
-          'cliente_id' => $cliente->id
+          'nombre'      => $request->input('nombre'),
+          'fecha'       => $request->input('fecha'),
+          'beneficio'   => $request->input('beneficio'),
+          'cliente_id'  => $cliente->id
         ]);
 
         $totalPrizeB = 0;
