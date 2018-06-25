@@ -29,4 +29,17 @@ class PlanoController extends Controller
         return redirect('presupuestos/'.$request->input('presupuesto_id'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Plano  $material
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Plano::find($id)->delete();
+
+        return response()->json(['done']);
+    }
+
 }

@@ -97,24 +97,30 @@
       <div class="col"><div class="row m-3">
         <div class="col-xs-12">
           <h3>Planos del presupuesto</h3>
+
           <form enctype="multipart/form-data" action="{{ route('planos.store') }}" method="POST">
             <input type="file" name="img[]" multiple>
             <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
             {{ csrf_field() }}
             <input type="submit" class="btn btn-primary" value="Añadir">
           </form>
+
           @if(count($presupuesto->planos) >= 1)
-          <button class="btn btn-primary" id="mostrarPlanos">Ver planos</button>
-          <div class="gallery-container">
-            @foreach($presupuesto->planos as $key => $plano)
-              <div class="gallery-item">
-                <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
-                  <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
-                </a>
-              </div>
-            @endforeach
-          </div>
+            <button class="btn btn-primary" id="mostrarPlanos">Ver planos</button>
+            <div class="gallery-container mt-3">
+              @foreach($presupuesto->planos as $key => $plano)
+                <div class="gallery-item">
+                  <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
+                    <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+                  </a>
+                  <button class="btn-sm btn-primary fullWidth" onclick="deletePlano({{$plano->id}})">Borrar</button>
+                </div>
+              @endforeach
+              <p class="mt-3">Pulse en un plano para verlo en grande.</p>
+              <p>Si quiere borrar uno, pulse en el botón Borrar de debajo del plano en cuestión.</p>
+            </div>
           @endif
+
         </div>
       </div>
 
@@ -1237,13 +1243,23 @@ function prepareDataTable(parte_id){
   });
 
 }
+/*
+* Borrar Plano
+*/
+function deletePlano(plano_id){
+  var form_action = "{{route('planos.destroy', ['plano_id' => ":plano_id"]) }}";
+  form_action = form_action.replace(':plano_id', plano_id);
 
-</script>
+  $.ajax({
+    dataType: 'json',
+    type: 'DELETE',
+    url: form_action
+  }).done(function(data){
+    location.reload();
+  });
+}
 
-<script>
 function guardar1(id) {
-  console.log("guarda");
-  console.log(id);
   document.getElementById(id).disabled = true;
 }
 
