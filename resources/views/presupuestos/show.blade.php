@@ -1225,7 +1225,6 @@ function prepareDataTable(parte_id){
       var materialID = this.data()[4];
       var proveedorID = this.data()[5];
 
-      console.log("form: "+form_action);
       $.ajax({
           type: 'POST',
           url: form_action,
@@ -1262,7 +1261,6 @@ function desmarcarCheckBox(){
   }
 }
 function editar1(id) {
-  console.log("click");
   document.getElementById(id).disabled = false;
   var n = document.getElementsByClassName('editarP');
   for(var i=0;i<n.length;i++){

@@ -104,7 +104,6 @@ $(function(){
     event.preventDefault();
     var form_action = $("#addObrasForm").attr("action");
     var formulario = $("#addObrasForm").serialize();
-    console.log(formulario);
 
     $.ajax({
       @isset($obra)
