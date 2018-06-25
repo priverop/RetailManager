@@ -15,6 +15,19 @@ class ObraController extends Controller
 {
 
   /**
+   * Formulario para duplicar obra
+   *
+   * @param  \App\Presupuesto $obra
+   * @return \Illuminate\Http\Response
+   */
+  public function duplicateForm(Request $request)
+  {
+    $html = View::make('obras.duplicate')->with('obra_id', $request->input('obra_id'))->render();
+
+    return response()->json($html);
+  }
+
+  /**
    * Duplicar obra y todo su contenido.
    *
    * @return \Illuminate\Http\Response
@@ -25,7 +38,7 @@ class ObraController extends Controller
      $obra = Obra::find($obra_id);
 
      $nuevaObra = $obra->replicate();
-     $nuevaObra->nombre = $nuevaObra->nombre . ' Copia';
+     $nuevaObra->nombre = $request->input('concepto');
      $nuevaObra->push();
 
      foreach ($obra->presupuestos as $key => $presupuesto) {

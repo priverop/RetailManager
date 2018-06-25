@@ -115,16 +115,15 @@ function editar(id){
 }
 
 function duplicarObra(obra_id){
-  var form_action = "{{ route('duplicateObra', ['obra_id' => ":obra_id"]) }}";
-
-  form_action = form_action.replace(':obra_id', obra_id);
+  var form_action = "{{ route('duplicateObraForm') }}";
 
   $.ajax({
-    dataType: 'json',
-    type: 'POST',
-    url: form_action
+    type: 'GET',
+    url: form_action,
+    data: {obra_id: obra_id}
   }).done(function(data){
-    window.location.replace(data);
+    $("#index").parent().prepend(data);
+    $("#duplicateModal").modal('show');
   });
 }
 </script>
