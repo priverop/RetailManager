@@ -49,9 +49,7 @@ $(function(){
         url: form_action,
         data: formulario
     }).done(function(data){
-      
       window.location.replace(data);
-
     });
 
   });

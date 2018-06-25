@@ -96,14 +96,14 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function duplicate($presupuesto_id, $obra_id = null, Request $request = null)
+    public function duplicate(Request $request, $presupuesto_id, $obra_id = null)
     {
       // Encontramos el presupuesto a duplicar
       $presupuesto = Presupuesto::find($presupuesto_id);
 
       // Duplicamos el presupuesto y modificamos nombre y obra
       $nuevoPresupuesto = $presupuesto->replicate();
-      if($request){
+      if($request->input('concepto')){
           $nuevoPresupuesto->concepto = $request->input('concepto');
       }
       if($obra_id != null){
@@ -157,7 +157,7 @@ class PresupuestoController extends Controller
       // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
 
-      if($obra_id != null){
+      if($obra_id == null){
         return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
       }
       else{
@@ -174,9 +174,10 @@ class PresupuestoController extends Controller
      */
     public function duplicateToObra(Request $request, $obra_id){
       $muebles = $request->input('muebles');
+      $r = new Request();
 
       foreach ($muebles as $key => $value) {
-        $this->duplicate($value, $obra_id);
+        $this->duplicate($r, $value, $obra_id);
       }
     }
 
