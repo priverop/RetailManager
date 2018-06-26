@@ -110,8 +110,8 @@
             <div class="gallery-container mt-3">
               @foreach($presupuesto->planos as $key => $plano)
                 <div class="gallery-item">
-                  <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
-                    <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+                  <a class="image-popup" href="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
+                    <img class="img-fluid" src="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
                   </a>
                   <button class="btn-sm btn-primary fullWidth" onclick="deletePlano({{$plano->id}})">Borrar</button>
                 </div>
