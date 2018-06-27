@@ -33,6 +33,10 @@ class CreateMaterialExternosTable extends Migration
           $table->double('precio_unidad')->default(0);
           $table->string('unidad')->default("unidades");
           $table->double('precio_total')->default(0);
+
+          $table->string('archivo_presupuesto')->default("sin definir");
+          $table->string('num_presupuesto')->default("sin definir");
+          $table->integer('uso_presupuesto_externo')->default(0);
           $table->timestamps();
         });
     }

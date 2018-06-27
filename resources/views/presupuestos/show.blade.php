@@ -275,6 +275,10 @@
           </p>
           <form action="{{ route('material_externos.store') }}" method="POST" id="addMaterialExternoForm">
             <input type="text" placeholder="Concepto" name="concepto" id="addMaterialExternoConcepto" />
+            <div>
+              <input type="checkbox" id="uso_presupuesto_externo_1" name="uso_presupuesto_externo" class="uso_presupuesto_externo">
+              <b>Importar sólo presupuesto externo, sin introducir el resto de datos</b>
+            </div>
             <button type="button" id="addMaterialExternoButton" class="btn btn-primary">Añadir</button>
           </form>
         </div>
@@ -306,6 +310,7 @@
               <tbody>
 
                 @foreach($presupuesto->material_externos as $key => $value)
+                  @if($value->uso_presupuesto_externo == 0)
                     <tr>
                       <td>{{$value->id}}</td>
                       <td class="editable">
@@ -361,6 +366,72 @@
                         <input type="hidden" value="{{ $rutaEliminarExterno }}">
                       </td>
                     </tr>
+                  @endif
+                @endforeach
+              </tbody>
+            </table>
+
+        </div>
+        <div class="row">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Índice</th>
+                  <th scope="col">Concepto</th>
+                  <th scope="col">Provedor Externo</th>
+                  <th scope="col">Número de Presupuesto</th>
+                  <th scope="col">Archivo</th>
+                  <th scope="col">Precio Total</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                @foreach($presupuesto->material_externos as $key => $value)
+                  @if($value->uso_presupuesto_externo == 1)
+                    <tr>
+                      <td>{{$value->id}}</td>
+                      <td class="editable">
+                        <p>{{$value->concepto}}</p>
+                        <input name="concepto" class="form-control small-input" type="hidden" value="{{$value->concepto}}">
+                      </td>
+                      <td class="editable">
+                        <p>{{$value->proveedor_externo}}</p>
+                        <input name="proveedor_externo" class="form-control small-input" type="hidden" value="{{$value->proveedor_externo}}">
+                      </td>
+                      <td class="editable">
+                        <p>{{$value->num_presupuesto}}</p>
+                        <input name="num_presupuesto" class="form-control small-input" type="hidden" value="{{$value->num_presupuesto}}">
+                      </td>
+                      <td>
+                        @if($value->archivo_presupuesto == "sin definir")
+                          <p>{{$value->archivo_presupuesto}}</p>
+                        @else
+                          <p><a href="{{$value->archivo_presupuesto}}" target="_blank">ver</a></p>
+                        @endif
+                      </td>
+                      <td  class="editable">
+                        <p>{{$value->precio_total}}</p>
+                        <input name="precio_total" class="form-control small-input" type="hidden" value="{{$value->precio_total}}">
+                      </td>
+                      <td>
+                        <?php $rutaEliminarExterno = route('destroyExterno', ['id' => $value->id]); ?>
+
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editarMaterialExterno({{$value->id}},this)">Editar</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminarMaterialExterno({{ $value->id }}, this)">Borrar</button>
+                        <input type="hidden" value="{{ route('editarExterno', ['id' => $value->id]) }}">
+                        <input type="hidden" value="{{ $value->id }}">
+                        <input type="hidden" value="{{ $rutaEliminarExterno }}">
+                        <form enctype="multipart/form-data" action="{{ route('editarFacturaExterno') }}" method="POST">
+                          <input type="file" name="archivo_presupuesto">
+                          <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
+                          <input type="hidden" name="id" value="{{$value->id}}">
+                          {{ csrf_field() }}
+                          <input type="submit" class="btn btn-primary" value="Añadir">
+                        </form>
+                      </td>
+                    </tr>
+                  @endif
                 @endforeach
               </tbody>
             </table>
@@ -987,13 +1058,17 @@ $(function() {
 
     var form_action = $("#addMaterialExternoForm").attr("action");
     var concepto = $("#addMaterialExternoConcepto").val();
+    var uso_presupuesto_externo = 0;
+    if(document.getElementsByName("uso_presupuesto_externo")[0].checked){
+      uso_presupuesto_externo = 1;
+    }
     var presupuesto_id = {{ $presupuesto->id }};
 
     $.ajax({
         dataType: 'json',
         type:'POST',
         url: form_action,
-        data:{concepto:concepto, presupuesto_id:presupuesto_id }
+        data:{concepto:concepto, presupuesto_id:presupuesto_id, uso_presupuesto_externo:uso_presupuesto_externo }
     }).done(function(data){
         location.reload();
     });
@@ -1107,6 +1182,7 @@ function editarMaterialExterno(materialID, elemento){
   $(elemento).attr("onclick","guardarMaterialExterno("+materialID+", this)");
 }
 
+
 /*
 * Guardar Material Editado
 *
@@ -1140,16 +1216,23 @@ function guardarMaterialEditado(materialparteID, elemento){
 function guardarMaterialExterno(materialID, elemento){
   var tr = $(elemento).parent().parent();
   var form_action = $(elemento).next().next().val();
+  var presupuesto_id = $("#id").val();
   var concepto = tr.find('input[name="concepto"]').val();
   var proveedor_externo = tr.find('input[name="proveedor_externo"]').val();
+
   var tipo_material = tr.find('input[name="tipo_material"]').val();
   var unidades = tr.find('input[name="unidades"]').val();
   var largo = tr.find('input[name="largo"]').val();
   var alto = tr.find('input[name="alto"]').val();
   var ancho = tr.find('input[name="ancho"]').val();
   var precio_unidad = tr.find('input[name="precio_unidad"]').val()
-  var unidad = tr.find('input[name="unidad"]').val()
-  var presupuesto_id = $("#id").val();
+  var unidad = tr.find('input[name="unidad"]').val();
+
+  var num_presupuesto = tr.find('input[name="num_presupuesto"]').val();
+  var archivo_presupuesto = tr.find('input[name="archivo_presupuesto"]').val();
+  var precio_total = tr.find('input[name="precio_total"]').val();
+
+
 
 
   $.ajax({
@@ -1157,7 +1240,8 @@ function guardarMaterialExterno(materialID, elemento){
       type:'POST',
       url: form_action,
       data: {concepto: concepto, proveedor_externo: proveedor_externo, tipo_material: tipo_material, presupuesto_id: presupuesto_id,
-              unidades: unidades, largo: largo, ancho: ancho, alto: alto, unidad: unidad, precio_unidad: precio_unidad},
+              unidades: unidades, largo: largo, ancho: ancho, alto: alto, unidad: unidad, precio_unidad: precio_unidad,
+            num_presupuesto: num_presupuesto, archivo_presupuesto: archivo_presupuesto, precio_total: precio_total},
   }).done(function(data){
       location.reload();
   });
@@ -1274,6 +1358,20 @@ function desmarcarCheckBox(){
     $('#uso_beneficio_global_1').prop('checked',false);
   }else{
     $('#uso_beneficio_global_1').prop('checked',true);
+  }
+}
+
+function desmarcarCheckBoxExterno(){
+  if ($('#uso_presupuesto_externo_1').is(":checked")){
+    $('#uso_presupuesto_externo_0').prop('checked',false);
+  }else{
+    $('#uso_presupuesto_externo_0').prop('checked',true);
+  }
+
+  if ($('#uso_presupuesto_externo_0').is(":checked")){
+    $('#uso_presupuesto_externo_1').prop('checked',false);
+  }else{
+    $('#uso_presupuesto_externo_1').prop('checked',true);
   }
 }
 function editar1(id) {
