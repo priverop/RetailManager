@@ -9,8 +9,14 @@
   <h6>Cliente: {{ $obra->cliente->nombre }}</h6>
 
   <p>Identificador de obra: {{ $obra->id }}</p>
-  <p>Precio total de obra: {{ $obra->precio_total }}</p>
-  <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
+</br>
+  <p>Coste Base: {{ $obra->precio_total }}</p>
+  <p>Coste Montaje: {{ $obra->total_montaje }}</p>
+  <p>Coste Transporte: {{ $obra->total_transporte }}</p>
+</br>
+  <h5>Coste Estructural: {{ $obra->precio_total_beneficio }}</h5>
+  <h5>Coste: {{ $obra->total_estructural }}</h5>
+  <h5>Coste Comercial: {{ $obra->total_comercial }}</h5>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Mueble</button>
   <button class="btn btn-primary" id="addMuebleExistente">Añadir Muebles Existentes</button>
   <a href="{{  route('ExportPRE', ['id'=>$obra->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
@@ -26,8 +32,8 @@
           <th>Precio und.</th>
           <th>Unidades</th>
           <th>Precio Coste</th>
-          <th>Beneficio</th>
-          <th>Beneficio Global</th>
+          <!-- <th>Beneficio</th>
+          <th>Beneficio Global</th> -->
           <th>Precio Total</th>
           <th>Acciones</th>
         </tr>
@@ -40,7 +46,7 @@
             <td>{{$presupuesto->precio_total_unidad}}</td>
             <td>{{$presupuesto->unidades}}</td>
             <td>{{$presupuesto->precio_total}}</td>
-            @if ($presupuesto->uso_beneficio_global === 1)
+            <!-- @if ($presupuesto->uso_beneficio_global === 1)
               <?php
                 $beneficio = $presupuesto->obra->beneficio;
                 $b_global = "Activado";
@@ -51,7 +57,7 @@
                 $b_global = "Desactivado";
               ?>
             @endif
-            <td>{{$beneficio}}%</td>
+            <td>{{$beneficio}}%</td> -->
             <td>{{$b_global}}</td>
             <td>{{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01)) }}</td>
             <td>

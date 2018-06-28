@@ -61,8 +61,8 @@ class PresupuestoController extends Controller
     {
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
-          'beneficio' => $request->input('beneficio'),
-          'uso_beneficio_global' => $request->input('uso_beneficio_global'),
+          // 'beneficio' => $request->input('beneficio'),
+          // 'uso_beneficio_global' => $request->input('uso_beneficio_global'),
           'obra_id' => $request->input('obra_id')
         ]);
         return response()->json($presupuesto);

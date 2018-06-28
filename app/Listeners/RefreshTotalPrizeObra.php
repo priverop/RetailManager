@@ -41,16 +41,45 @@ class RefreshTotalPrizeObra
 
         foreach($obra->presupuestos as $key => $value){
           $totalPrize += $value->precio_total;
-          if($value->uso_beneficio_global === 1){
-            $beneficio = $obra->beneficio;
-          }else{
-            $beneficio = $value->beneficio;
-          }
-          $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01)); 
+          // if($value->uso_beneficio_global === 1){
+          //   $beneficio = $obra->beneficio;
+          // }else{
+          //   $beneficio = $value->beneficio;
+          // }
+          // $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01));
         }
 
         $obra->precio_total = $totalPrize;
+        $obra->precio_total_beneficio = $totalPrize;
+
+        if($obra->coste_montaje == 0){
+          $obra->total_montaje = $obra->precio_total * ($obra->porcentaje_montaje * 0.01);
+        }else{
+          $obra->total_montaje = $obra->coste_montaje;
+        }
+        $totalPrize += $obra->total_montaje;
+
+        if($obra->coste_trans == 0){
+          $obra->total_transporte = $obra->precio_total * ($obra->porcentaje_transporte * 0.01);
+        }else{
+          $obra->total_transporte = $obra->coste_trans;
+        }
+        $totalPrize += $obra->total_transporte;
+
         $obra->precio_total_beneficio = $totalPrizeB;
+
+        if ($obra->margen_estructural > 0){
+          $obra->total_estructural = $obra->precio_total_beneficio / $obra->margen_estructural;
+        }else{
+          $obra->total_estructural = $obra->precio_total_beneficio;
+        }
+
+        if ($obra->margen_comercial > 0){
+          $obra->total_comercial = $obra->total_estructural / $obra->margen_comercial;
+        }else{
+          $obra->total_comercial = $obra->total_estructural;
+        }
+
         $obra->save();
 
     }

@@ -11,27 +11,58 @@
 <div class="row">
   <table id="index">
     <thead>
-      <tr>
+      <!-- <tr>
         <th>#</th>
         <th>Nombre</th>
         <th>Fecha</th>
         <th>Cliente</th>
         <th>Precio Coste</th>
         <th>Beneficio</th>
+        <th>Coste Montaje</th>
+        <th>Coste Transporte</th>
         <th>Precio Total</th>
+        <th>Acciones</th>
+      </tr> -->
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Coste Base</th>
+        <th>Coste Montaje</th>
+        <th>Coste Transporte</th>
+        <th>Coste Estructural</th>
+        <th>Margen Estructural</th>
+        <th>Coste</th>
+        <th>Margen Coomercial</th>
+        <th>Coste Comercial</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       @foreach($obras as $key => $value)
       <tr>
+          <!-- <td>{{ $value->id }}</td>
+          <td>{{ $value->nombre }}</td>
+          <td>{{ $value->fecha }}</td>
+          <td>{{ $value->cliente->nombre }}</td>
+          <td>{{ $value->precio_total }}</td>
+          <td>{{ $value->beneficio }}%</td>
+          <td>{{ $value->total_montaje }}</td>
+          <td>{{ $value->total_transporte }}</td>
+          <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
-          <td>{{ $value->precio_total}}</td>
-          <td>{{ $value->beneficio }}%</td>
+          <td>{{ $value->precio_total }}</td>
+          <td>{{ $value->total_montaje }}</td>
+          <td>{{ $value->total_transporte }}</td>
           <td>{{ $value->precio_total_beneficio}}</td>
+          <td>{{ $value->margen_estructural}}</td>
+          <td>{{ $value->total_estructural}}</td>
+          <td>{{ $value->margen_comercial}}</td>
+          <td>{{ $value->total_comercial}}</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
