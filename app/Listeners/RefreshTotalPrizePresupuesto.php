@@ -71,10 +71,13 @@ class RefreshTotalPrizePresupuesto
       $presupuesto->total_desplazamiento = $precioTotal * ($presupuesto->desplazamiento_unidad * 0.01);
       $presupuesto->total_transporte = $precioTotal * ($presupuesto->transporte_unidad * 0.01);
       $presupuesto->total_imprevistos = $precioTotal * ($presupuesto->imprevistos_unidad * 0.01);
+      $presupuesto->total_iva = $precioTotal * ($presupuesto->iva_unidad * 0.01);
 
       $precioTotal += $presupuesto->total_desplazamiento;
       $precioTotal += $presupuesto->total_transporte;
       $precioTotal += $presupuesto->total_imprevistos;
+
+      $precioTotalIVA = $precioTotal + $presupuesto->total_iva;
 
       if($presupuesto->desperdicio > 0 ){
           $precioTotal = $precioTotal + $this->getDesperdicioTotal($presupuesto->desperdicio, $this->getMaderaPrecioTotal($presupuesto_id));
@@ -85,6 +88,8 @@ class RefreshTotalPrizePresupuesto
 
       $presupuesto->precio_total_unidad = $precioTotal;
       $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
+      $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
+      $presupuesto->precio_con_iva = $precioTotalIVA * $presupuesto->unidades;
 
       $presupuesto->save();
 

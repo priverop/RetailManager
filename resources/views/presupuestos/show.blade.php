@@ -26,7 +26,7 @@
       @else
         <?php $beneficio = $presupuesto->beneficio;?>
       @endif
-      <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01) )}}</h4>
+      <h4>Total: {{$presupuesto->precio_con_iva }}</h4>
     </div>
   </div>
   <div class="row">
@@ -893,7 +893,7 @@
             <thead>
               <tr>
                 <th scope="col"></th>
-                <th scope="col">Precio Unidad</th>
+                <th scope="col">Porcentaje</th>
                 <th scope="col">Total</th>
               </tr>
             </thead>
@@ -903,33 +903,44 @@
                 <td>Desplazamiento</td>
                 <td>
                   <div onclick="editar1('desplazamiento_unidad')">
-                    <input type="text" id="desplazamiento_unidad" placeholder="Minutos" name="desplazamiento_unidad" value="{{ $presupuesto->desplazamiento_unidad }}" class="infoPresupuesto"  disabled/>
+                    <input type="text" id="desplazamiento_unidad" placeholder="%" name="desplazamiento_unidad" value="{{ $presupuesto->desplazamiento_unidad }}" class="infoPresupuesto"  disabled/>
                   </div>
                 </td>
                 <td>
-                    <input type="text" id="total_desplazamiento" placeholder="Operacion" name="total_desplazamiento" value="{{ $presupuesto->total_desplazamiento}}" class=""  disabled/>
+                    <input type="text" id="total_desplazamiento" placeholder="total" name="total_desplazamiento" value="{{ $presupuesto->total_desplazamiento}}" class=""  disabled/>
                 </td>
               </tr>
               <tr>
                 <td>Transporte</td>
                 <td>
                   <div onclick="editar1('transporte_unidad')">
-                    <input type="text" id="transporte_unidad" placeholder="Minutos" name="transporte_unidad" value="{{ $presupuesto->transporte_unidad }}" class="infoPresupuesto"  disabled/>
+                    <input type="text" id="transporte_unidad" placeholder="%" name="transporte_unidad" value="{{ $presupuesto->transporte_unidad }}" class="infoPresupuesto"  disabled/>
                   </div>
                 </td>
                 <td>
-                  <input type="text" id="total_transporte" placeholder="Operacion" name="total_transporte" value="{{ $presupuesto->total_transporte}}" class=""  disabled/>
+                  <input type="text" id="total_transporte" placeholder="total" name="total_transporte" value="{{ $presupuesto->total_transporte}}" class=""  disabled/>
                 </td>
               </tr>
               <tr>
                 <td>Imprevistos</td>
                 <td>
                   <div onclick="editar1('imprevistos_unidad')">
-                    <input type="text" id="imprevistos_unidad" placeholder="Minutos" name="imprevistos_unidad" value="{{ $presupuesto->imprevistos_unidad }}" class="infoPresupuesto"  disabled/>
+                    <input type="text" id="imprevistos_unidad" placeholder="%" name="imprevistos_unidad" value="{{ $presupuesto->imprevistos_unidad }}" class="infoPresupuesto"  disabled/>
                   </div>
                 </td>
                 <td>
-                  <input type="text" id="total_imprevistos" placeholder="Operacion" name="total_imprevistos" value="{{ $presupuesto->total_imprevistos}}" class=""  disabled/>
+                  <input type="text" id="total_imprevistos" placeholder="total" name="total_imprevistos" value="{{ $presupuesto->total_imprevistos}}" class=""  disabled/>
+                </td>
+              </tr>
+              <tr>
+                <td>IVA</td>
+                <td>
+                  <div onclick="editar1('iva_unidad')">
+                    <input type="text" id="iva_unidad" placeholder="%" name="iva_unidad" value="{{ $presupuesto->iva_unidad }}" class="infoPresupuesto"  disabled/>
+                  </div>
+                </td>
+                <td>
+                  <input type="text" id="total_iva" placeholder="total" name="total_iva" value="{{ $presupuesto->total_iva}}" class=""  disabled/>
                 </td>
               </tr>
             </tbody>
@@ -945,9 +956,9 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <h4>Precio: {{$presupuesto->precio_total_unidad}}</h4>
-      <h4>Beneficio: {{$presupuesto->precio_total_unidad * ($beneficio * 0.01) }}</h4>
-      <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01) )}}</h4>
+      <h4>Total: {{$presupuesto->precio_total}}</h4>
+      <h4>IVA: {{$presupuesto->total_iva}}</h4>
+      <h4>Total con IVA: {{$presupuesto->precio_con_iva }}</h4>
     </div>
   </div>
 
