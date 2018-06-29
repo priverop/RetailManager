@@ -29,6 +29,7 @@
         <th>Fecha</th>
         <th>Cliente</th>
         <th>Coste Base</th>
+        <th>Coste Base + IVA</th>
         <th>Coste Montaje</th>
         <th>Coste Transporte</th>
         <th>Coste Estructural</th>
@@ -56,6 +57,7 @@
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
           <td>{{ $value->precio_total }}</td>
+          <td>{{ $value->total_IVA }}</td>
           <td>{{ $value->total_montaje }}</td>
           <td>{{ $value->total_transporte }}</td>
           <td>{{ $value->precio_total_beneficio}}</td>

@@ -53,18 +53,18 @@ class RefreshTotalPrizeObra
         $obra->precio_total = $totalPrize;
         $obra->precio_total_beneficio = $totalPrizeIVA;
         $obra->total_IVA = $totalPrizeIVA;
-        
+
         if($obra->coste_montaje == 0){
-          $obra->total_montaje = $obra->precio_total * ($obra->porcentaje_montaje * 0.01);
+          $obra->total_montaje = $obra->precio_total_beneficio * ($obra->porcentaje_montaje * 0.01);
         }else{
           $obra->total_montaje = $obra->coste_montaje;
         }
         $totalPrizeIVA += $obra->total_montaje;
 
-        if($obra->coste_trans == 0){
-          $obra->total_transporte = $obra->precio_total * ($obra->porcentaje_transporte * 0.01);
+        if($obra->coste_transporte == 0){
+          $obra->total_transporte = $obra->precio_total_beneficio * ($obra->porcentaje_transporte * 0.01);
         }else{
-          $obra->total_transporte = $obra->coste_trans;
+          $obra->total_transporte = $obra->coste_transporte;
         }
         $totalPrizeIVA += $obra->total_transporte;
 
