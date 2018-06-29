@@ -30,6 +30,7 @@ class CreateObrasTable extends Migration
             $table->double('total_estructural', 8, 2)->default(0);
             $table->double('margen_comercial', 8, 2)->default(0);
             $table->double('total_comercial', 8, 2)->default(0);
+            $table->double('total_IVA', 8, 2)->default(0);
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->timestamps();

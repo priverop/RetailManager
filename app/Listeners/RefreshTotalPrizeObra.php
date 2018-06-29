@@ -37,10 +37,11 @@ class RefreshTotalPrizeObra
         $obra = Obra::find($presupuesto->obra_id);
 
         $totalPrize = 0;
-        $totalPrizeB = 0;
+        $totalPrizeIVA = 0;
 
         foreach($obra->presupuestos as $key => $value){
           $totalPrize += $value->precio_total;
+          $totalPrizeIVA += $value->precio_con_iva;
           // if($value->uso_beneficio_global === 1){
           //   $beneficio = $obra->beneficio;
           // }else{
@@ -50,23 +51,24 @@ class RefreshTotalPrizeObra
         }
 
         $obra->precio_total = $totalPrize;
-        $obra->precio_total_beneficio = $totalPrize;
-
+        $obra->precio_total_beneficio = $totalPrizeIVA;
+        $obra->total_IVA = $totalPrizeIVA;
+        
         if($obra->coste_montaje == 0){
           $obra->total_montaje = $obra->precio_total * ($obra->porcentaje_montaje * 0.01);
         }else{
           $obra->total_montaje = $obra->coste_montaje;
         }
-        $totalPrize += $obra->total_montaje;
+        $totalPrizeIVA += $obra->total_montaje;
 
         if($obra->coste_trans == 0){
           $obra->total_transporte = $obra->precio_total * ($obra->porcentaje_transporte * 0.01);
         }else{
           $obra->total_transporte = $obra->coste_trans;
         }
-        $totalPrize += $obra->total_transporte;
+        $totalPrizeIVA += $obra->total_transporte;
 
-        $obra->precio_total_beneficio = $totalPrizeB;
+        $obra->precio_total_beneficio = $totalPrizeIVA;
 
         if ($obra->margen_estructural > 0){
           $obra->total_estructural = $obra->precio_total_beneficio / $obra->margen_estructural;

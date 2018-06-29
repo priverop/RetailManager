@@ -106,7 +106,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-2" for="beneficio"><strong>Coste de transporte:</strong></label>
+            <label class="control-label col-sm-2" for="beneficio"><strong>Margen Estructural:</strong></label>
             <p>
               Seleccione el margen estructural (0.x)
             </p>
@@ -120,7 +120,7 @@
           </div>
 
           <div class="form-group">
-            <label class="control-label col-sm-2" for="beneficio"><strong>Coste de transporte:</strong></label>
+            <label class="control-label col-sm-2" for="beneficio"><strong>Margen Comercial:</strong></label>
             <p>
               Seleccione el margen comercial (0.x)
             </p>

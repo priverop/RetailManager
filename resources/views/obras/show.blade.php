@@ -11,6 +11,7 @@
   <p>Identificador de obra: {{ $obra->id }}</p>
 </br>
   <p>Coste Base: {{ $obra->precio_total }}</p>
+  <p>Coste Base + IVA: {{ $obra->precio_total_beneficio }}</p>
   <p>Coste Montaje: {{ $obra->total_montaje }}</p>
   <p>Coste Transporte: {{ $obra->total_transporte }}</p>
 </br>
