@@ -11,8 +11,8 @@
 
 <div class="row">
   <div class="col">
-    <h1>Presupuesto Individual</h1>
-    <h4>Total: {{$presupuesto->precio_con_iva }}</h4>
+    <h1>{{ $presupuesto->concepto }}</h1>
+    <h4>Total: {{$presupuesto->precio_con_iva }}€</h4>
   </div>
 </div>
 
@@ -21,7 +21,7 @@
 ======================  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="form-row mt-5 p-3 border">
+  <div class="form-row mt-3 p-3 border">
     <div class="col-md-6">
       <div onclick="editar1('concepto')">
         <b>Concepto: </b>
@@ -31,15 +31,15 @@
         <b>Unidades: </b>
         <input type="text" id="unidades" placeholder="Unidades" name="unidades" value="{{ $presupuesto->unidades }} " class="infoPresupuesto"  disabled/>
       </div>
-      <div onclick="">
+      <div>
         <b>Obra: </b>
         <td> <a href="{{ route('obras.show', ['id' => $presupuesto->obra->id]) }}"> {{ $presupuesto->obra->nombre}}</a> </td>
       </div>
-      <div onclick="">
+      <div>
         <b>Cliente: </b>
         <input type="text" id="cliente" placeholder="Cliente" name="cliente" value="{{ $presupuesto->obra->cliente->nombre }} " disabled/>
       </div>
-      <div onclick="">
+      <div>
         <b>ID Presupuesto: </b>
         <input type="text" id="id" placeholder="Id Presupuesto" name="id" value="{{ $presupuesto->id }}"  disabled/>
       </div>
@@ -59,36 +59,35 @@
       <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked>
       <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled hidden>
       <b> Beneficio Global</b>
+      </div>
+      @else
+      <div onclick="editar1('beneficio')">
+      <b>Beneficio: </b>
+      <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $beneficio }} " class="infoPresupuesto" disabled/>
+      </div>
+      <div>
+      <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled>
+      <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked hidden>
+      <b> Beneficio Global </b>
+      </div>
+      @endif -->
+      <div onclick="editar1('caracteristicas')">
+        <b>Características: </b>
+        <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
+      </div>
+
+      <button type="button" class="btn btn-primary editarP">Editar</button>
+      <button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
+      <button type="button" class="btn btn-primary guardarP">Guardar</button>
     </div>
-    @else
-    <div onclick="editar1('beneficio')">
-    <b>Beneficio: </b>
-    <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $beneficio }} " class="infoPresupuesto" disabled/>
   </div>
-  <div>
-  <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled>
-  <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked hidden>
-  <b> Beneficio Global </b>
-</div>
-@endif -->
-<div onclick="editar1('caracteristicas')">
-  <b>Características: </b>
-  <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
-</div>
-
-<button type="button" class="btn btn-primary editarP">Editar</button>
-<button type="button" class="btn btn-secondary cerrarP" data-dismiss="modal" hidden>Cerrar</button>
-<button type="button" class="btn btn-primary guardarP">Guardar</button>
-</div>
-
-</div>
 </form>
 
 <!-- ======================
 == PLANOS DEL MUEBLE ==
 ======================  -->
 
-<div class="row mt-3">
+<div class="row mt-5 p-3 border">
   <div class="col">
     <h3>Planos del presupuesto</h3>
 
@@ -118,9 +117,9 @@
   </div>
 </div>
 
-<!-- ======================
-== PLANOS DEL MUEBLE ==
-======================  -->
+<!-- ==================
+== PARTES DEL MUEBLE ==
+=======================  -->
 
 <div class="row mt-5 p-3 border border-bottom-0">
 
@@ -967,15 +966,29 @@ $tiposMaterial = [
   </div>
 </form>
 
-<!-- =============
-== PRECIO FINAL ==
-==================  -->
+<!-- ====================
+== DESGLOSE DE PRECIOS ==
+=========================  -->
 
 <div class="row mt-5 p-3 border">
   <div class="col">
-    <h4>Total: {{$presupuesto->precio_total}}</h4>
-    <h4>IVA: {{$presupuesto->total_iva}}</h4>
-    <h4>Total con IVA: {{$presupuesto->precio_con_iva }}</h4>
+    <h2>Desglose de Precios</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Total</th>
+          <th scope="col">IVA</th>
+          <th scope="col">Total con IVA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{$presupuesto->precio_total}}</td>
+          <td>{{$presupuesto->total_iva}}</td>
+          <td>{{$presupuesto->precio_con_iva }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
