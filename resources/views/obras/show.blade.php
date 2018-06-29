@@ -59,8 +59,8 @@
               ?>
             @endif
             <td>{{$beneficio}}%</td> -->
-            <td>{{$b_global}}</td>
-            <td>{{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01)) }}</td>
+            <!-- <td>{{$b_global}}</td> -->
+            <td>{{$presupuesto->precio_con_iva  }}</td>
             <td>
               <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
                 <button class="btn btn-outline-primary btn-sm">Ver</button>
