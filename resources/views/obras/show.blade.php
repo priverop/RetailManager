@@ -3,7 +3,7 @@
 @section('title', 'Obra Individual')
 
 @section('content')
-
+<?php $location = 'obras' ?>
   <h1>{{ $obra->nombre }} <button class="btn-sm btn-primary" id="editarObra">Editar Obra</button></h1>
   <h4>{{ $obra->fecha }}</h4>
   <h6>Cliente: {{ $obra->cliente->nombre }}</h6>

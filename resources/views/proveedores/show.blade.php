@@ -3,6 +3,7 @@
 @section('title', 'Material')
 
 @section('content')
+<?php $location = 'proveedores' ?>
 
 <div class="pt-5" id="clienteContainer">
   <h1>{{ $proveedor->nombre }}</h1>

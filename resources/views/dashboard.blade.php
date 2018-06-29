@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Modifase - Panel Principal')
+@section('title', 'Panel Principal')
 
 @section('content')
+
+<?php $location = 'home' ?>
+
   <h1>Panel Principal</h1>
 
 <div class="row mt-5">

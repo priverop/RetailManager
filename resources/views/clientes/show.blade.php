@@ -3,7 +3,7 @@
 @section('title', 'Cliente')
 
 @section('content')
-
+<?php $location = 'clientes' ?>
 <h1>{{ $cliente->nombre }}</h1>
 
 <div class="row">
@@ -108,7 +108,7 @@ $(function(){
     }
   });
 
-  
+
     $('#index').DataTable({
       "language": {
             "url": "{{ asset('/js/datatable_spanish.json') }}"

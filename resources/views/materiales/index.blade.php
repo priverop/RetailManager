@@ -3,7 +3,7 @@
 @section('title', 'Materiales')
 
 @section('content')
-
+<?php $location = 'materiales' ?>
   <h2>Lista de Materiales</h2>
 
 <input type="button" id="addMaterial" class="btn btn-primary mt-4 mb-4" value="Añadir Material">
