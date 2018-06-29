@@ -161,7 +161,7 @@ $tiposMaterial = [
 
 <div class="row mt-5 p-3 border" id="parteDiv">
 
-  <h2 class="mr-2">{{ $value->nombre }}</h2>
+  <h3 class="mr-2">{{ $value->nombre }}</h3>
   <button class="btn-sm btn-primary" id="borrarParte" onclick="deleteParte(this)">Borrar</button>
   <input type="hidden" value="{{ route('partes.destroy', ['id' => $value->id]) }}">
 
@@ -447,7 +447,7 @@ $tiposMaterial = [
 
 <div class="row mt-5 p-3 border">
   <div class="col">
-    <h2>DESPERDICIO</h2>
+    <h3>DESPERDICIO</h3>
     <p>
       Este porcentaje se aplica al precio total de todas las Maderas de este presupuesto.
       Y se suma automáticamente al total del presupuesto.
@@ -465,7 +465,7 @@ $tiposMaterial = [
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
   <div class="row mt-5 p-3 border">
     <div class="col-md-12">
-      <h2>MÁQUINAS</h2>
+      <h3>MÁQUINAS</h3>
     </div>
     <div class="col-md-12">
       <table class="table table-striped">
@@ -636,7 +636,7 @@ $tiposMaterial = [
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
   <div class="row mt-5 p-3 border">
     <div class="col">
-      <h2>MANO DE OBRA</h2>
+      <h3>MANO DE OBRA</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -901,7 +901,7 @@ $tiposMaterial = [
 <form action="" method="POST"  class="infoPre" id="updatePresupuesto">
   <div class="row mt-5 p-3 border">
     <div class="col">
-      <h2>COSTES ADICIONALES</h2>
+      <h3>COSTES ADICIONALES</h3>
     </div>
     <table class="table table-striped">
       <thead>
@@ -972,7 +972,7 @@ $tiposMaterial = [
 
 <div class="row mt-5 p-3 border">
   <div class="col">
-    <h2>Desglose de Precios</h2>
+    <h3>Desglose de Precios</h3>
     <table class="table table-striped">
       <thead>
         <tr>
