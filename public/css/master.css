@@ -1,5 +1,9 @@
+/* ============== */
+/* == GENERAL  == */
+/* ============== */
+
 a{
-  color: #dc3545 !important;
+  color: #dc3545;
 }
 
 .btn-primary {
@@ -12,9 +16,40 @@ a{
   border-color: #dc3545 !important;
 }
 
+/* ============= */
+/* == LAYOUT  == */
+/* ============= */
+
 #logo img{
-  max-height: 80px;
-  margin-bottom: 30px;
+  max-height: 60px;
+}
+
+.navbar{
+  text-transform: uppercase;
+}
+li.nav-item.active > a{
+  color: grey !important;
+}
+.nav-link{
+  color: #dc3545 !important;
+}
+
+.navbar .nav-item:hover{
+  background: rgba(200, 200, 200, 0.1);
+  font-weight: bolder;
+}
+
+
+
+.mini-jumbo{
+  background: #3d3b56;
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
+
+.main-content{
+  padding-top: 30px;
 }
 
 /* ================ */
