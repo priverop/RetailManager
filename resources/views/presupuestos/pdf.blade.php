@@ -86,12 +86,7 @@
     <div class="row">
       <div class="col">
         <h1>Presupuesto Individual</h1>
-        @if ($presupuesto->uso_beneficio_global === 1)
-        <?php $beneficio = $presupuesto->obra->beneficio;?>
-        @else
-        <?php $beneficio = $presupuesto->beneficio;?>
-        @endif
-        <h4>Total: {{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01) )}}</h4>
+        <h4>Total: {{$presupuesto->precio_con_iva }}</h4>
       </div>
     </div>
 
@@ -176,7 +171,7 @@
       <div class="row mt-5 p-3 border" id="parteDiv">
 
         <div class="col">
-          <h2 class="mr-5">{{ $value->nombre }}</h2>
+          <h2>{{ $value->nombre }}</h2>
 
             <table class="table table-striped">
               <thead>
@@ -307,7 +302,7 @@
 
     <div class="row mt-5 p-3 border">
       <div class="col">
-        <h2 class="mr-5">DESPERDICIO</h2>
+        <h2>DESPERDICIO</h2>
         <p>
           Este porcentaje se aplica al precio total de todas las Maderas de este presupuesto.
           Y se suma automáticamente al total del presupuesto.
@@ -322,7 +317,7 @@
 
       <div class="row mt-5 p-3 border">
         <div class="col-md-12">
-          <h2 class="mr-5">MÁQUINAS</h2>
+          <h2>MÁQUINAS</h2>
 
           <table class="table table-striped">
             <thead>
@@ -485,7 +480,7 @@
 
     <div class="row mt-5 p-3 border">
       <div class="col">
-        <h2 class="mr-5">MANO DE OBRA</h2>
+        <h2>MANO DE OBRA</h2>
 
         <table class="table table-striped">
           <thead>
@@ -745,7 +740,7 @@
 
     <div class="row mt-5 p-3 border">
       <div class="col">
-        <h2 class="mr-5">COSTES ADICIONALES</h2>
+        <h2>COSTES ADICIONALES</h2>
         <table class="table table-striped">
           <thead>
             <tr>
