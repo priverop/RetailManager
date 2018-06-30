@@ -199,12 +199,8 @@ $tiposMaterial = [
         <th scope="col">Largo (mm)</th>
         <th scope="col">Alto (mm)</th>
         <th scope="col">Ancho (mm)</th>
-        <th scope="col">M</th>
-        <th scope="col">Total M</th>
-        <th scope="col">M2</th>
-        <th scope="col">Total M2</th>
-        <th scope="col">M3</th>
-        <th scope="col">Total M3</th>
+        <th scope="col">Tamaño</th>
+        <th scope="col">Tamaño Total</th>
         <th scope="col">Proveedor</th>
         <th scope="col">Precio Und.</th>
         <th scope="col">Descuento</th>
@@ -244,12 +240,27 @@ $tiposMaterial = [
           <p>{{$mvalue->pivot->ancho}}</p>
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->ancho}}">
         </td>
-        <td>{{$mvalue->pivot->m}}</td>
-        <td>{{$mvalue->pivot->total_m}}</td>
-        <td>{{$mvalue->pivot->m2}}</td>
-        <td>{{$mvalue->pivot->total_m2}}</td>
-        <td>{{$mvalue->pivot->m3}}</td>
-        <td>{{$mvalue->pivot->total_m3}}</td>
+        @if($mvalue->unidad == "m")
+          <td>{{$mvalue->pivot->m}}</td>
+          <td>{{$mvalue->pivot->total_m}}</td>
+        @elif ($mvalue->unidad == "m2")
+          <td>{{$mvalue->pivot->m2}}</td>
+          <td>{{$mvalue->pivot->total_m2}}</td>
+        @elif ($mvalue->unidad == "m3")
+          <td>{{$mvalue->pivot->m3}}</td>
+          <td>{{$mvalue->pivot->total_m3}}</td>
+        @else
+          @if($mvalue->pivot->m3 > 0)
+            <td>{{$mvalue->pivot->m3}}</td>
+            <td>{{$mvalue->pivot->total_m3}}</td>
+          @elif($mvalue->pivot->m2 > 0)
+            <td>{{$mvalue->pivot->m2}}</td>
+            <td>{{$mvalue->pivot->total_m2}}</td>
+          @else
+            <td>{{$mvalue->pivot->m}}</td>
+            <td>{{$mvalue->pivot->total_m}}</td>
+          @endif
+        @endif
         <td>{{$mvalue->pivot->proveedors_nombre}}</td>
         <td>{{$mvalue->precio}} € / {{$mvalue->unidad}}</td>
         <td>{{$mvalue->pivot->descuento}}</td>
@@ -300,12 +311,8 @@ $tiposMaterial = [
         <th scope="col">Largo (mm)</th>
         <th scope="col">Alto (mm)</th>
         <th scope="col">Ancho (mm)</th>
-        <th scope="col">M</th>
-        <th scope="col">Total M</th>
-        <th scope="col">M2</th>
-        <th scope="col">Total M2</th>
-        <th scope="col">M3</th>
-        <th scope="col">Total M3</th>
+        <th scope="col">Tamaño</th>
+        <th scope="col">Tamaño Total</th>
         <th scope="col">Precio Und.</th>
         <th scope="col">Unidad</th>
         <th scope="col">Precio Total</th>
@@ -346,12 +353,27 @@ $tiposMaterial = [
           <p>{{$value->ancho}}</p>
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
         </td>
-        <td>{{$value->m}}</td>
-        <td>{{$value->total_m}}</td>
-        <td>{{$value->m2}}</td>
-        <td>{{$value->total_m2}}</td>
-        <td>{{$value->m3}}</td>
-        <td>{{$value->total_m3}}</td>
+        @if($value->unidad == "m")
+          <td>{{$value->m}}</td>
+          <td>{{$value->total_m}}</td>
+        @elif ($value->unidad == "m2")
+          <td>{{$value->m2}}</td>
+          <td>{{$value->total_m2}}</td>
+        @elif ($value->unidad == "m3")
+          <td>{{$value->m3}}</td>
+          <td>{{$value->total_m3}}</td>
+        @else
+          @if($value->m3 > 0)
+            <td>{{$value->m3}}</td>
+            <td>{{$value->total_m3}}</td>
+          @elif($value->m2 > 0)
+            <td>{{$value->m2}}</td>
+            <td>{{$value->total_m2}}</td>
+          @else
+            <td>{{$value->m}}</td>
+            <td>{{$value->total_m}}</td>
+          @endif
+        @endif
         <td class="editable">
           <p>{{$value->precio_unidad}}</p>
           <input name="precio_unidad" class="form-control small-input" type="hidden" value="{{$value->precio_unidad}}">
