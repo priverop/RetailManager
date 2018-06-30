@@ -151,6 +151,8 @@ class ObraController extends Controller
         $obra = Obra::create([
           'nombre'      => $request->input('nombre'),
           'fecha'       => $request->input('fecha'),
+          'v_activa'    => 1,
+          'v_ultima'    => 1,
           // 'beneficio'   => $request->input('beneficio'),
           'coste_montaje' => $request->input('coste_montaje'),
           'porcentaje_montaje' => $request->input('porcentaje_montaje'),
@@ -161,6 +163,8 @@ class ObraController extends Controller
           'cliente_id'  => $cliente->id
         ]);
 
+        $obra->version = $obra->id."-1";
+        $obra->save();
         return response()->json(route('obras.show', ['id' => $obra->id]));
     }
 
@@ -246,7 +250,7 @@ class ObraController extends Controller
         }else{
           $obra->total_comercial = $obra->total_estructural;
         }
-        
+
         $obra->save();
 
         return response()->json($obra);

@@ -26,6 +26,8 @@
       <tr>
         <th>#</th>
         <th>Nombre</th>
+        <th>Versión</th>
+        <th>Versión Activa</th>
         <th>Fecha</th>
         <th>Cliente</th>
         <th>Coste Base</th>
@@ -54,6 +56,13 @@
           <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
+          <?php list($id, $version) = explode('-', $value->version); ?>
+          <td>{{ $version }} de {{ $value->v_ultima }}</td>
+          @if($value->v_activa == 1)
+            <td>Activa</td>
+          @else
+            <td>No Activa</td>
+          @endif
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
           <td>{{ $value->precio_total }}</td>
@@ -72,6 +81,7 @@
             <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="duplicarObra( {{$value->id}} )">Duplicar</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="duplicarObra( {{$value->id}} )">Nueva Versión</button>
           </td>
         </tr>
       @endforeach
