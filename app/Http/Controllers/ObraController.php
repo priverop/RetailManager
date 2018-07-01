@@ -39,7 +39,14 @@ class ObraController extends Controller
 
      $nuevaObra = $obra->replicate();
      $nuevaObra->nombre = $request->input('concepto');
+
+     $nuevaObra->version = 1;
+     $nuevaObra->v_ultima = 1;
+     $nuevaObra->v_activa = 1;
      $nuevaObra->push();
+
+     $nuevaObra->v_id = $nuevaObra->id;
+     $nuevaObra->save();
 
      foreach ($obra->presupuestos as $key => $presupuesto) {
 
@@ -163,7 +170,8 @@ class ObraController extends Controller
           'cliente_id'  => $cliente->id
         ]);
 
-        $obra->version = $obra->id."-1";
+        $obra->v_id = $obra->id;
+        $obra->version = 1;
         $obra->save();
         return response()->json(route('obras.show', ['id' => $obra->id]));
     }
@@ -192,6 +200,19 @@ class ObraController extends Controller
     {
         $cliente = Cliente::where('nombre', '=', $request->input('cliente'))->first();
         $obra = Obra::find($request->input('id'));
+
+
+        if($request->input('select_v_activa') == NULL){
+          $v_activa = 0;
+        }else{
+          if($obra->v_activa == 0){
+            $v_activa = 1;
+            $update = DB::table('obras')
+            ->where('v_id', $obra->v_id)
+            ->update(['v_activa' => 0]);
+          }
+        }
+
         $obra->update([
           'nombre'      => $request->input('nombre'),
           'fecha'       => $request->input('fecha'),
@@ -207,7 +228,7 @@ class ObraController extends Controller
 
         $totalPrize = 0;
         $totalPrizeIVA = 0;
-
+        $obra->v_activa = $v_activa;
         foreach($obra->presupuestos as $key => $value){
           $totalPrize += $value->precio_total;
           $totalPrizeIVA += $value->precio_con_iva;

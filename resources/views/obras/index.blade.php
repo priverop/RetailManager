@@ -56,8 +56,7 @@
           <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
-          <?php list($id, $version) = explode('-', $value->version); ?>
-          <td>{{ $version }} de {{ $value->v_ultima }}</td>
+          <td>{{ $value->version }} de {{ $value->v_ultima }}</td>
           @if($value->v_activa == 1)
             <td>Activa</td>
           @else

@@ -39,6 +39,18 @@
           </div>
 
           <div class="form-group">
+            @isset($obra)
+              @if($obra->v_activa == 1)
+                <strong>Activar Versión: </strong>
+                <input type="checkbox" name="select_v_activa" checked>
+              @else
+                <strong>Activar Versión: </strong>
+                <input type="checkbox" name="select_v_activa">
+              @endif
+            @endisset
+          </div>
+
+          <div class="form-group">
             <label class="control-label col-sm-2" for="fecha"><strong>Fecha:</strong></label>
             <p>
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
