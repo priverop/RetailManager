@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Modifase - Panel Principal')
+@section('title', 'Panel Principal')
 
 @section('content')
+
+<?php $location = 'home' ?>
+
   <h1>Panel Principal</h1>
 
 <div class="row mt-5">
@@ -57,7 +60,11 @@
               <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
               <div class="col-sm-10"><input type="date" name="hasta" value="2019-01-01"></div>
             </div>
-            <input type="button" class="btn btn-primary" onclick="actualizarTotalPresupuesto()" value="Actualizar">
+              <div class="form-group fullfather">
+                <div class="col-sm-12">
+                  <input type="button" class="btn btn-primary" value="Actualizar" id="RefreshButton">
+                </div>
+              </div>
           </div>
         </form>
       </div>
@@ -80,17 +87,6 @@
             <th>Precio Total</th>
           </tr>
         </thead>
-        <tbody>
-          @foreach($obras as $key => $value)
-          <tr>
-            <td>{{ $value->id }}</td>
-            <td>{{ $value->nombre }}</td>
-            <td>{{ $value->fecha }}</td>
-            <td>{{ $value->cliente->nombre }}</td>
-            <td>{{ $value->precio_total_beneficio}}</td>
-          </tr>
-          @endforeach
-        </tbody>
       </table>
     </div>
   </div>
@@ -103,13 +99,36 @@ $(function(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  $('#indexObra').DataTable({
 
+  $.fn.dataTable.moment('DD-MM-YYYY');
+
+  var table = $('#indexObra').DataTable({
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
+    },
+    processing: true,
+    serverSide: false,
+    "ajax": {
+      "url": '{!! route('obrasPresupuestadas') !!}',
+      "type": 'POST',
+      "data": function ( d ) {
+        return $('#informeForm').serialize();
       }
+    },
+    columns: [
+      { data: "id", name: "id" },
+      { data: "nombre", name: "nombre" },
+      { data: "fecha", name: "fecha" },
+      { data: "cliente.nombre", name: "cliente" },
+      { data: "precio_total_beneficio", name: "precio_total_beneficio" }
+    ]
   });
   actualizarTotalPresupuesto();
+
+  $("#RefreshButton").click(function(){
+    table.ajax.reload();
+    actualizarTotalPresupuesto();
+  });
 });
 
 /* Actualizamos el total presupuestado con las fechas */

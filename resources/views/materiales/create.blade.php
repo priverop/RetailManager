@@ -117,28 +117,37 @@
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Proveedor:</strong></label>
-            @isset($proveedor)
-            <input type="hidden" value="{{$proveedor->id}}" name="proveedor_id" />
-              {{$proveedor->nombre}} -
-              <i class="text-warning">Si selecciona otro proveedor se sustituirá. Recuerde que solo puede elegir un proveedor.</i>
-            @endisset
             <div class="col-sm-10 mt-3">
-              <table id="selectMaterial" class="display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($proveedores as $key => $value)
-                  <tr>
-                    <td>{{ $value->id }}</td>
-                    <td>{{ $value->nombre }}</td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
+              <input type="checkbox" id="nuevo_proveedor" name="nuevo_proveedor" class="nuevo_proveedor"  onclick="nuevoProveedor()" >
+              Nuevo proveedor
+            </div>
+            <div id="form_creacion_proveedor">
+              Nombre del nuevo proveedor: <input type="text" placeholder="Nombre" name="nombre_nuevo_proveedor" />
+            </div>
+            <div id="reutilizar_proveedor">
+              @isset($proveedor)
+              <input type="hidden" value="{{$proveedor->id}}" name="proveedor_id" />
+                {{$proveedor->nombre}} -
+                <i class="text-warning">Si selecciona otro proveedor se sustituirá. Recuerde que solo puede elegir un proveedor.</i>
+              @endisset
+              <div class="col-sm-10 mt-3">
+                <table id="selectMaterial" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nombre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($proveedores as $key => $value)
+                    <tr>
+                      <td>{{ $value->id }}</td>
+                      <td>{{ $value->nombre }}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -178,15 +187,10 @@ $(function() {
   $('#addMaterialButton').click( function (event) {
     event.preventDefault;
     var form_action = $("#addMaterialForm").attr("action");
-    var nRows = table.rows('.selected').data().length;
-
-    if(nRows > 1){
-      alert('Por favor elija solo un proveedor');
-    }
-    else if(nRows == 1){
-      table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
-        var proveedorID = this.data()[0];
-        var formulario = $("#addMaterialForm").serialize() + '&proveedorID='+proveedorID;
+    if(document.getElementsByName("nuevo_proveedor")[0].checked){
+      var nuevo_proveedor = document.getElementsByName("nombre_nuevo_proveedor")[0].value;
+      if(nuevo_proveedor){
+        var formulario = $("#addMaterialForm").serialize() + '&nombre_nuevo_proveedor='+nuevo_proveedor;
 
         $.ajax({
           @isset($material)
@@ -199,27 +203,61 @@ $(function() {
         }).done(function(data){
             location.reload();
         });
-      });
-    }
-    else{ // 0 Proveedores seleccionados
+      }else{
+        alert('Por favor, inserte nombre del proveedor');
+      }
 
-      // Si está el modo edición, podemos enviarlo tal cual
-      @isset($material)
-        var formulario = $("#addMaterialForm").serialize();
-        $.ajax({
-            type: 'PUT',
-            url: form_action,
-            data: formulario
-        }).done(function(data){
-            location.reload();
+    }else{
+      var nRows = table.rows('.selected').data().length;
+
+      if(nRows > 1){
+        alert('Por favor elija solo un proveedor');
+      }
+      else if(nRows == 1){
+        table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
+          var proveedorID = this.data()[0];
+          var formulario = $("#addMaterialForm").serialize() + '&proveedorID='+proveedorID;
+
+          $.ajax({
+            @isset($material)
+              type: 'PUT',
+            @else
+              type: 'POST',
+            @endisset
+              url: form_action,
+              data: formulario
+          }).done(function(data){
+              location.reload();
+          });
         });
-      @else
-      // Si no está el modo edición, mostramos error
-        alert('Por favor, elija un proveedor.');
-      @endisset
+      }
+      else{ // 0 Proveedores seleccionados
+        // Si está el modo edición, podemos enviarlo tal cual
+        @isset($material)
+          var formulario = $("#addMaterialForm").serialize();
+          $.ajax({
+              type: 'PUT',
+              url: form_action,
+              data: formulario
+          }).done(function(data){
+              location.reload();
+          });
+        @else
+        // Si no está el modo edición, mostramos error
+          alert('Por favor, elija un proveedor.');
+        @endisset
 
-    }
-
+      }
+  }
   });
 });
+function nuevoProveedor() {
+  if(document.getElementsByName("nuevo_proveedor")[0].checked){
+    document.getElementById('reutilizar_proveedor').style.display='none';
+    document.getElementById('form_creacion_proveedor').style.display='block';
+  }else{
+    document.getElementById('reutilizar_proveedor').style.display='block';
+    document.getElementById('form_creacion_proveedor').style.display='none';
+  }
+}
 </script>

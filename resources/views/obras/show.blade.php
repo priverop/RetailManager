@@ -3,15 +3,30 @@
 @section('title', 'Obra Individual')
 
 @section('content')
-
-
-  <h1>{{ $obra->nombre }}</h1>
+<?php $location = 'obras' ?>
+  <h1>{{ $obra->nombre }} <button class="btn-sm btn-primary" id="editarObra">Editar Obra</button></h1>
   <h4>{{ $obra->fecha }}</h4>
   <h6>Cliente: {{ $obra->cliente->nombre }}</h6>
 
   <p>Identificador de obra: {{ $obra->id }}</p>
-  <p>Precio total de obra: {{ $obra->precio_total }}</p>
-  <p>Precio total de obra con beneficio: {{ $obra->precio_total_beneficio }}</p>
+  @if($obra->v_activa == 1)
+    <p>Versión: {{ $obra->version }} - Activa</p>
+  @else
+    <p>Versión: {{ $obra->version }} - No Activa</p>
+  @endif
+  <h6>Otras versiones</h6>
+  <p>
+    
+  </p>
+</br>
+  <p>Coste Base: {{ $obra->precio_total }}</p>
+  <p>Coste Base + IVA: {{ $obra->total_IVA }}</p>
+  <p>Coste Montaje: {{ $obra->total_montaje }}</p>
+  <p>Coste Transporte: {{ $obra->total_transporte }}</p>
+</br>
+  <h5>Coste Estructural: {{ $obra->precio_total_beneficio }}</h5>
+  <h5>Coste: {{ $obra->total_estructural }}</h5>
+  <h5>Coste Comercial: {{ $obra->total_comercial }}</h5>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Mueble</button>
   <button class="btn btn-primary" id="addMuebleExistente">Añadir Muebles Existentes</button>
   <a href="{{  route('ExportPRE', ['id'=>$obra->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
@@ -27,8 +42,8 @@
           <th>Precio und.</th>
           <th>Unidades</th>
           <th>Precio Coste</th>
-          <th>Beneficio</th>
-          <th>Beneficio Global</th>
+          <!-- <th>Beneficio</th>
+          <th>Beneficio Global</th> -->
           <th>Precio Total</th>
           <th>Acciones</th>
         </tr>
@@ -41,7 +56,7 @@
             <td>{{$presupuesto->precio_total_unidad}}</td>
             <td>{{$presupuesto->unidades}}</td>
             <td>{{$presupuesto->precio_total}}</td>
-            @if ($presupuesto->uso_beneficio_global === 1)
+            <!-- @if ($presupuesto->uso_beneficio_global === 1)
               <?php
                 $beneficio = $presupuesto->obra->beneficio;
                 $b_global = "Activado";
@@ -52,9 +67,9 @@
                 $b_global = "Desactivado";
               ?>
             @endif
-            <td>{{$beneficio}}%</td>
-            <td>{{$b_global}}</td>
-            <td>{{$presupuesto->precio_total_unidad * (1 + ($beneficio * 0.01)) }}</td>
+            <td>{{$beneficio}}%</td> -->
+            <!-- <td>{{$b_global}}</td> -->
+            <td>{{$presupuesto->precio_con_iva  }}</td>
             <td>
               <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
                 <button class="btn btn-outline-primary btn-sm">Ver</button>
@@ -124,6 +139,24 @@ $(function(){
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
   });
+
+  // EDITAR OBRA
+  $("#editarObra").click(function(e){
+    e.preventDefault();
+
+    var form_action = "{{route('obras.create')}}";
+    var id = "{{$obra->id}}";
+
+    $.ajax({
+      dataType: 'json',
+      type: 'GET',
+      url: form_action,
+      data: {id: id}
+    }).done(function(data){
+      $('#presupuestoIndex').parent().prepend(data);
+      $('#addModal').modal('show');
+    });
+  })
 
   // Mostramos modal Muebles Existentes
   $("#addMuebleExistente").click(function(event){

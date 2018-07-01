@@ -3,7 +3,7 @@
 @section('title', 'Proveedores')
 
 @section('content')
-
+<?php $location = 'proveedores' ?>
 <h1>Lista de Proveedores</h1>
 
 <button class="btn btn-primary" id="addProveedor">Proveedor Nuevo</button>

@@ -31,6 +31,7 @@ class MaterialExternoController extends Controller
   {
       $material_externo = MaterialExterno::create([
         'concepto' => $request->input('concepto'),
+        'uso_presupuesto_externo' => $request->input('uso_presupuesto_externo'),
         'presupuesto_id' => $request->input('presupuesto_id')
       ]);
 
@@ -43,24 +44,26 @@ class MaterialExternoController extends Controller
 
     $material_externo->update($request->all());
 
-    $material_externo = MaterialExterno::find($material);
-    $material_externo->m = ($material_externo->largo / 1000);
-    $material_externo->m2 = ($material_externo->largo / 1000) * ($material_externo->alto / 1000);
-    $material_externo->m3 = ($material_externo->largo / 1000) * ($material_externo->alto / 1000) * ($material_externo->ancho / 1000);
+    if($material_externo->uso_presupuesto_externo == 0){
+      $material_externo = MaterialExterno::find($material);
+      $material_externo->m = ($material_externo->largo / 1000);
+      $material_externo->m2 = ($material_externo->largo / 1000) * ($material_externo->alto / 1000);
+      $material_externo->m3 = ($material_externo->largo / 1000) * ($material_externo->alto / 1000) * ($material_externo->ancho / 1000);
 
-    $material_externo->total_m = $material_externo->m * $material_externo->unidades;
-    $material_externo->total_m2 = $material_externo->m2 * $material_externo->unidades;
-    $material_externo->total_m3 = $material_externo->m3 * $material_externo->unidades;
+      $material_externo->total_m = $material_externo->m * $material_externo->unidades;
+      $material_externo->total_m2 = $material_externo->m2 * $material_externo->unidades;
+      $material_externo->total_m3 = $material_externo->m3 * $material_externo->unidades;
 
 
-    if($material_externo->unidad == 'm'){
-      $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m;
-    }else if($material_externo->unidad == 'm2'){
-      $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m2;
-    }else if($material_externo->unidad == 'm3'){
-      $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m3;
-    }else{
-      $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->unidades;
+      if($material_externo->unidad == 'm'){
+        $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m;
+      }else if($material_externo->unidad == 'm2'){
+        $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m2;
+      }else if($material_externo->unidad == 'm3'){
+        $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->total_m3;
+      }else{
+        $material_externo->precio_total = $material_externo->precio_unidad * $material_externo->unidades;
+      }
     }
 
     $material_externo->save();
@@ -71,6 +74,18 @@ class MaterialExternoController extends Controller
 
     return response()->json($material_externo);
   }
+
+  public function editarFacturaExterno(Request $request)
+  {
+    $material_externo = MaterialExterno::find($request->input('id'));
+    $path = $request->archivo_presupuesto->store('public/facturasMaterialesExternos');
+    $material_externo->archivo_presupuesto = $path;
+
+    $material_externo->save();
+
+    return redirect('presupuestos/'.$request->input('presupuesto_id'));
+  }
+
 
   public function destroyExterno(Request $request, $material)
   {

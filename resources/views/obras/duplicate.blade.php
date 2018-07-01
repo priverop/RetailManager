@@ -2,11 +2,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Duplicar Presupuesto</h4>
+        <h4 class="modal-title">Duplicar Obra</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" id="duplicatePresupuestoForm">
+        <form class="form-horizontal" role="form" id="duplicateObraForm">
 
           <div class="form-group">
             <label class="control-label col-sm-3" for="title"><strong>Concepto nuevo</strong>:</label>
@@ -17,7 +17,7 @@
           </div>
         </form>
         <div class="modal-footer">
-          <button id="duplicatePresupuestoButton" type="button" class="btn btn-success add">
+          <button id="duplicateObraButton" type="button" class="btn btn-success add">
             <span class='glyphicon glyphicon-check'></span> Aceptar
           </button>
           <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -38,10 +38,11 @@ $(function(){
     }
   });
 
-  $("#duplicatePresupuestoButton").click(function(event){
+  $("#duplicateObraButton").click(function(event){
     event.preventDefault();
-    var form_action = "{{ route('duplicatePresupuesto', ['presupuesto_id' => $presupuesto_id]) }}";
-    var formulario = $("#duplicatePresupuestoForm").serialize();
+    var form_action = "{{ route('duplicateObra', ['obra_id' => $obra_id]) }}";
+
+    var formulario = $("#duplicateObraForm").serialize();
 
     $.ajax({
         dataType: 'json',

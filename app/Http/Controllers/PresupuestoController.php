@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Events\PresupuestoModificado;
 use App\Events\MaterialParteModificado;
 
+use Barryvdh\DomPDF\PDF;
+
 class PresupuestoController extends Controller
 {
 
@@ -59,8 +61,8 @@ class PresupuestoController extends Controller
     {
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
-          'beneficio' => $request->input('beneficio'),
-          'uso_beneficio_global' => $request->input('uso_beneficio_global'),
+          // 'beneficio' => $request->input('beneficio'),
+          // 'uso_beneficio_global' => $request->input('uso_beneficio_global'),
           'obra_id' => $request->input('obra_id')
         ]);
         return response()->json($presupuesto);
@@ -79,6 +81,16 @@ class PresupuestoController extends Controller
         return View::make('presupuestos.show')->with('presupuesto', $presupuesto);
     }
 
+    public function getPDF($presupuesto_id){
+      $presupuesto = Presupuesto::find($presupuesto_id);
+
+      $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
+
+      return $pdf->download('Presupuesto-'.$presupuesto->id.'.pdf');
+      // return View::make('presupuestos.pdf')->with('presupuesto', $presupuesto);
+
+    }
+
 
     /**
      * Duplicar presupuesto
@@ -86,14 +98,14 @@ class PresupuestoController extends Controller
      * @param  \App\Presupuesto  $presupuesto
      * @return \Illuminate\Http\Response
      */
-    public function duplicate($presupuesto_id, $obra_id = null, Request $request = null)
+    public function duplicate(Request $request, $presupuesto_id, $obra_id = null)
     {
       // Encontramos el presupuesto a duplicar
       $presupuesto = Presupuesto::find($presupuesto_id);
 
       // Duplicamos el presupuesto y modificamos nombre y obra
       $nuevoPresupuesto = $presupuesto->replicate();
-      if($request){
+      if($request->input('concepto')){
           $nuevoPresupuesto->concepto = $request->input('concepto');
       }
       if($obra_id != null){
@@ -147,7 +159,7 @@ class PresupuestoController extends Controller
       // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
 
-      if($obra_id != null){
+      if($obra_id == null){
         return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
       }
       else{
@@ -164,9 +176,10 @@ class PresupuestoController extends Controller
      */
     public function duplicateToObra(Request $request, $obra_id){
       $muebles = $request->input('muebles');
+      $r = new Request();
 
       foreach ($muebles as $key => $value) {
-        $this->duplicate($value, $obra_id);
+        $this->duplicate($r, $value, $obra_id);
       }
     }
 

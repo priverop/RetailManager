@@ -7,7 +7,6 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
       <div class="modal-body">
-        <!-- <form class="form-horizontal" role="form" action="{{ route('obras.store') }}" method="POST" id="addObrasForm"> -->
         @isset($obra)
         <form class="form-horizontal" role="form" action="{{ route('obras.update', ['id' => $obra->id]) }}" method="POST" id="addObrasForm">
           <input type="text" class="form-control" name="id" value="{{$obra->id}}" hidden>
@@ -40,6 +39,18 @@
           </div>
 
           <div class="form-group">
+            @isset($obra)
+              @if($obra->v_activa == 1)
+                <strong>Activar Versión: </strong>
+                <input type="checkbox" name="select_v_activa" checked>
+              @else
+                <strong>Activar Versión: </strong>
+                <input type="checkbox" name="select_v_activa">
+              @endif
+            @endisset
+          </div>
+
+          <div class="form-group">
             <label class="control-label col-sm-2" for="fecha"><strong>Fecha:</strong></label>
             <p>
               Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
@@ -58,7 +69,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="control-label col-sm-2" for="beneficio"><strong>Beneficio:</strong></label>
             <p>
               Seleccione un porcentaje de beneficio para el presupuesto (puede modificarse posteriormente, puede dejarlo en 0 de momento).
@@ -68,6 +79,68 @@
               <input type="text" class="form-control" name="beneficio" value="{{$obra->beneficio}}" placeholder="%">
               @else
               <input type="text" class="form-control" name="beneficio" value="30" placeholder="%">
+              @endisset
+            </div>
+          </div> -->
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="beneficio"><strong>Coste de montaje:</strong></label>
+            <p>
+              Seleccione un porcentaje o valor del coste del montaje. (Si el valor es 0, se tendrá en cuenta el porcentaje; por otro lado, si el valor es mayor que cero,
+              se tendrá en cuenta dicho valor y se ignorará el porcentaje)
+            </p>
+            <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="porcentaje_montaje" value="{{$obra->porcentaje_montaje}}" placeholder="%">
+              <input type="text" class="form-control" name="coste_montaje" value="{{$obra->coste_montaje}}" placeholder="Valor">
+              @else
+              <input type="text" class="form-control" name="porcentaje_montaje" placeholder="%">
+              <input type="text" class="form-control" name="coste_montaje" placeholder="Valor">
+              @endisset
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="beneficio"><strong>Coste de transporte:</strong></label>
+            <p>
+              Seleccione un porcentaje o valor del coste del transporte. (Si el valor es 0, se tendrá en cuenta el porcentaje; por otro lado, si el valor es mayor que cero,
+              se tendrá en cuenta dicho valor y se ignorará el porcentaje)
+            </p>
+            <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="porcentaje_transporte" value="{{$obra->porcentaje_transporte}}" placeholder="%">
+              <input type="text" class="form-control" name="coste_transporte" value="{{$obra->coste_transporte}}" placeholder="Valor">
+              @else
+              <input type="text" class="form-control" name="porcentaje_transporte" placeholder="%">
+              <input type="text" class="form-control" name="coste_transporte" placeholder="Valor">
+              @endisset
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="beneficio"><strong>Margen Estructural:</strong></label>
+            <p>
+              Seleccione el margen estructural (0.x)
+            </p>
+            <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="margen_estructural" value="{{$obra->margen_estructural}}" placeholder="Margen Estructural">
+              @else
+              <input type="text" class="form-control" name="margen_estructural" placeholder="Margen Estructural">
+              @endisset
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="beneficio"><strong>Margen Comercial:</strong></label>
+            <p>
+              Seleccione el margen comercial (0.x)
+            </p>
+            <div class="col-sm-10">
+              @isset($obra)
+              <input type="text" class="form-control" name="margen_comercial" value="{{$obra->margen_comercial}}" placeholder="Margen Comercial">
+              @else
+              <input type="text" class="form-control" name="margen_comercial" placeholder="Margen Comercial">
               @endisset
             </div>
           </div>
@@ -105,7 +178,6 @@ $(function(){
     event.preventDefault();
     var form_action = $("#addObrasForm").attr("action");
     var formulario = $("#addObrasForm").serialize();
-    console.log(formulario);
 
     $.ajax({
       @isset($obra)
@@ -116,7 +188,11 @@ $(function(){
         url: form_action,
         data: formulario
     }).done(function(data){
+      @isset($obra)
+        location.reload();
+      @else
         window.location.replace(data);
+      @endisset
     });
 
   });

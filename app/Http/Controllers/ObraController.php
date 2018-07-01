@@ -15,6 +15,19 @@ class ObraController extends Controller
 {
 
   /**
+   * Formulario para duplicar obra
+   *
+   * @param  \App\Presupuesto $obra
+   * @return \Illuminate\Http\Response
+   */
+  public function duplicateForm(Request $request)
+  {
+    $html = View::make('obras.duplicate')->with('obra_id', $request->input('obra_id'))->render();
+
+    return response()->json($html);
+  }
+
+  /**
    * Duplicar obra y todo su contenido.
    *
    * @return \Illuminate\Http\Response
@@ -25,8 +38,27 @@ class ObraController extends Controller
      $obra = Obra::find($obra_id);
 
      $nuevaObra = $obra->replicate();
-     $nuevaObra->nombre = $nuevaObra->nombre . ' Copia';
-     $nuevaObra->push();
+
+     if($request->input('v_nueva') !== NULL ){
+       $nuevaObra->v_activa = 0;
+       $nuevaObra->version = $obra->v_ultima + 1;
+       $nuevaObra->v_ultima = $obra->v_ultima + 1;
+       $update = DB::table('obras')
+                     ->where('v_id', $obra->v_id)
+                     ->update(['v_ultima' => $obra->v_ultima + 1]);
+       $nuevaObra->v_id = $obra->v_id;
+       $nuevaObra->push();
+     }else{
+       $nuevaObra->nombre = $request->input('concepto');
+
+       $nuevaObra->version = 1;
+       $nuevaObra->v_ultima = 1;
+       $nuevaObra->v_activa = 1;
+       $nuevaObra->push();
+
+       $nuevaObra->v_id = $nuevaObra->id;
+       $nuevaObra->save();
+     }
 
      foreach ($obra->presupuestos as $key => $presupuesto) {
 
@@ -138,10 +170,21 @@ class ObraController extends Controller
         $obra = Obra::create([
           'nombre'      => $request->input('nombre'),
           'fecha'       => $request->input('fecha'),
-          'beneficio'   => $request->input('beneficio'),
+          'v_activa'    => 1,
+          'v_ultima'    => 1,
+          // 'beneficio'   => $request->input('beneficio'),
+          'coste_montaje' => $request->input('coste_montaje'),
+          'porcentaje_montaje' => $request->input('porcentaje_montaje'),
+          'coste_transporte' => $request->input('coste_transporte'),
+          'porcentaje_transporte' => $request->input('porcentaje_transporte'),
+          'margen_estructural' => $request->input('margen_estructural'),
+          'margen_comercial' => $request->input('margen_comercial'),
           'cliente_id'  => $cliente->id
         ]);
 
+        $obra->v_id = $obra->id;
+        $obra->version = 1;
+        $obra->save();
         return response()->json(route('obras.show', ['id' => $obra->id]));
     }
 
@@ -167,25 +210,80 @@ class ObraController extends Controller
      */
     public function update(Request $request)
     {
-        $cliente = Cliente::where('nombre', '=', $request->input('nombre'))->first();
+        $cliente = Cliente::where('nombre', '=', $request->input('cliente'))->first();
         $obra = Obra::find($request->input('id'));
-        $obra->update([
-          'fecha' => $request->input('fecha'),
-          'beneficio' => $request->input('beneficio'),
-          'cliente_id' => $cliente->id
-        ]);
 
-        $totalPrizeB = 0;
-        foreach($obra->presupuestos as $key => $value){
-          if($value->uso_beneficio_global === 1){
-            $beneficio = $obra->beneficio;
-          }else{
-            $beneficio = $value->beneficio;
+
+        if($request->input('select_v_activa') == NULL){
+          $v_activa = 0;
+        }else{
+          if($obra->v_activa == 0){
+            $v_activa = 1;
+            $update = DB::table('obras')
+            ->where('v_id', $obra->v_id)
+            ->update(['v_activa' => 0]);
           }
-          $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01));
         }
 
-        $obra->precio_total_beneficio = $totalPrizeB;
+        $obra->update([
+          'nombre'      => $request->input('nombre'),
+          'fecha'       => $request->input('fecha'),
+          // 'beneficio'   => $request->input('beneficio'),
+          'coste_montaje' => $request->input('coste_montaje'),
+          'porcentaje_montaje' => $request->input('porcentaje_montaje'),
+          'coste_transporte' => $request->input('coste_transporte'),
+          'porcentaje_transporte' => $request->input('porcentaje_transporte'),
+          'margen_estructural' => $request->input('margen_estructural'),
+          'margen_comercial' => $request->input('margen_comercial'),
+          'cliente_id'  => $cliente->id
+        ]);
+
+        $totalPrize = 0;
+        $totalPrizeIVA = 0;
+        $obra->v_activa = $v_activa;
+        foreach($obra->presupuestos as $key => $value){
+          $totalPrize += $value->precio_total;
+          $totalPrizeIVA += $value->precio_con_iva;
+          // if($value->uso_beneficio_global === 1){
+          //   $beneficio = $obra->beneficio;
+          // }else{
+          //   $beneficio = $value->beneficio;
+          // }
+          // $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01));
+        }
+
+        $obra->precio_total = $totalPrize;
+        $obra->precio_total_beneficio = $totalPrizeIVA;
+        $obra->total_IVA = $totalPrizeIVA;
+
+        if($obra->coste_montaje == 0){
+          $obra->total_montaje = $obra->precio_total_beneficio * ($obra->porcentaje_montaje * 0.01);
+        }else{
+          $obra->total_montaje = $obra->coste_montaje;
+        }
+        $totalPrizeIVA += $obra->total_montaje;
+
+        if($obra->coste_transporte == 0){
+          $obra->total_transporte = $obra->precio_total_beneficio * ($obra->porcentaje_transporte * 0.01);
+        }else{
+          $obra->total_transporte = $obra->coste_transporte;
+        }
+        $totalPrizeIVA += $obra->total_transporte;
+
+        $obra->precio_total_beneficio = $totalPrizeIVA;
+
+        if ($obra->margen_estructural > 0){
+          $obra->total_estructural = $obra->precio_total_beneficio / $obra->margen_estructural;
+        }else{
+          $obra->total_estructural = $obra->precio_total_beneficio;
+        }
+
+        if ($obra->margen_comercial > 0){
+          $obra->total_comercial = $obra->total_estructural / $obra->margen_comercial;
+        }else{
+          $obra->total_comercial = $obra->total_estructural;
+        }
+
         $obra->save();
 
         return response()->json($obra);

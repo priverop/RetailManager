@@ -19,6 +19,7 @@ Route::post('/materiales/storeWithProveedor', 'PivotMaterialController@storeWith
 Route::get('/materiales/indexWithProveedores/{tipo}', 'PivotMaterialController@indexMaterialesProveedores')->name('indexWithProveedores');
 Route::post('/materiales/updateWithParte/{id}', 'PivotMaterialController@updateWithParte')->name('updateMaterialWithParte');
 Route::post('/materiales/editarExterno/{id}', 'MaterialExternoController@editarExterno')->name('editarExterno');
+Route::post('/materiales/editarFacturaExterno', 'MaterialExternoController@editarFacturaExterno')->name('editarFacturaExterno');
 Route::post('/materiales/destroyWithParte/{id}', 'PivotMaterialController@destroyWithParte')->name('destroyMaterialWithParte');
 Route::post('/materiales/destroyExterno/{id}', 'MaterialExternoController@destroyExterno')->name('destroyExterno');
 Route::get('/materiales/refreshAll', 'PivotMaterialController@refreshAllPropierties');
@@ -40,9 +41,14 @@ Route::get('/presupuestos/createExist/{obra_id}', 'PresupuestoController@createE
 
 // Duplicar Obra
 Route::post('/obras/{id}/duplicate', 'ObraController@duplicate')->name('duplicateObra');
+Route::get('/obras/duplicateForm', 'ObraController@duplicateForm')->name('duplicateObraForm');
 
 // DASHBOARD - Actualizar Total Presupuestado
+Route::post('/obrasPresupuestadas', 'DashboardController@obrasPresupuestadasJSON')->name('obrasPresupuestadas');
 Route::post('/totalPresupuestado', 'DashboardController@totalPresupuestado')->name('actualizarTotalPresupuesto');
+
+// Descargar Presupuesto
+Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@getPDF')->name('descargarPresupuesto');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');

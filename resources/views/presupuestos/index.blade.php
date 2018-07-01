@@ -3,7 +3,7 @@
 @section('title', 'Presupuestos')
 
 @section('content')
-
+<?php $location = 'presupuestos' ?>
 <h2>Lista de Muebles ya presupuestados</h2>
 
 <div class="row">
