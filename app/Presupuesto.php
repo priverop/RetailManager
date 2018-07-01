@@ -34,6 +34,10 @@ class Presupuesto extends Model
     return $this->hasMany('App\MaterialExterno');
   }
 
+  public function getFechaAttribute($value) {
+    return \Carbon\Carbon::parse($value)->format('d-m-Y');
+  }
+
 
   /**
      * The attributes that are mass assignable.
