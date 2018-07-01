@@ -15,7 +15,8 @@ class CreateObrasTable extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
-            $table->string('version')->default('1-1');
+            $table->integer('v_id')->default(1);
+            $table->integer('version')->default(1);
             $table->integer('v_activa')->default(1);
             $table->integer('v_ultima')->default(1);
             $table->string('nombre');
