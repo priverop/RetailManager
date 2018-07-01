@@ -28,7 +28,7 @@
       <li class="nav-item @if($location == 'presupuestos') active @endif"><a class="nav-link" href="{{ route('presupuestos.index') }}">Muebles</a></li>
       <li class="nav-item @if($location == 'proveedores') active @endif"><a class="nav-link" href="{{ route('proveedores.index') }}">Proveedores</a></li>
     </ul>
-    <a href="" class="float-right">Ayuda</a>
+    <a href="mailto:admin@thecloud.group" class="float-right">Ayuda</a>
   </nav>
 
   <div class="container-fluid">
