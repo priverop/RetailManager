@@ -9,6 +9,15 @@
   <h6>Cliente: {{ $obra->cliente->nombre }}</h6>
 
   <p>Identificador de obra: {{ $obra->id }}</p>
+  @if($obra->v_activa == 1)
+    <p>Versión: {{ $obra->version }} - Activa</p>
+  @else
+    <p>Versión: {{ $obra->version }} - No Activa</p>
+  @endif
+  <h6>Otras versiones</h6>
+  <p>
+    
+  </p>
 </br>
   <p>Coste Base: {{ $obra->precio_total }}</p>
   <p>Coste Base + IVA: {{ $obra->total_IVA }}</p>

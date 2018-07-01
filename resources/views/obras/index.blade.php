@@ -80,7 +80,7 @@
             <button type="button" class="btn btn-outline-primary btn-sm mb-1" onclick="editar( {{$value->id}} )">Editar</button>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="eliminar( {{$value->id}} )">Borrar</button>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="duplicarObra( {{$value->id}} )">Duplicar</button>
-            <button type="button" class="btn btn-outline-primary btn-sm" onclick="duplicarObra( {{$value->id}} )">Nueva Versión</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="nuevaVersion( '{{ route('duplicateObra', ['obra_id' => $value->id]) }}' )">Nueva Versión</button>
           </td>
         </tr>
       @endforeach
@@ -167,6 +167,21 @@ function duplicarObra(obra_id){
     $("#index").parent().prepend(data);
     $("#duplicateModal").modal('show');
   });
+}
+
+function nuevaVersion(route){
+  var form_action = route;
+  var v_nueva = 1;
+  console.log(form_action);
+  $.ajax({
+      dataType: 'json',
+      type: 'POST',
+      url: form_action,
+      data: {v_nueva: v_nueva}
+  }).done(function(data){
+    window.location.replace(data);
+  });
+
 }
 </script>
 @endsection

@@ -38,15 +38,27 @@ class ObraController extends Controller
      $obra = Obra::find($obra_id);
 
      $nuevaObra = $obra->replicate();
-     $nuevaObra->nombre = $request->input('concepto');
 
-     $nuevaObra->version = 1;
-     $nuevaObra->v_ultima = 1;
-     $nuevaObra->v_activa = 1;
-     $nuevaObra->push();
+     if($request->input('v_nueva') !== NULL ){
+       $nuevaObra->v_activa = 0;
+       $nuevaObra->version = $obra->v_ultima + 1;
+       $nuevaObra->v_ultima = $obra->v_ultima + 1;
+       $update = DB::table('obras')
+                     ->where('v_id', $obra->v_id)
+                     ->update(['v_ultima' => $obra->v_ultima + 1]);
+       $nuevaObra->v_id = $obra->v_id;
+       $nuevaObra->push();
+     }else{
+       $nuevaObra->nombre = $request->input('concepto');
 
-     $nuevaObra->v_id = $nuevaObra->id;
-     $nuevaObra->save();
+       $nuevaObra->version = 1;
+       $nuevaObra->v_ultima = 1;
+       $nuevaObra->v_activa = 1;
+       $nuevaObra->push();
+
+       $nuevaObra->v_id = $nuevaObra->id;
+       $nuevaObra->save();
+     }
 
      foreach ($obra->presupuestos as $key => $presupuesto) {
 
