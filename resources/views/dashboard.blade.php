@@ -26,8 +26,8 @@
   </div>
 </div>
 
-<div class="row border  mt-5">
-  <div class="row p-3">
+<div class="row border mt-5">
+  <div class="row p-3 fullWidth">
     <div class="col-sm-8">
       <h4>Informe Total Presupuestado</h4>
       <p>Puede modificar las fechas y pulse en actualizar.</p>
@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div class="row p-3">
+  <div class="row p-3 fullWidth">
     <div class="col">
       <table id="indexObra">
         <thead>
