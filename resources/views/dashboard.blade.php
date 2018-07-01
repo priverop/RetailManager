@@ -6,7 +6,23 @@
 
 <?php $location = 'home' ?>
 
-  <h1>Panel Principal</h1>
+<div class="row">
+  <div class="col">
+    <h2>CÓMO EMPEZAR</h2>
+    <p>
+      A continuación una pequeña guía para crear un presupuesto.
+    </p>
+    <ol>
+      <li>Entramos en <a href="{{ route('obras.index') }}">Obras</a>.</li>
+      <li>Pulsamos en el botón rojo: "Obra Nueva".</li>
+      <li>Rellenamos los datos para la obra. Pulsamos en el botón verde "Añadir".</li>
+      <li>Nos llevará a la nueva obra. Pulsamos en el botón rojo: "Nuevo Mueble".</li>
+      <li>Indicamos el concepto, Beneficio si queremos o activamos la casilla global para usar el que indicamos para la obra.</li>
+      <li>Pulsamos en el botón verde "Añadir". Nos dirigirá al Presupuesto del Mueble nuevo, donde ya se puede presupuestar.</li>
+    </ol>
+  </div>
+
+</div>
 
 <div class="row mt-5">
   <div class="col border p-3">
@@ -26,25 +42,7 @@
   </div>
 </div>
 
-<div class="row mt-5">
-  <div class="col">
-    <h2>CÓMO EMPEZAR</h2>
-    <p>
-      A continuación una pequeña guía para crear un presupuesto.
-    </p>
-    <ol>
-      <li>Entramos en <a href="{{ route('obras.index') }}">Obras</a>.</li>
-      <li>Pulsamos en el botón rojo: "Obra Nueva".</li>
-      <li>Rellenamos los datos para la obra. Pulsamos en el botón verde "Añadir".</li>
-      <li>Nos llevará a la nueva obra. Pulsamos en el botón rojo: "Nuevo Mueble".</li>
-      <li>Indicamos el concepto, Beneficio si queremos o activamos la casilla global para usar el que indicamos para la obra.</li>
-      <li>Pulsamos en el botón verde "Añadir". Nos dirigirá al Presupuesto del Mueble nuevo, donde ya se puede presupuestar.</li>
-    </ol>
-  </div>
-
-</div>
-
-<!-- <div class="row border mt-5">
+<div class="row border  mt-5">
   <div class="row p-3">
     <div class="col-sm-8">
       <h4>Informe Total Presupuestado</h4>
@@ -90,7 +88,7 @@
       </table>
     </div>
   </div>
-</div> -->
+</div>
 
 <script>
 $(function(){
