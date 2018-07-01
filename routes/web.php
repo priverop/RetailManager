@@ -48,7 +48,7 @@ Route::post('/obrasPresupuestadas', 'DashboardController@obrasPresupuestadasJSON
 Route::post('/totalPresupuestado', 'DashboardController@totalPresupuestado')->name('actualizarTotalPresupuesto');
 
 // Descargar Presupuesto
-Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@getPDF');
+Route::get('/presupuesto/pdf/{id}', 'PresupuestoController@getPDF')->name('descargarPresupuesto');
 
 Route::resource('materiales', 'MaterialController');
 Route::resource('proveedores', 'ProveedorController');

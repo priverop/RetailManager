@@ -13,6 +13,7 @@
   <div class="col">
     <h1>{{ $presupuesto->concepto }}</h1>
     <h4>Total: {{$presupuesto->precio_con_iva }}€</h4>
+    <a href="{{route('descargarPresupuesto', ['presupuesto_id' => $presupuesto->id]) }}"><button class="btn btn-primary">Descargar PDF</button></a>
   </div>
 </div>
 
@@ -1394,6 +1395,23 @@ function prepareDataTable(parte_id){
   });
 
 }
+
+/*
+* Descargar PDF presupuesto
+*/
+
+function downloadPDF(){
+  var form_action = "{{route('descargarPresupuesto', ['presupuesto_id' => $presupuesto->id]) }}";
+
+  $.ajax({
+    dataType: 'json',
+    type: 'GET',
+    url: form_action
+  }).done(function(data){
+
+  });
+}
+
 /*
 * Borrar Plano
 */

@@ -84,9 +84,11 @@ class PresupuestoController extends Controller
     public function getPDF($presupuesto_id){
       $presupuesto = Presupuesto::find($presupuesto_id);
 
-      $pdf = \PDF::loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
+      $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
 
-      return $pdf->stream();
+      return $pdf->download('Presupuesto-'.$presupuesto->id.'.pdf');
+      // return View::make('presupuestos.pdf')->with('presupuesto', $presupuesto);
+
     }
 
 

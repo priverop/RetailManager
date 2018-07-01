@@ -14,6 +14,34 @@
     color: #dc3545 !important;
   }
 
+  body, th, td{
+    font-size: 0.8em;
+  }
+
+  h3{
+    font-size: 1.25em;
+    text-transform: uppercase;
+  }
+
+  .logo{
+    max-width: 120px;
+  }
+
+  .header div{
+    display: inline-block;
+    height: 56px;
+    vertical-align: middle;
+  }
+  .header > div:first-child{
+
+  }
+  .header > div:nth-child(2){
+    margin-right: 100px;
+  }
+  .header > div:nth-child(3){
+    margin-right: 230px;
+  }
+
   .btn-primary {
       color: #fff;
       background-color: #dc3545 !important;
@@ -82,10 +110,13 @@
     == TITULO Y PRECIO TOTAL ==
     ===========================  -->
 
-    <div class="row">
-      <div class="col">
-        <h1>Presupuesto Mueble: {{ $presupuesto->concepto }}</h1>
-        <h4>Total: {{$presupuesto->precio_con_iva }}</h4>
+    <div class="row mb-3">
+      <div class="col header">
+        <div>
+          <img src="{{ public_path('images/logo_grande.png') }}" class="logo">
+        </div>
+        <div>Presupuesto Individual</div>
+        <div>{{date("d-m-Y")}}</div>
       </div>
     </div>
 
@@ -93,11 +124,11 @@
     == INFO PRESUPUESTO ==
     ======================  -->
 
-    <div class="row">
+    <div class="row mt-3">
       <table class="table table-sm table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">ID</th>
             <th scope="col">Concepto</th>
             <th scope="col">Unidades</th>
             <th scope="col">Obra</th>
@@ -105,18 +136,20 @@
             <th scope="col">Fecha</th>
             <th scope="col">Estado</th>
             <th scope="col">Características</th>
+            <th scope="col">Desperdicio</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{ $presupuesto->obra->id}}</td>
+            <td>{{ $presupuesto->id}}</td>
             <td>{{ $presupuesto->concepto }}</td>
             <td>{{ $presupuesto->unidades }}</td>
-            <td>{{ $presupuesto->obra->cliente->nombre}}</td>
-            <td>{{ $presupuesto->id }}</td>
+            <td>{{ $presupuesto->obra->nombre}}</td>
+            <td>{{ $presupuesto->obra->cliente->nombre }}</td>
             <td>{{ $presupuesto->fecha }}</td>
             <td>{{ $presupuesto->estado }}</td>
             <td>{{ $presupuesto->caracteristicas }}</td>
+            <td>{{ $presupuesto->desperdicio }}%</td>
           </tr>
         </tbody>
       </table>
@@ -130,21 +163,6 @@
     <div class="col">
       <h3>Partes del Mueble</h3>
       <p>A continuación se detallan las partes del mueble y sus materiales.</p>
-    </div>
-  </div>
-
-  <!-- ============
-  == DESPERDICIO ==
-  =================  -->
-
-  <div class="row mt-3">
-    <div class="col">
-      <h3>DESPERDICIO</h3>
-      <p>
-        Este porcentaje se aplica al precio total de todas las Maderas de este presupuesto.
-        Y se suma automáticamente al total del presupuesto.
-      </p>
-      Desperdicio: {{ $presupuesto->desperdicio }}%
     </div>
   </div>
 
@@ -386,6 +404,17 @@
     <!-- =======
     == PLANOS ==
     ============  -->
+
+    <div class="row mt-3">
+      <div class="col">
+        <h3>Planos</h3>
+        @foreach($presupuesto->planos as $key => $plano)
+          <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+        @endforeach
+      </div>
+    </div>
+
+
 
 </div>
 
