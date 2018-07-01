@@ -21,6 +21,13 @@ class Obra extends Model
   }
 
   /**
+  * Guardamos la fecha en formato SQL
+  */
+  public function setFechaAttribute($value) {
+    $this->attributes['fecha'] = \Carbon\Carbon::createFromFormat('d/m/Y', $value);
+  }
+
+  /**
   * Devuelve la fecha en formato español
   */
   public function getFechaAttribute($value) {

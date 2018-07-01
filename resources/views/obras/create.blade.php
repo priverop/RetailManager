@@ -62,9 +62,9 @@
                 $date = strtotime($date);
                 $date = date("Y-m-d", $date);
               ?>
-              <input type="date" class="form-control" value="{{ $date }}" name="fecha">
+              <input type="text" class="form-control" value="{{ $date }}" name="fecha" id="datepicker">
               @else
-              <input type="date" class="form-control" name="fecha">
+              <input type="text" class="form-control" name="fecha" id="datepicker">
               @endisset
             </div>
           </div>
@@ -173,6 +173,11 @@ $(function(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
+  $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
 
   $("#addObraButton").click(function(event){
     event.preventDefault();
