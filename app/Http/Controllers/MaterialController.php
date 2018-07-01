@@ -75,6 +75,20 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
 
+      if($request->input('nombre_nuevo_proveedor') !== NULL){
+        if( !Proveedor::where('nombre', '=', $request->input('nombre_nuevo_proveedor'))->exists() ){
+          $proveedor = Proveedor::create([
+            'nombre' => $request->input('nombre_nuevo_proveedor')
+          ]);
+        }
+        else{
+          $proveedor = Proveedor::where('nombre', '=', $request->input('nombre_nuevo_proveedor'))->first();
+        }
+        $proveedor_id = $proveedor->id;
+      }else{
+        $proveedor_id = $request->input('proveedorID');
+      };
+
       // Comprobamos que no exista
       if(!Material::where('nombre', '=', $request->input('nombre'))->exists()){
         $material = Material::create($request->all());
@@ -87,13 +101,15 @@ class MaterialController extends Controller
       $result = DB::table('material_proveedor')->insert(
         [
           'material_id'   => $material->id,
-          'proveedor_id'  => $request->input('proveedorID'),
+          'proveedor_id'  => $proveedor_id,
           'precio'        => $request->input('precio'),
           'unidad'       => $request->input('unidad'),
           'descuento'       => $request->input('descuento'),
           'min_unidades'       => $request->input('min_unidades')
         ]
       );
+
+
 
 
       return response()->json($result);
@@ -135,6 +151,27 @@ class MaterialController extends Controller
     {
 
       $precio = str_replace(',', '.', $request->input('precio'));
+      if($request->input('nombre_nuevo_proveedor') !== NULL){
+        if( !Proveedor::where('nombre', '=', $request->input('nombre_nuevo_proveedor'))->exists() ){
+          $proveedor = Proveedor::create([
+            'nombre' => $request->input('nombre_nuevo_proveedor')
+          ]);
+        }
+        else{
+          $proveedor = Proveedor::where('nombre', '=', $request->input('nombre_nuevo_proveedor'))->first();
+        }
+        $proveedor_id = $proveedor->id;
+        $update = DB::table('material_proveedor')
+        ->where('material_id', $material)
+        ->where('proveedor_id', $request->input('proveedor_id'))
+        ->update(
+          ['precio'       => $precio,
+           'unidad'       => $request->input('unidad'),
+           'descuento'       => $request->input('descuento'),
+           'min_unidades'       => $request->input('min_unidades'),
+           'proveedor_id' => $proveedor_id]
+        );
+      }else{
 
         if($request->input('proveedorID')){
 
@@ -165,10 +202,12 @@ class MaterialController extends Controller
 
         }
 
-        // Actualizamos el material
-        $material = Material::find($material)->update($request->all());
+      };
 
-        return response()->json($update);
+      // Actualizamos el material
+      $material = Material::find($material)->update($request->all());
+
+      return response()->json($update);
 
     }
 

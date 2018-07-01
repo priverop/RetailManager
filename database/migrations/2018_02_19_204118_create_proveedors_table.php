@@ -16,11 +16,11 @@ class CreateProveedorsTable extends Migration
         Schema::create('proveedors', function (Blueprint $table) {
             $table->increments('id')->unsigned()->unique();
             $table->string('nombre');
-            $table->string('direccion');
-            $table->integer('cp');
-            $table->string('provincia');
-            $table->integer('telefono');
-            $table->string('nif');
+            $table->string('direccion')->default("No insertado");
+            $table->integer('cp')->default("0");
+            $table->string('provincia')->default("No insertado");
+            $table->integer('telefono')->default("0");
+            $table->string('nif')->default("No insertado");
             $table->timestamps();
 
         });

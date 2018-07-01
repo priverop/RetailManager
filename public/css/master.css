@@ -24,6 +24,10 @@ a{
   max-height: 60px;
 }
 
+#form_creacion_proveedor{
+  display: none
+}
+
 .navbar{
   text-transform: uppercase;
 }
