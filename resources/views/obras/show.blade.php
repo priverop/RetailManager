@@ -31,11 +31,10 @@
   <h5>Coste Comercial: {{ $obra[0]->total_comercial }}</h5>
   <button class="btn btn-primary" id="addPresupuesto">Nuevo Mueble</button>
   <button class="btn btn-primary" id="addMuebleExistente">Añadir Muebles Existentes</button>
-  <a href="{{  route('ExportPRE', ['id'=>$obra[0]->id]) }}"><button class="btn btn-primary">Exportar a Factusol</button></a>
   <button class="btn btn-primary" id="infHoras">Informe Horas</button>
   <button class="btn btn-primary" id="infCompras">Informe Compras</button>
 
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-5 p-3 mb-3 border">
     <table id="presupuestoIndex">
       <thead>
         <tr>

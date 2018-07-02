@@ -31,7 +31,6 @@ Route::get('/obras/createInfCompras/{id}', 'ObraController@createInfCompras')->n
 
 // Clientes autocomplete
 Route::get('cliente/autocompletar', 'ClienteController@autocompletar')->name('autocompletarCliente');
-Route::get('ExportPRE/{id}', 'excelController@ExportPRE')->name('ExportPRE');
 
 // Duplicar Presupuesto
 Route::get('/presupuestos/duplicateForm', 'PresupuestoController@duplicateForm')->name('duplicateForm');
