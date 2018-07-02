@@ -218,8 +218,8 @@ class ObraController extends Controller
         if($request->input('select_v_activa') == NULL){
           $v_activa = 0;
         }else{
+          $v_activa = 1;
           if($obra->v_activa == 0){
-            $v_activa = 1;
             $update = DB::table('obras')
             ->where('v_id', $obra->v_id)
             ->update(['v_activa' => 0]);

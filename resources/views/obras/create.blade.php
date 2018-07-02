@@ -60,7 +60,7 @@
               <?php
                 $date = $obra->fecha;
                 $date = strtotime($date);
-                $date = date("Y-m-d", $date);
+                $date = date("d/m/Y", $date);
               ?>
               <input type="text" class="form-control" value="{{ $date }}" name="fecha" id="datepicker">
               @else
