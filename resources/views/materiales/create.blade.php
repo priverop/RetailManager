@@ -18,7 +18,7 @@
               @isset($material)
               <input type="text" class="form-control" name="nombre" value="{{$material->nombre}}" autofocus>
               @else
-              <input type="text" class="form-control" name="nombre" autofocus>
+              <input type="text" class="form-control" name="nombre" autofocus required>
               @endisset
             </div>
           </div>
@@ -87,21 +87,23 @@
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2" for="content"><strong>Descuento:</strong></label>
+            <p>Si se indica 0 no habrá descuento (puede editarse a posteriori).</p>
             <div class="col-sm-10">
               @isset($descuento)
               <input class="form-control" name="descuento" value="{{$descuento}}">
               @else
-              <input class="form-control" name="descuento">
+              <input class="form-control" name="descuento" value="0" required>
               @endisset
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-4" for="content"><strong>Cantidad mínima para aplicar descuento:</strong></label>
+            <p>Si el descuento está a 0 este campo se ignorará.</p>
             <div class="col-sm-10">
               @isset($min_unidades)
               <input class="form-control" name="min_unidades" value="{{$min_unidades}}">
               @else
-              <input class="form-control" name="min_unidades">
+              <input class="form-control" name="min_unidades" value="0" required>
               @endisset
             </div>
           </div>
@@ -111,7 +113,7 @@
               @isset($precio)
               <input class="form-control" name="precio" value="{{$precio}}">
               @else
-              <input class="form-control" name="precio">
+              <input class="form-control" name="precio" placeholder="Precio" required>
               @endisset
             </div>
           </div>
@@ -184,39 +186,27 @@ $(function() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
   $('#addMaterialButton').click( function (event) {
     event.preventDefault;
     var form_action = $("#addMaterialForm").attr("action");
-    if(document.getElementsByName("nuevo_proveedor")[0].checked){
-      var nuevo_proveedor = document.getElementsByName("nombre_nuevo_proveedor")[0].value;
-      if(nuevo_proveedor){
-        var formulario = $("#addMaterialForm").serialize() + '&nombre_nuevo_proveedor='+nuevo_proveedor;
+    var error = false;
 
-        $.ajax({
-          @isset($material)
-            type: 'PUT',
-          @else
-            type: 'POST',
-          @endisset
-            url: form_action,
-            data: formulario
-        }).done(function(data){
-            location.reload();
-        });
-      }else{
-        alert('Por favor, inserte nombre del proveedor');
+    $("input[required]").each(function(){
+      if($(this).val() == ""){
+        error = true;
       }
+    });
+    if(error == true){
+      alert("Por favor, rellene todos los campos");
+    }
+    else{
 
-    }else{
-      var nRows = table.rows('.selected').data().length;
+      if(document.getElementsByName("nuevo_proveedor")[0].checked){
 
-      if(nRows > 1){
-        alert('Por favor elija solo un proveedor');
-      }
-      else if(nRows == 1){
-        table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
-          var proveedorID = this.data()[0];
-          var formulario = $("#addMaterialForm").serialize() + '&proveedorID='+proveedorID;
+        var nuevo_proveedor = document.getElementsByName("nombre_nuevo_proveedor")[0].value;
+        if(nuevo_proveedor){
+          var formulario = $("#addMaterialForm").serialize() + '&nombre_nuevo_proveedor='+nuevo_proveedor;
 
           $.ajax({
             @isset($material)
@@ -229,28 +219,57 @@ $(function() {
           }).done(function(data){
               location.reload();
           });
-        });
-      }
-      else{ // 0 Proveedores seleccionados
-        // Si está el modo edición, podemos enviarlo tal cual
-        @isset($material)
-          var formulario = $("#addMaterialForm").serialize();
-          $.ajax({
-              type: 'PUT',
-              url: form_action,
-              data: formulario
-          }).done(function(data){
-              location.reload();
-          });
-        @else
-        // Si no está el modo edición, mostramos error
-          alert('Por favor, elija un proveedor.');
-        @endisset
+        }else{
+          alert('Por favor, inserte nombre del proveedor');
+        }
 
+      }else{
+        var nRows = table.rows('.selected').data().length;
+
+        if(nRows > 1){
+          alert('Por favor elija solo un proveedor');
+        }
+        else if(nRows == 1){
+          table.rows('.selected').every(function(rowIdx, tableLoop, rowLoop){
+            var proveedorID = this.data()[0];
+            var formulario = $("#addMaterialForm").serialize() + '&proveedorID='+proveedorID;
+
+            $.ajax({
+              @isset($material)
+                type: 'PUT',
+              @else
+                type: 'POST',
+              @endisset
+                url: form_action,
+                data: formulario
+            }).done(function(data){
+                location.reload();
+            });
+          });
+        }
+        else{ // 0 Proveedores seleccionados
+          // Si está el modo edición, podemos enviarlo tal cual
+          @isset($material)
+            var formulario = $("#addMaterialForm").serialize();
+            $.ajax({
+                type: 'PUT',
+                url: form_action,
+                data: formulario
+            }).done(function(data){
+                location.reload();
+            });
+          @else
+          // Si no está el modo edición, mostramos error
+            alert('Por favor, elija un proveedor.');
+          @endisset
+
+        }
       }
-  }
-  });
+    }
+  }); //Fin addMaterial
+
 });
+
 function nuevoProveedor() {
   if(document.getElementsByName("nuevo_proveedor")[0].checked){
     document.getElementById('reutilizar_proveedor').style.display='none';
