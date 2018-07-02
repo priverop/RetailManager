@@ -17,7 +17,9 @@
   <h6>Otras versiones</h6>
   <p>
     @foreach($obra[1] as $key => $version)
-      <h4 class="versiones"><a href="{{route('obras.show', ['id' => $version->id])}}">{{$version->version}}</a></h4>
+      @if($version->id !== $obra[0]->id)
+        <h4 class="versiones"><a href="{{route('obras.show', ['id' => $version->id])}}">{{$version->version}}</a></h4>
+      @endif
     @endforeach
   </p>
 </br>
