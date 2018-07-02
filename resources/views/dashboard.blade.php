@@ -36,11 +36,11 @@
           <div class="form-row">
             <div class="form-group">
               <label class="control-label col-sm-6" for="desde"><b>DESDE:</b></label>
-              <div class="col-sm-10"><input type="date" name="desde" value="2000-01-01"></div>
+              <div class="col-sm-10"><input type="text" id="datepicker" name="desde" value="01/01/2000"></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
-              <div class="col-sm-10"><input type="date" name="hasta" value="2019-01-01"></div>
+              <div class="col-sm-10"><input type="text" id="datepicker2" name="hasta" value="01/01/2019"></div>
             </div>
               <div class="form-group fullfather">
                 <div class="col-sm-12">
@@ -80,6 +80,15 @@ $(function(){
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+  });
+
+  $( "#datepicker" ).datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+  $( "#datepicker2" ).datepicker({
+    changeMonth: true,
+    changeYear: true
   });
 
   $.fn.dataTable.moment('DD-MM-YYYY');
