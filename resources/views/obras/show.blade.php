@@ -102,18 +102,7 @@
                 <input type="text" class="form-control" name="concepto" autofocus>
               </div>
             </div>
-            <div class="form-group">
-              <label class="control-label col-sm-2" for="title"><strong>Beneficio</strong>:</label>
 
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="beneficio" value="{{ $obra[0]->beneficio }}" placeholder="%" autofocus>
-              </div>
-            </div>
-            <div class="form-group">
-              <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="form-control"  onclick="desmarcarCheckBox()">
-              <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="form-control"  onclick="desmarcarCheckBox()" checked hidden>
-              <label class="control-label col-sm-2" for="title"><strong>Beneficio Global</strong>:</label>
-            </div>
             <input type="hidden" class="form-control" name="obra_id" value="{{ $obra[0]->id }}">
           </form>
           <div class="modal-footer">
