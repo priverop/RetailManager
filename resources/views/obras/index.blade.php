@@ -26,20 +26,11 @@
       <tr>
         <th>#</th>
         <th>Nombre</th>
-        <th>Identificador de versión</th>
         <th>Versión</th>
         <th>Versión Activa</th>
         <th>Fecha</th>
         <th>Cliente</th>
-        <th>Coste Base</th>
-        <th>Coste Base + IVA</th>
-        <th>Coste Montaje</th>
-        <th>Coste Transporte</th>
-        <th>Coste Estructural</th>
-        <th>Margen Estructural</th>
-        <th>Coste</th>
-        <th>Margen Coomercial</th>
-        <th>Coste Comercial</th>
+        <th>Total</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -57,7 +48,6 @@
           <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
-          <td>{{ $value->v_id }}</td>
           <td>{{ $value->version }} de {{ $value->v_ultima }}</td>
           @if($value->v_activa == 1)
             <td>Activa</td>
@@ -66,15 +56,7 @@
           @endif
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
-          <td>{{ $value->precio_total }}</td>
-          <td>{{ $value->total_IVA }}</td>
-          <td>{{ $value->total_montaje }}</td>
-          <td>{{ $value->total_transporte }}</td>
-          <td>{{ $value->precio_total_beneficio}}</td>
-          <td>{{ $value->margen_estructural}}</td>
-          <td>{{ $value->total_estructural}}</td>
-          <td>{{ $value->margen_comercial}}</td>
-          <td>{{ $value->total_comercial}}</td>
+          <td>{{ $value->total_comercial}} €</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
