@@ -245,17 +245,17 @@ $tiposMaterial = [
         @if($mvalue->unidad == "m")
           <td>{{$mvalue->pivot->m}} (m)</td>
           <td>{{$mvalue->pivot->total_m}} (m)</td>
-        @elif ($mvalue->unidad == "m2")
+        @elseif ($mvalue->unidad == "m2")
           <td>{{$mvalue->pivot->m2}} (m2)</td>
           <td>{{$mvalue->pivot->total_m2}} (m2)</td>
-        @elif ($mvalue->unidad == "m3")
+        @elseif ($mvalue->unidad == "m3")
           <td>{{$mvalue->pivot->m3}} (m3)</td>
           <td>{{$mvalue->pivot->total_m3}} (m3)</td>
         @else
           @if($mvalue->pivot->m3 > 0)
             <td>{{$mvalue->pivot->m3}}  (m3)</td>
             <td>{{$mvalue->pivot->total_m3}} (m3)</td>
-          @elif($mvalue->pivot->m2 > 0)
+          @elseif($mvalue->pivot->m2 > 0)
             <td>{{$mvalue->pivot->m2}} (m2)</td>
             <td>{{$mvalue->pivot->total_m2}} (m2)</td>
           @else
@@ -358,17 +358,17 @@ $tiposMaterial = [
         @if($value->unidad == "m")
           <td>{{$value->m}} (m)</td>
           <td>{{$value->total_m}} (m)</td>
-        @elif ($value->unidad == "m2")
+        @elseif ($value->unidad == "m2")
           <td>{{$value->m2}} (m2)</td>
           <td>{{$value->total_m2}} (m2)</td>
-        @elif ($value->unidad == "m3")
+        @elseif ($value->unidad == "m3")
           <td>{{$value->m3}} (m3)</td>
           <td>{{$value->total_m3}} (m3)</td>
         @else
           @if($value->m3 > 0)
             <td>{{$value->m3}} (m3)</td>
             <td>{{$value->total_m3}} (m3)</td>
-          @elif($value->m2 > 0)
+          @elseif($value->m2 > 0)
             <td>{{$value->m2}} (m2)</td>
             <td>{{$value->total_m2}} (m2)</td>
           @else
@@ -434,7 +434,7 @@ $tiposMaterial = [
           @if($value->archivo_presupuesto == "sin definir")
           <p>{{$value->archivo_presupuesto}}</p>
           @else
-          <p><a href="{{$value->archivo_presupuesto}}" target="_blank">ver</a></p>
+          <p><a href="{{URL::to('/')}}{{ Storage::url($value->archivo_presupuesto) }}" target="_blank">ver</a></p>
           @endif
         </td>
         <td  class="editable">
