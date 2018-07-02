@@ -434,7 +434,7 @@ $tiposMaterial = [
           @if($value->archivo_presupuesto == "sin definir")
           <p>{{$value->archivo_presupuesto}}</p>
           @else
-          <p><a href="{{$value->archivo_presupuesto}}" target="_blank">ver</a></p>
+          <p><a href="{{URL::to('/')}}{{ Storage::url($value->archivo_presupuesto) }}" target="_blank">ver</a></p>
           @endif
         </td>
         <td  class="editable">
