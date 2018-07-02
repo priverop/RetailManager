@@ -124,7 +124,15 @@ $(function(){
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
   $('#presupuestoIndex').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        { extend: 'copyHtml5', title: 'Modifase - Presupuesto obra: {{$obra[0]->nombre}}', text: 'Copiar',  exportOptions: {columns: [0, 1, 2, 3, 4, 5]} },
+        { extend: 'excelHtml5', title: 'Modifase - Presupuesto obra: {{$obra[0]->nombre}}',  exportOptions: {columns: [0, 1, 2, 3, 4, 5]} },
+        { extend: 'csvHtml5', title: 'Modifase - Presupuesto obra: {{$obra[0]->nombre}}',  exportOptions: {columns: [0, 1, 2, 3, 4, 5]} },
+        { extend: 'pdfHtml5', title: 'Modifase - Presupuesto obra: {{$obra[0]->nombre}}', exportOptions: {columns: [0, 1, 2, 3, 4, 5]}  }
+    ],
     "language": {
           "url": "{{ asset('/js/datatable_spanish.json') }}"
       }
