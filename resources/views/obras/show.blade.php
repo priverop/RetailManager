@@ -46,7 +46,7 @@
           <th>Precio Coste</th>
           <!-- <th>Beneficio</th>
           <th>Beneficio Global</th> -->
-          <th>Precio Total</th>
+          <th>Precio Total (Coste+Iva)</th>
           <th>Acciones</th>
         </tr>
       </thead>

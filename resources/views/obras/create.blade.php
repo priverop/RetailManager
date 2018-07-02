@@ -22,7 +22,7 @@
               @isset($obra)
               <input type="text" class="typeahead form-control" name="cliente" placeholder="Buscar cliente" value="{{$obra->cliente->nombre}}" autofocus>
               @else
-              <input type="text" class="typeahead form-control" name="cliente" placeholder="Buscar cliente" autofocus>
+              <input type="text" class="typeahead form-control" name="cliente" placeholder="Buscar cliente" autofocus required>
               @endisset
             </div>
           </div>
@@ -33,7 +33,7 @@
               @isset($obra)
               <input type="text" class="form-control" name="nombre" value="{{$obra->nombre}}">
               @else
-              <input type="text" class="form-control" name="nombre" placeholder="Nombre de la obra">
+              <input type="text" class="form-control" name="nombre" placeholder="Nombre de la obra" required>
               @endisset
             </div>
           </div>
@@ -53,7 +53,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="fecha"><strong>Fecha:</strong></label>
             <p>
-              Introduzca la fecha o, tras hacer click, pulse en la pestaña (▼) de la derecha del todo.
+              Pulse en el campo y seleccione la fecha en el calendario.
             </p>
             <div class="col-sm-10">
               @isset($obra)
@@ -64,7 +64,7 @@
               ?>
               <input type="text" class="form-control" value="{{ $date }}" name="fecha" id="datepicker">
               @else
-              <input type="text" class="form-control" name="fecha" id="datepicker">
+              <input type="text" class="form-control" name="fecha" id="datepicker" required>
               @endisset
             </div>
           </div>
@@ -87,15 +87,15 @@
             <label class="control-label col-sm-2" for="beneficio"><strong>Coste de montaje:</strong></label>
             <p>
               Seleccione un porcentaje o valor del coste del montaje. (Si el valor es 0, se tendrá en cuenta el porcentaje; por otro lado, si el valor es mayor que cero,
-              se tendrá en cuenta dicho valor y se ignorará el porcentaje)
+              se tendrá en cuenta dicho valor y se ignorará el porcentaje).
             </p>
             <div class="col-sm-10">
               @isset($obra)
               <input type="text" class="form-control" name="porcentaje_montaje" value="{{$obra->porcentaje_montaje}}" placeholder="%">
               <input type="text" class="form-control" name="coste_montaje" value="{{$obra->coste_montaje}}" placeholder="Valor">
               @else
-              <input type="text" class="form-control" name="porcentaje_montaje" placeholder="%">
-              <input type="text" class="form-control" name="coste_montaje" placeholder="Valor">
+              %:<input type="text" class="form-control" name="porcentaje_montaje" placeholder="%" value="0">
+              Valor:<input type="text" class="form-control" name="coste_montaje" placeholder="Valor" value="0">
               @endisset
             </div>
           </div>
@@ -104,15 +104,15 @@
             <label class="control-label col-sm-2" for="beneficio"><strong>Coste de transporte:</strong></label>
             <p>
               Seleccione un porcentaje o valor del coste del transporte. (Si el valor es 0, se tendrá en cuenta el porcentaje; por otro lado, si el valor es mayor que cero,
-              se tendrá en cuenta dicho valor y se ignorará el porcentaje)
+              se tendrá en cuenta dicho valor y se ignorará el porcentaje).
             </p>
             <div class="col-sm-10">
               @isset($obra)
               <input type="text" class="form-control" name="porcentaje_transporte" value="{{$obra->porcentaje_transporte}}" placeholder="%">
               <input type="text" class="form-control" name="coste_transporte" value="{{$obra->coste_transporte}}" placeholder="Valor">
               @else
-              <input type="text" class="form-control" name="porcentaje_transporte" placeholder="%">
-              <input type="text" class="form-control" name="coste_transporte" placeholder="Valor">
+              %: <input type="text" class="form-control" name="porcentaje_transporte" placeholder="%" value="0">
+              Valor: <input type="text" class="form-control" name="coste_transporte" placeholder="Valor" value="0">
               @endisset
             </div>
           </div>
@@ -126,7 +126,7 @@
               @isset($obra)
               <input type="text" class="form-control" name="margen_estructural" value="{{$obra->margen_estructural}}" placeholder="Margen Estructural">
               @else
-              <input type="text" class="form-control" name="margen_estructural" placeholder="Margen Estructural">
+              <input type="text" class="form-control" name="margen_estructural" placeholder="Margen Estructural" required>
               @endisset
             </div>
           </div>
@@ -140,7 +140,7 @@
               @isset($obra)
               <input type="text" class="form-control" name="margen_comercial" value="{{$obra->margen_comercial}}" placeholder="Margen Comercial">
               @else
-              <input type="text" class="form-control" name="margen_comercial" placeholder="Margen Comercial">
+              <input type="text" class="form-control" name="margen_comercial" placeholder="Margen Comercial" required>
               @endisset
             </div>
           </div>
@@ -183,22 +183,33 @@ $(function(){
     event.preventDefault();
     var form_action = $("#addObrasForm").attr("action");
     var formulario = $("#addObrasForm").serialize();
+    var error = false;
 
-    $.ajax({
-      @isset($obra)
-        type: 'PUT',
-      @else
-        type: 'POST',
-      @endisset
-        url: form_action,
-        data: formulario
-    }).done(function(data){
-      @isset($obra)
-        location.reload();
-      @else
-        window.location.replace(data);
-      @endisset
+    $("input[required]").each(function(){
+      if($(this).val() == ""){
+        error = true;
+      }
     });
+    if(error == true){
+      alert("Por favor, rellene todos los campos");
+    }
+    else{
+      $.ajax({
+        @isset($obra)
+          type: 'PUT',
+        @else
+          type: 'POST',
+        @endisset
+          url: form_action,
+          data: formulario
+      }).done(function(data){
+        @isset($obra)
+          location.reload();
+        @else
+          window.location.replace(data);
+        @endisset
+      });
+    }
 
   });
 
