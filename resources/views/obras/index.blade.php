@@ -73,6 +73,7 @@
 
 <script>
 $(function(){
+  $.fn.dataTable.moment('DD/MM/YYYY');
   $('#index').DataTable({
     dom: 'Bfrtip',
     buttons: [

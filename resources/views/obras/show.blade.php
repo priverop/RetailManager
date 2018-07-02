@@ -127,6 +127,8 @@ $(function(){
     }
   });
 
+  $.fn.dataTable.moment('DD/MM/YYYY');
+
   $('#presupuestoIndex').DataTable({
     dom: 'Bfrtip',
     buttons: [

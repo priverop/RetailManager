@@ -89,7 +89,7 @@ $(function(){
     changeYear: true
   });
 
-  $.fn.dataTable.moment('DD-MM-YYYY');
+  $.fn.dataTable.moment('DD/MM/YYYY');
 
   var table = $('#indexObra').DataTable({
     "language": {
