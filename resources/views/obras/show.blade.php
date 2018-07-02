@@ -25,6 +25,8 @@
   <p>Coste Base + IVA: {{ $obra[0]->total_IVA }}</p>
   <p>Coste Montaje: {{ $obra[0]->total_montaje }}</p>
   <p>Coste Transporte: {{ $obra[0]->total_transporte }}</p>
+  <p>Margen Estructural: {{ $obra[0]->margen_estructural }}</p>
+  <p>Margen Comercial: {{ $obra[0]->margen_comercial }}</p>
 </br>
   <h5>Coste Estructural: {{ $obra[0]->precio_total_beneficio }}</h5>
   <h5>Coste: {{ $obra[0]->total_estructural }}</h5>

@@ -213,17 +213,14 @@ class ObraController extends Controller
     {
         $cliente = Cliente::where('nombre', '=', $request->input('cliente'))->first();
         $obra = Obra::find($request->input('id'));
+        $v_activa = 0;
 
 
-        if($request->input('select_v_activa') == NULL){
-          $v_activa = 0;
-        }else{
-          if($obra->v_activa == 0){
+        if($request->input('select_v_activa') != NULL && $obra->v_activa == 0){
             $v_activa = 1;
             $update = DB::table('obras')
             ->where('v_id', $obra->v_id)
             ->update(['v_activa' => 0]);
-          }
         }
 
         $obra->update([

@@ -57,12 +57,7 @@
             </p>
             <div class="col-sm-10">
               @isset($obra)
-              <?php
-                $date = $obra->fecha;
-                $date = strtotime($date);
-                $date = date("Y-m-d", $date);
-              ?>
-              <input type="text" class="form-control" value="{{ $date }}" name="fecha" id="datepicker">
+              <input type="text" class="form-control" value="{{ $obra->fecha }}" name="fecha" id="datepicker">
               @else
               <input type="text" class="form-control" name="fecha" id="datepicker" required>
               @endisset
