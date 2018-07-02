@@ -4,10 +4,10 @@
 
 @section('content')
 <?php $location = 'clientes' ?>
+
 <h1>{{ $cliente->nombre }}</h1>
 
 <div class="row">
-
 
   <div class=" mt-5 mb-5 p-3 border">
     <div class="col-xs-12">

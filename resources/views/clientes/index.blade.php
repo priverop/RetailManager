@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Clientes')
+@section('title', 'Lista de Clientes')
 
 @section('content')
 <?php $location = 'clientes' ?>
-<h1>Lista de Clientes</h1>
 
 <button class="btn btn-primary" id="addCliente">Cliente Nuevo</button>
 

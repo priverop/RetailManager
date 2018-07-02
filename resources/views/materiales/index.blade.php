@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Materiales')
+@section('title', 'Lista de Materiales')
 
 @section('content')
 <?php $location = 'materiales' ?>
-  <h2>Lista de Materiales</h2>
 
-<input type="button" id="addMaterial" class="btn btn-primary mt-4 mb-4" value="Añadir Material">
+<input type="button" id="addMaterial" class="btn btn-primary mb-4" value="Añadir Material">
 
 <div class="row">
 
