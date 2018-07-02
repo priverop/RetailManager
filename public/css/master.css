@@ -16,6 +16,10 @@ a{
   border-color: #dc3545 !important;
 }
 
+h4.versiones {
+    display: inline-block;
+}
+
 /* ============= */
 /* == LAYOUT  == */
 /* ============= */

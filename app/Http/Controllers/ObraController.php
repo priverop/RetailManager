@@ -197,8 +197,9 @@ class ObraController extends Controller
     public function show($obra)
     {
         $obra = Obra::find($obra);
+        $versiones = Obra::where('v_id', $obra->v_id)->get();
 
-        return View::make('obras.show')->with('obra', $obra);
+        return View::make('obras.show')->with('obra', [$obra, $versiones]);
     }
 
     /**

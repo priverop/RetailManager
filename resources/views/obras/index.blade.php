@@ -26,6 +26,7 @@
       <tr>
         <th>#</th>
         <th>Nombre</th>
+        <th>Identificador de versión</th>
         <th>Versión</th>
         <th>Versión Activa</th>
         <th>Fecha</th>
@@ -56,6 +57,7 @@
           <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
+          <td>{{ $value->v_id }}</td>
           <td>{{ $value->version }} de {{ $value->v_ultima }}</td>
           @if($value->v_activa == 1)
             <td>Activa</td>
