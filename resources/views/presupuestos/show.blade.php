@@ -242,24 +242,24 @@ $tiposMaterial = [
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->ancho}}">
         </td>
         @if($mvalue->unidad == "m")
-          <td>{{$mvalue->pivot->m}}</td>
-          <td>{{$mvalue->pivot->total_m}}</td>
+          <td>{{$mvalue->pivot->m}} (m)</td>
+          <td>{{$mvalue->pivot->total_m}} (m)</td>
         @elif ($mvalue->unidad == "m2")
-          <td>{{$mvalue->pivot->m2}}</td>
-          <td>{{$mvalue->pivot->total_m2}}</td>
+          <td>{{$mvalue->pivot->m2}} (m2)</td>
+          <td>{{$mvalue->pivot->total_m2}} (m2)</td>
         @elif ($mvalue->unidad == "m3")
-          <td>{{$mvalue->pivot->m3}}</td>
-          <td>{{$mvalue->pivot->total_m3}}</td>
+          <td>{{$mvalue->pivot->m3}} (m3)</td>
+          <td>{{$mvalue->pivot->total_m3}} (m3)</td>
         @else
           @if($mvalue->pivot->m3 > 0)
-            <td>{{$mvalue->pivot->m3}}</td>
-            <td>{{$mvalue->pivot->total_m3}}</td>
+            <td>{{$mvalue->pivot->m3}}  (m3)</td>
+            <td>{{$mvalue->pivot->total_m3}} (m3)</td>
           @elif($mvalue->pivot->m2 > 0)
-            <td>{{$mvalue->pivot->m2}}</td>
-            <td>{{$mvalue->pivot->total_m2}}</td>
+            <td>{{$mvalue->pivot->m2}} (m2)</td>
+            <td>{{$mvalue->pivot->total_m2}} (m2)</td>
           @else
-            <td>{{$mvalue->pivot->m}}</td>
-            <td>{{$mvalue->pivot->total_m}}</td>
+            <td>{{$mvalue->pivot->m}} (m)</td>
+            <td>{{$mvalue->pivot->total_m}} (m)</td>
           @endif
         @endif
         <td>{{$mvalue->pivot->proveedors_nombre}}</td>
@@ -355,24 +355,24 @@ $tiposMaterial = [
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
         </td>
         @if($value->unidad == "m")
-          <td>{{$value->m}}</td>
-          <td>{{$value->total_m}}</td>
+          <td>{{$value->m}} (m)</td>
+          <td>{{$value->total_m}} (m)</td>
         @elif ($value->unidad == "m2")
-          <td>{{$value->m2}}</td>
-          <td>{{$value->total_m2}}</td>
+          <td>{{$value->m2}} (m2)</td>
+          <td>{{$value->total_m2}} (m2)</td>
         @elif ($value->unidad == "m3")
-          <td>{{$value->m3}}</td>
-          <td>{{$value->total_m3}}</td>
+          <td>{{$value->m3}} (m3)</td>
+          <td>{{$value->total_m3}} (m3)</td>
         @else
           @if($value->m3 > 0)
-            <td>{{$value->m3}}</td>
-            <td>{{$value->total_m3}}</td>
+            <td>{{$value->m3}} (m3)</td>
+            <td>{{$value->total_m3}} (m3)</td>
           @elif($value->m2 > 0)
-            <td>{{$value->m2}}</td>
-            <td>{{$value->total_m2}}</td>
+            <td>{{$value->m2}} (m2)</td>
+            <td>{{$value->total_m2}} (m2)</td>
           @else
-            <td>{{$value->m}}</td>
-            <td>{{$value->total_m}}</td>
+            <td>{{$value->m}} (m)</td>
+            <td>{{$value->total_m}} (m)</td>
           @endif
         @endif
         <td class="editable">
