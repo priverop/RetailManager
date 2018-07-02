@@ -6,8 +6,6 @@
 
 <?php $location = 'home' ?>
 
-  <h1>Panel Principal</h1>
-
 <div class="row mt-5">
   <div class="col border p-3">
     <h4>Clientes</h4>
