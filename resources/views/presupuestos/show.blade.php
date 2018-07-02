@@ -5,6 +5,7 @@
 @section('content')
 
 <?php $location = 'presupuestos' ?>
+
 <!-- ===========================
 == TITULO Y PRECIO TOTAL ==
 ===========================  -->
@@ -22,7 +23,7 @@
 ======================  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="form-row mt-3 p-3 border">
+  <div class="form-row mt-3 p-2 border">
     <div class="col-md-6">
       <div onclick="editar1('concepto')">
         <b>Concepto: </b>
@@ -88,10 +89,10 @@
 == PLANOS DEL MUEBLE ==
 ======================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>Planos del presupuesto</h3>
-
+    <p>Pulsa en <b>Elegir archivos</b> para elegir los planos que quiera (se permiten varios), posteriormente pulse en Añadir.</p>
     <form enctype="multipart/form-data" action="{{ route('planos.store') }}" method="POST">
       <input type="file" name="img[]" multiple>
       <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
@@ -122,7 +123,7 @@
 == PARTES DEL MUEBLE ==
 =======================  -->
 
-<div class="row mt-5 p-3 border border-bottom-0">
+<div class="row mt-3 p-2 border border-bottom-0">
 
   <div class="col">
     <h3>Partes del Mueble</h3>
@@ -160,7 +161,7 @@ $tiposMaterial = [
 ];
 ?>
 
-<div class="row mt-5 p-3 border" id="parteDiv">
+<div class="row mt-3 p-2 border" id="parteDiv">
 
   <h3 class="mr-2">{{ $value->nombre }}</h3>
   <button class="btn-sm btn-primary" id="borrarParte" onclick="deleteParte(this)">Borrar</button>
@@ -284,7 +285,7 @@ $tiposMaterial = [
 == PROVEEDORES EXTERNOS ==
 ======================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
 
   <div class="col">
     <h3>Proveedores Externos</h3>
@@ -468,7 +469,7 @@ $tiposMaterial = [
 == DESPERDICIO ==
 =================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>DESPERDICIO</h3>
     <p>
@@ -486,7 +487,7 @@ $tiposMaterial = [
 ==============  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col-md-12">
       <h3>MÁQUINAS</h3>
     </div>
@@ -657,7 +658,7 @@ $tiposMaterial = [
 ==================  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col">
       <h3>MANO DE OBRA</h3>
       <table class="table table-striped">
@@ -922,7 +923,7 @@ $tiposMaterial = [
 ========================  -->
 
 <form action="" method="POST"  class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col">
       <h3>COSTES ADICIONALES</h3>
     </div>
@@ -993,7 +994,7 @@ $tiposMaterial = [
 == DESGLOSE DE PRECIOS ==
 =========================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>Desglose de Precios</h3>
     <table class="table table-striped">

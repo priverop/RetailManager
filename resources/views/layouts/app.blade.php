@@ -34,7 +34,7 @@
 
   <div class="container-fluid">
     <div class="row mini-jumbo">
-      <div class="col">@yield('title')</div>
+      <div class="col"><h2 class="cabecera">@yield('title')</h2></div>
 
     </div>
   </div>

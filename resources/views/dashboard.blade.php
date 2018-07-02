@@ -6,7 +6,7 @@
 
 <?php $location = 'home' ?>
 
-<div class="row mt-5">
+<div class="row">
   <div class="col border p-3">
     <h4>Clientes</h4>
     <p>{{count($clientes)}} clientes en cartera.</p>
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="row border mt-5">
+<div class="row border mt-4">
   <div class="row p-3 fullWidth">
     <div class="col-sm-8">
       <h4>Informe Total Presupuestado</h4>

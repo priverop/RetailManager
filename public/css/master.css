@@ -2,6 +2,35 @@
 /* == GENERAL  == */
 /* ============== */
 
+body{
+  font-size: 0.8em;
+}
+
+h2.cabecera{
+  font-size: 1em;
+  margin: 0;
+}
+
+h1{
+  font-size: 2em;
+}
+
+h2{
+  font-size: 1.5em;
+}
+
+h3{
+  font-size: 1.3em;
+}
+
+h4{
+  font-size: 1em;
+}
+
+th, td{
+  font-size: 0.8em;
+}
+
 a{
   color: #dc3545;
 }
@@ -10,6 +39,10 @@ a{
     color: #fff;
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
+    padding: 1px 7px 2px;
+}
+.btn-secondary{
+  padding: 1px 7px 2px;
 }
 .btn-outline-primary{
   color: #dc3545;
@@ -65,12 +98,8 @@ li.nav-item.active > a{
 /* == DASHBOARD  == */
 /* ================ */
 
-.form-group.fullfather{
-  width: 83%;
-}
-
 .form-group.fullfather > div, .form-group.fullfather input{
-  width: 100%;
+  width: 375px;
 }
 
 /* ========================= */
