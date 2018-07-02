@@ -8,17 +8,17 @@
 
 <div class="row">
   <div class="col border p-3">
-    <h4>Clientes</h4>
+    <h3>Clientes</h3>
     <p>{{count($clientes)}} clientes en cartera.</p>
     <a href="{{ route('clientes.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
   <div class="col border p-3">
-    <h4>Proveedores</h4>
+    <h3>Proveedores</h3>
     <p>{{count($proveedores)}} proveedores añadidos.</p>
     <a href="{{ route('proveedores.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
   <div class="col border p-3">
-    <h4>Obras</h4>
+    <h3>Obras</h3>
     <p>{{count($obras)}} obras presupuestadas.</p>
     <a href="{{ route('obras.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
@@ -27,7 +27,7 @@
 <div class="row border mt-4">
   <div class="row p-3 fullWidth">
     <div class="col-sm-8">
-      <h4>Informe Total Presupuestado</h4>
+      <h3>Informe Total Presupuestado</h3>
       <p>Puede modificar las fechas y pulse en actualizar.</p>
       <div class="mt-5">
         <form id="informeForm">
