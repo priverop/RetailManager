@@ -8,7 +8,7 @@
 
 <button class="btn btn-primary" id="addObra">Obra Nueva</button>
 
-<div class="row">
+<div class="row mt-3">
   <table id="index">
     <thead>
       <!-- <tr>
