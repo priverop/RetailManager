@@ -56,23 +56,7 @@
         <b>Estado: </b>
         <input type="text" id="estado" placeholder="Estado" name="estado" value="{{ $presupuesto->estado }} " class="infoPresupuesto"  disabled/>
       </div>
-      <!-- @if ($presupuesto->uso_beneficio_global === 1)
-      <div>
-      <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked>
-      <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled hidden>
-      <b> Beneficio Global</b>
-      </div>
-      @else
-      <div onclick="editar1('beneficio')">
-      <b>Beneficio: </b>
-      <input type="text" id="beneficio" placeholder="Beneficio" name="beneficio" value="{{ $beneficio }} " class="infoPresupuesto" disabled/>
-      </div>
-      <div>
-      <input type="checkbox" id="uso_beneficio_global_1" name="uso_beneficio_global" value="1" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled>
-      <input type="checkbox" id="uso_beneficio_global_0" name="uso_beneficio_global" value="0" class="infoPresupuesto"  onclick="desmarcarCheckBox()" disabled checked hidden>
-      <b> Beneficio Global </b>
-      </div>
-      @endif -->
+      
       <div onclick="editar1('caracteristicas')">
         <b>Características: </b>
         <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
