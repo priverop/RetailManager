@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Material')
+@section('title', 'Proveedor Individual')
 
 @section('content')
 <?php $location = 'proveedores' ?>

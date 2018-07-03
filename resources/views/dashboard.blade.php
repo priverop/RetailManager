@@ -7,56 +7,38 @@
 <?php $location = 'home' ?>
 
 <div class="row">
-  <div class="col">
-    <h2>CÓMO EMPEZAR</h2>
-    <p>
-      A continuación una pequeña guía para crear un presupuesto.
-    </p>
-    <ol>
-      <li>Entramos en <a href="{{ route('obras.index') }}">Obras</a>.</li>
-      <li>Pulsamos en el botón rojo: "Obra Nueva".</li>
-      <li>Rellenamos los datos para la obra. Pulsamos en el botón verde "Añadir".</li>
-      <li>Nos llevará a la nueva obra. Pulsamos en el botón rojo: "Nuevo Mueble".</li>
-      <li>Indicamos el concepto, Beneficio si queremos o activamos la casilla global para usar el que indicamos para la obra.</li>
-      <li>Pulsamos en el botón verde "Añadir". Nos dirigirá al Presupuesto del Mueble nuevo, donde ya se puede presupuestar.</li>
-    </ol>
-  </div>
-
-</div>
-
-<div class="row mt-5">
   <div class="col border p-3">
-    <h4>Clientes</h4>
+    <h3>Clientes</h3>
     <p>{{count($clientes)}} clientes en cartera.</p>
     <a href="{{ route('clientes.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
   <div class="col border p-3">
-    <h4>Proveedores</h4>
+    <h3>Proveedores</h3>
     <p>{{count($proveedores)}} proveedores añadidos.</p>
     <a href="{{ route('proveedores.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
   <div class="col border p-3">
-    <h4>Obras</h4>
+    <h3>Obras</h3>
     <p>{{count($obras)}} obras presupuestadas.</p>
     <a href="{{ route('obras.index') }}"><button class="btn btn-primary">VER LISTA</button></a>
   </div>
 </div>
 
-<div class="row border  mt-5">
-  <div class="row p-3">
+<div class="row border mt-4">
+  <div class="row p-3 fullWidth">
     <div class="col-sm-8">
-      <h4>Informe Total Presupuestado</h4>
+      <h3>Informe Total Presupuestado</h3>
       <p>Puede modificar las fechas y pulse en actualizar.</p>
       <div class="mt-5">
         <form id="informeForm">
           <div class="form-row">
             <div class="form-group">
               <label class="control-label col-sm-6" for="desde"><b>DESDE:</b></label>
-              <div class="col-sm-10"><input type="date" name="desde" value="2000-01-01"></div>
+              <div class="col-sm-10"><input type="text" id="datepicker" name="desde" value="01/01/2000"></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6" for="hasta"><b>HASTA:</b></label>
-              <div class="col-sm-10"><input type="date" name="hasta" value="2019-01-01"></div>
+              <div class="col-sm-10"><input type="text" id="datepicker2" name="hasta" value="01/01/2019"></div>
             </div>
               <div class="form-group fullfather">
                 <div class="col-sm-12">
@@ -73,7 +55,7 @@
     </div>
   </div>
 
-  <div class="row p-3">
+  <div class="row p-3 fullWidth">
     <div class="col">
       <table id="indexObra">
         <thead>
@@ -98,7 +80,16 @@ $(function(){
     }
   });
 
-  $.fn.dataTable.moment('DD-MM-YYYY');
+  $( "#datepicker" ).datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+  $( "#datepicker2" ).datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+
+  $.fn.dataTable.moment('DD/MM/YYYY');
 
   var table = $('#indexObra').DataTable({
     "language": {

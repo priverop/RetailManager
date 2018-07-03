@@ -5,6 +5,7 @@
 @section('content')
 
 <?php $location = 'presupuestos' ?>
+
 <!-- ===========================
 == TITULO Y PRECIO TOTAL ==
 ===========================  -->
@@ -22,7 +23,7 @@
 ======================  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="form-row mt-3 p-3 border">
+  <div class="form-row mt-3 p-2 border">
     <div class="col-md-6">
       <div onclick="editar1('concepto')">
         <b>Concepto: </b>
@@ -88,10 +89,10 @@
 == PLANOS DEL MUEBLE ==
 ======================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>Planos del presupuesto</h3>
-
+    <p>Pulsa en <b>Elegir archivos</b> para elegir los planos que quiera (se permiten varios), posteriormente pulse en Añadir.</p>
     <form enctype="multipart/form-data" action="{{ route('planos.store') }}" method="POST">
       <input type="file" name="img[]" multiple>
       <input type="hidden" name="presupuesto_id" value="{{$presupuesto->id}}">
@@ -104,8 +105,8 @@
     <div class="gallery-container mt-3">
       @foreach($presupuesto->planos as $key => $plano)
       <div class="gallery-item">
-        <a class="image-popup" href="{{ Storage::url("$plano->filename") }}">
-          <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+        <a class="image-popup" href="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
+          <img class="img-fluid" src="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
         </a>
         <button class="btn-sm btn-primary fullWidth" onclick="deletePlano({{$plano->id}})">Borrar</button>
       </div>
@@ -122,7 +123,7 @@
 == PARTES DEL MUEBLE ==
 =======================  -->
 
-<div class="row mt-5 p-3 border border-bottom-0">
+<div class="row mt-3 p-2 border border-bottom-0">
 
   <div class="col">
     <h3>Partes del Mueble</h3>
@@ -160,7 +161,7 @@ $tiposMaterial = [
 ];
 ?>
 
-<div class="row mt-5 p-3 border" id="parteDiv">
+<div class="row mt-3 p-2 border" id="parteDiv">
 
   <h3 class="mr-2">{{ $value->nombre }}</h3>
   <button class="btn-sm btn-primary" id="borrarParte" onclick="deleteParte(this)">Borrar</button>
@@ -242,24 +243,24 @@ $tiposMaterial = [
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$mvalue->pivot->ancho}}">
         </td>
         @if($mvalue->unidad == "m")
-          <td>{{$mvalue->pivot->m}}</td>
-          <td>{{$mvalue->pivot->total_m}}</td>
-        @elif ($mvalue->unidad == "m2")
-          <td>{{$mvalue->pivot->m2}}</td>
-          <td>{{$mvalue->pivot->total_m2}}</td>
-        @elif ($mvalue->unidad == "m3")
-          <td>{{$mvalue->pivot->m3}}</td>
-          <td>{{$mvalue->pivot->total_m3}}</td>
+          <td>{{$mvalue->pivot->m}} (m)</td>
+          <td>{{$mvalue->pivot->total_m}} (m)</td>
+        @elseif ($mvalue->unidad == "m2")
+          <td>{{$mvalue->pivot->m2}} (m2)</td>
+          <td>{{$mvalue->pivot->total_m2}} (m2)</td>
+        @elseif ($mvalue->unidad == "m3")
+          <td>{{$mvalue->pivot->m3}} (m3)</td>
+          <td>{{$mvalue->pivot->total_m3}} (m3)</td>
         @else
           @if($mvalue->pivot->m3 > 0)
-            <td>{{$mvalue->pivot->m3}}</td>
-            <td>{{$mvalue->pivot->total_m3}}</td>
-          @elif($mvalue->pivot->m2 > 0)
-            <td>{{$mvalue->pivot->m2}}</td>
-            <td>{{$mvalue->pivot->total_m2}}</td>
+            <td>{{$mvalue->pivot->m3}}  (m3)</td>
+            <td>{{$mvalue->pivot->total_m3}} (m3)</td>
+          @elseif($mvalue->pivot->m2 > 0)
+            <td>{{$mvalue->pivot->m2}} (m2)</td>
+            <td>{{$mvalue->pivot->total_m2}} (m2)</td>
           @else
-            <td>{{$mvalue->pivot->m}}</td>
-            <td>{{$mvalue->pivot->total_m}}</td>
+            <td>{{$mvalue->pivot->m}} (m)</td>
+            <td>{{$mvalue->pivot->total_m}} (m)</td>
           @endif
         @endif
         <td>{{$mvalue->pivot->proveedors_nombre}}</td>
@@ -284,7 +285,7 @@ $tiposMaterial = [
 == PROVEEDORES EXTERNOS ==
 ======================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
 
   <div class="col">
     <h3>Proveedores Externos</h3>
@@ -355,25 +356,16 @@ $tiposMaterial = [
           <input name="ancho" class="form-control small-input" type="hidden" value="{{$value->ancho}}">
         </td>
         @if($value->unidad == "m")
-          <td>{{$value->m}}</td>
-          <td>{{$value->total_m}}</td>
-        @elif ($value->unidad == "m2")
-          <td>{{$value->m2}}</td>
-          <td>{{$value->total_m2}}</td>
-        @elif ($value->unidad == "m3")
-          <td>{{$value->m3}}</td>
-          <td>{{$value->total_m3}}</td>
+          <td>{{$value->m}} (m)</td>
+          <td>{{$value->total_m}} (m)</td>
+        @elseif ($value->unidad == "m2")
+          <td>{{$value->m2}} (m2)</td>
+          <td>{{$value->total_m2}} (m2)</td>
+        @elseif ($value->unidad == "m3")
+          <td>{{$value->m3}} (m3)</td>
+          <td>{{$value->total_m3}} (m3)</td>
         @else
-          @if($value->m3 > 0)
-            <td>{{$value->m3}}</td>
-            <td>{{$value->total_m3}}</td>
-          @elif($value->m2 > 0)
-            <td>{{$value->m2}}</td>
-            <td>{{$value->total_m2}}</td>
-          @else
-            <td>{{$value->m}}</td>
-            <td>{{$value->total_m}}</td>
-          @endif
+          <td>Unidad</td>
         @endif
         <td class="editable">
           <p>{{$value->precio_unidad}}</p>
@@ -433,7 +425,7 @@ $tiposMaterial = [
           @if($value->archivo_presupuesto == "sin definir")
           <p>{{$value->archivo_presupuesto}}</p>
           @else
-          <p><a href="{{$value->archivo_presupuesto}}" target="_blank">ver</a></p>
+          <p><a href="{{URL::to('/')}}{{ Storage::url($value->archivo_presupuesto) }}" target="_blank">ver</a></p>
           @endif
         </td>
         <td  class="editable">
@@ -468,7 +460,7 @@ $tiposMaterial = [
 == DESPERDICIO ==
 =================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>DESPERDICIO</h3>
     <p>
@@ -486,7 +478,7 @@ $tiposMaterial = [
 ==============  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col-md-12">
       <h3>MÁQUINAS</h3>
     </div>
@@ -657,7 +649,7 @@ $tiposMaterial = [
 ==================  -->
 
 <form action="" method="POST" class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col">
       <h3>MANO DE OBRA</h3>
       <table class="table table-striped">
@@ -922,7 +914,7 @@ $tiposMaterial = [
 ========================  -->
 
 <form action="" method="POST"  class="infoPre" id="updatePresupuesto">
-  <div class="row mt-5 p-3 border">
+  <div class="row mt-3 p-2 border">
     <div class="col">
       <h3>COSTES ADICIONALES</h3>
     </div>
@@ -993,7 +985,7 @@ $tiposMaterial = [
 == DESGLOSE DE PRECIOS ==
 =========================  -->
 
-<div class="row mt-5 p-3 border">
+<div class="row mt-3 p-2 border">
   <div class="col">
     <h3>Desglose de Precios</h3>
     <table class="table table-striped">

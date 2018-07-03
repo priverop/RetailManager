@@ -13,16 +13,14 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Presupuesto</th>
+                  <th>Mueble</th>
                   <th>Material</th>
                   <th>Proveedor</th>
                   <th>Unidades</th>
                   <th>Largo</th>
                   <th>Alto</th>
                   <th>Ancho</th>
-                  <th>Total M</th>
-                  <th>Total M2</th>
-                  <th>Total M3</th>
+                  <th>Total Tamaño</th>
                   <th>Precio Unidad</th>
                   <th>Descuento</th>
                   <th>Precio Total</th>
@@ -42,9 +40,15 @@
                         <td>{{$material->pivot->largo}}</td>
                         <td>{{$material->pivot->alto}}</td>
                         <td>{{$material->pivot->ancho}}</td>
-                        <td>{{$material->pivot->total_m}}</td>
-                        <td>{{$material->pivot->total_m2}}</td>
-                        <td>{{$material->pivot->total_m3}}</td>
+                        @if($material->unidad == "m")
+                          <td>{{$material->pivot->total_m}} (m)</td>
+                        @elseif ($material->unidad == "m2")
+                          <td>{{$material->pivot->total_m2}} (m2)</td>
+                        @elseif ($material->unidad == "m3")
+                          <td>{{$material->pivot->total_m3}} (m3)</td>
+                        @else
+                          <td>Unidad</td>
+                        @endif
                         <td>{{$material->precio}}€ / {{$material->unidad}}</td>
                         @if ($material->descuento > 0)
                           <td>{{$material->descuento}}% superando {{$material->min_unidades}} {{$material->unidad}}</td>

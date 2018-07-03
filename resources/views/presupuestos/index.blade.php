@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Presupuestos')
+@section('title', 'Lista de Muebles Presupuestados')
 
 @section('content')
 <?php $location = 'presupuestos' ?>
-<h2>Lista de Muebles ya presupuestados</h2>
 
 <div class="row">
 
@@ -13,7 +12,6 @@
       <tr>
         <th>#</th>
         <th>Concepto</th>
-
         <th>Obra</th>
         <th>Cliente</th>
         <th>Fecha</th>

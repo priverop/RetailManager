@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Obras')
+@section('title', 'Lista de Obras')
 
 @section('content')
 <?php $location = 'obras' ?>
-<h1>Lista de Obras</h1>
 
 <button class="btn btn-primary" id="addObra">Obra Nueva</button>
 
-<div class="row">
+<div class="row mt-3">
   <table id="index">
     <thead>
       <!-- <tr>
@@ -30,15 +29,7 @@
         <th>Versión Activa</th>
         <th>Fecha</th>
         <th>Cliente</th>
-        <th>Coste Base</th>
-        <th>Coste Base + IVA</th>
-        <th>Coste Montaje</th>
-        <th>Coste Transporte</th>
-        <th>Coste Estructural</th>
-        <th>Margen Estructural</th>
-        <th>Coste</th>
-        <th>Margen Coomercial</th>
-        <th>Coste Comercial</th>
+        <th>Total</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -64,15 +55,7 @@
           @endif
           <td>{{ $value->fecha }}</td>
           <td>{{ $value->cliente->nombre }}</td>
-          <td>{{ $value->precio_total }}</td>
-          <td>{{ $value->total_IVA }}</td>
-          <td>{{ $value->total_montaje }}</td>
-          <td>{{ $value->total_transporte }}</td>
-          <td>{{ $value->precio_total_beneficio}}</td>
-          <td>{{ $value->margen_estructural}}</td>
-          <td>{{ $value->total_estructural}}</td>
-          <td>{{ $value->margen_comercial}}</td>
-          <td>{{ $value->total_comercial}}</td>
+          <td>{{ $value->total_comercial}} €</td>
           <td>
             <a href="{{ route('obras.show', ['id' => $value->id]) }}">
               <button class="btn btn-outline-primary btn-sm">Ver</button>
@@ -90,6 +73,7 @@
 
 <script>
 $(function(){
+  $.fn.dataTable.moment('DD/MM/YYYY');
   $('#index').DataTable({
     dom: 'Bfrtip',
     buttons: [

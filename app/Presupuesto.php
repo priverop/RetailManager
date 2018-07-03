@@ -34,8 +34,18 @@ class Presupuesto extends Model
     return $this->hasMany('App\MaterialExterno');
   }
 
+  /**
+  * Guardamos la fecha en formato SQL
+  */
+  public function setFechaAttribute($value) {
+    $this->attributes['fecha'] = \Carbon\Carbon::createFromFormat('d/m/Y', $value);
+  }
+
+  /**
+  * Devuelve la fecha en formato español
+  */
   public function getFechaAttribute($value) {
-    return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    return \Carbon\Carbon::parse($value)->format('d/m/Y');
   }
 
 
