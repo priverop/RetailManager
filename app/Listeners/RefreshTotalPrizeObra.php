@@ -36,46 +36,46 @@ class RefreshTotalPrizeObra
 
         $obra = Obra::find($presupuesto->obra_id);
 
-        $totalPrize = 0;
-        $totalPrizeIVA = 0;
+        $sumaPresupuestosTotal = 0;
+        $sumaPresupuestosConIva = 0;
 
         foreach($obra->presupuestos as $key => $value){
-          $totalPrize += $value->precio_total;
-          $totalPrizeIVA += $value->precio_con_iva;
-          // if($value->uso_beneficio_global === 1){
-          //   $beneficio = $obra->beneficio;
-          // }else{
-          //   $beneficio = $value->beneficio;
-          // }
-          // $totalPrizeB += $value->precio_total * (1 + ($beneficio * 0.01));
+          $sumaPresupuestosTotal += $value->precio_total;
+          $sumaPresupuestosConIva += $value->precio_con_iva;
         }
 
-        $obra->precio_total = $totalPrize;
-        $obra->precio_total_beneficio = $totalPrizeIVA;
-        $obra->total_IVA = $totalPrizeIVA;
+        $obra->precio_total = $sumaPresupuestosTotal;
+        $obra->total_IVA = $sumaPresupuestosConIva;
 
+        // Coste base será el coste de presupuestos + Total Montaje + Total Transporte
+        $costeBase = $sumaPresupuestosConIva;
+
+        // MONTAJE //
         if($obra->coste_montaje == 0){
-          $obra->total_montaje = $obra->precio_total_beneficio * ($obra->porcentaje_montaje * 0.01);
+          $obra->total_montaje = $obra->total_IVA * ($obra->porcentaje_montaje * 0.01);
         }else{
           $obra->total_montaje = $obra->coste_montaje;
         }
-        $totalPrizeIVA += $obra->total_montaje;
+        $costeBase += $obra->total_montaje;
 
+        // TRANSPORTE //
         if($obra->coste_transporte == 0){
-          $obra->total_transporte = $obra->precio_total_beneficio * ($obra->porcentaje_transporte * 0.01);
+          $obra->total_transporte = $obra->total_IVA * ($obra->porcentaje_transporte * 0.01);
         }else{
           $obra->total_transporte = $obra->coste_transporte;
         }
-        $totalPrizeIVA += $obra->total_transporte;
+        $costeBase += $obra->total_transporte;
 
-        $obra->precio_total_beneficio = $totalPrizeIVA;
+        $obra->coste_base = $sumaPresupuestosConIva;
 
+        // MARGEN ESTRUCTURAL //
         if ($obra->margen_estructural > 0){
-          $obra->total_estructural = $obra->precio_total_beneficio / $obra->margen_estructural;
+          $obra->total_estructural = $obra->coste_base / $obra->margen_estructural;
         }else{
-          $obra->total_estructural = $obra->precio_total_beneficio;
+          $obra->total_estructural = $obra->coste_base;
         }
 
+        // MARGEN COMERCIAL //
         if ($obra->margen_comercial > 0){
           $obra->total_comercial = $obra->total_estructural / $obra->margen_comercial;
         }else{

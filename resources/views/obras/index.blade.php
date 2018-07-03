@@ -10,18 +10,6 @@
 <div class="row mt-3">
   <table id="index">
     <thead>
-      <!-- <tr>
-        <th>#</th>
-        <th>Nombre</th>
-        <th>Fecha</th>
-        <th>Cliente</th>
-        <th>Precio Coste</th>
-        <th>Beneficio</th>
-        <th>Coste Montaje</th>
-        <th>Coste Transporte</th>
-        <th>Precio Total</th>
-        <th>Acciones</th>
-      </tr> -->
       <tr>
         <th>#</th>
         <th>Nombre</th>
@@ -29,22 +17,13 @@
         <th>Versión Activa</th>
         <th>Fecha</th>
         <th>Cliente</th>
-        <th>Total</th>
+        <th>Total Comercial</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       @foreach($obras as $key => $value)
       <tr>
-          <!-- <td>{{ $value->id }}</td>
-          <td>{{ $value->nombre }}</td>
-          <td>{{ $value->fecha }}</td>
-          <td>{{ $value->cliente->nombre }}</td>
-          <td>{{ $value->precio_total }}</td>
-          <td>{{ $value->beneficio }}%</td>
-          <td>{{ $value->total_montaje }}</td>
-          <td>{{ $value->total_transporte }}</td>
-          <td>{{ $value->precio_total_beneficio}}</td> -->
           <td>{{ $value->id }}</td>
           <td>{{ $value->nombre }}</td>
           <td>{{ $value->version }} de {{ $value->v_ultima }}</td>

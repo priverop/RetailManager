@@ -82,9 +82,6 @@ class RefreshTotalPrizePresupuesto
       if($presupuesto->desperdicio > 0 ){
           $precioTotal = $precioTotal + $this->getDesperdicioTotal($presupuesto->desperdicio, $this->getMaderaPrecioTotal($presupuesto_id));
       }
-      // if($presupuesto->beneficio > 0 ){
-      //     $precioTotal = $precioTotal * (1 + ($presupuesto->beneficio * 0.01) );
-      // }
 
       $presupuesto->precio_total_unidad = $precioTotal;
       $presupuesto->precio_total = $precioTotal * $presupuesto->unidades;
