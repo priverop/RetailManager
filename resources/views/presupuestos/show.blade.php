@@ -365,16 +365,7 @@ $tiposMaterial = [
           <td>{{$value->m3}} (m3)</td>
           <td>{{$value->total_m3}} (m3)</td>
         @else
-          @if($value->m3 > 0)
-            <td>{{$value->m3}} (m3)</td>
-            <td>{{$value->total_m3}} (m3)</td>
-          @elseif($value->m2 > 0)
-            <td>{{$value->m2}} (m2)</td>
-            <td>{{$value->total_m2}} (m2)</td>
-          @else
-            <td>{{$value->m}} (m)</td>
-            <td>{{$value->total_m}} (m)</td>
-          @endif
+          <td>Unidad</td>
         @endif
         <td class="editable">
           <p>{{$value->precio_unidad}}</p>
