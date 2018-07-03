@@ -22,12 +22,10 @@ class CreatePresupuestosTable extends Migration
             $table->string('caracteristicas')->nullable();
             $table->integer('unidades')->default(1);
             $table->string('estado')->default('por comprobar');
-            $table->integer('beneficio')->default(0);
             $table->integer('desperdicio')->default(10);
             $table->double('precio_total_unidad', 8, 2)->default(0);
             $table->double('precio_total', 8, 2)->default(0);
-            $table->boolean('uso_beneficio_global')->default(true);
-
+            // MÁQUINAS //
             $table->integer('t_seccionadora')->default(0);
             $table->string('o_seccionadora')->default('Corte');
             $table->double('precio_t_seccionadora')->default(0);
@@ -52,8 +50,7 @@ class CreatePresupuestosTable extends Migration
             $table->string('o_prensa')->default('Pegado de Formica');
             $table->double('precio_t_prensa')->default(0);
             $table->double('total_prensa')->default(0);
-
-
+            // MANO DE OBRA //
             $table->integer('maquinas_operarios')->default(0);
             $table->integer('maquinas_horas_operario')->default(0);
             $table->string('maquinas_operacion')->default('No indicado');
@@ -94,9 +91,7 @@ class CreatePresupuestosTable extends Migration
             $table->string('ayudante_operacion')->default('No indicado');
             $table->double('ayudante_precio_unidad')->default(0);
             $table->double('total_ayudante')->default(0);
-
-
-
+            // COSTES ADICIONALES //
             $table->double('desplazamiento_unidad')->default(0);
             $table->double('total_desplazamiento')->default(0);
             $table->double('transporte_unidad')->default(0);
