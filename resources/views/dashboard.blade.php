@@ -64,7 +64,7 @@
             <th>Nombre</th>
             <th>Fecha</th>
             <th>Cliente</th>
-            <th>Precio Total</th>
+            <th>Total Comercial</th>
           </tr>
         </thead>
       </table>
@@ -109,7 +109,7 @@ $(function(){
       { data: "nombre", name: "nombre" },
       { data: "fecha", name: "fecha" },
       { data: "cliente.nombre", name: "cliente" },
-      { data: "precio_total_beneficio", name: "precio_total_beneficio" }
+      { data: "total_comercial", name: "total_comercial" }
     ]
   });
   actualizarTotalPresupuesto();
