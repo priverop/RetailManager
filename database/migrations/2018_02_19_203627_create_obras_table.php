@@ -21,14 +21,14 @@ class CreateObrasTable extends Migration
             $table->integer('v_ultima')->default(1);
             $table->string('nombre');
             $table->date('fecha');
-            $table->double('beneficio')->default(30);
             $table->double('precio_total', 8, 2)->default(0);
-            $table->double('precio_total_beneficio', 8, 2)->default(0);
+            // Coste base será el coste de presupuestos + Total Montaje + Total Transporte
+            $table->double('coste_base', 8, 2)->default(0);
             $table->double('porcentaje_montaje', 8, 2)->default(0);
-            $table->double('coste_montaje', 8, 2)->default(0);
+            $table->double('valor_montaje', 8, 2)->default(0);
             $table->double('total_montaje', 8, 2)->default(0);
             $table->double('porcentaje_transporte', 8, 2)->default(0);
-            $table->double('coste_transporte', 8, 2)->default(0);
+            $table->double('valor_transporte', 8, 2)->default(0);
             $table->double('total_transporte', 8, 2)->default(0);
             $table->double('margen_estructural', 8, 2)->default(0);
             $table->double('total_estructural', 8, 2)->default(0);

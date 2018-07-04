@@ -3,88 +3,149 @@
 @section('title', 'Obra Individual')
 
 @section('content')
+
 <?php $location = 'obras' ?>
-  <h1>{{ $obra[0]->nombre }} <button class="btn-sm btn-primary" id="editarObra">Editar Obra</button></h1>
-  <h4>{{ $obra[0]->fecha }}</h4>
-  <h6>Cliente: {{ $obra[0]->cliente->nombre }}</h6>
 
-  <p>Identificador de obra: {{ $obra[0]->id }}</p>
-  @if($obra[0]->v_activa == 1)
-    <p>Versión: {{ $obra[0]->version }} - Activa</p>
-  @else
-    <p>Versión: {{ $obra[0]->version }} - No Activa</p>
-  @endif
-  <h6>Otras versiones</h6>
-  <p>
-    @foreach($obra[1] as $key => $version)
-      @if($version->id !== $obra[0]->id)
-        <h4 class="versiones"><a href="{{route('obras.show', ['id' => $version->id])}}">{{$version->version}}</a></h4>
-      @endif
-    @endforeach
-  </p>
-</br>
-  <p>Coste Base: {{ $obra[0]->precio_total }}</p>
-  <p>Coste Base + IVA: {{ $obra[0]->total_IVA }}</p>
-  <p>Coste Montaje: {{ $obra[0]->total_montaje }}</p>
-  <p>Coste Transporte: {{ $obra[0]->total_transporte }}</p>
-  <p>Margen Estructural: {{ $obra[0]->margen_estructural }}</p>
-  <p>Margen Comercial: {{ $obra[0]->margen_comercial }}</p>
-</br>
-  <h5>Coste Estructural: {{ $obra[0]->precio_total_beneficio }}</h5>
-  <h5>Coste: {{ $obra[0]->total_estructural }}</h5>
-  <h5>Coste Comercial: {{ $obra[0]->total_comercial }}</h5>
-  <button class="btn btn-primary" id="addPresupuesto">Nuevo Mueble</button>
-  <button class="btn btn-primary" id="addMuebleExistente">Añadir Muebles Existentes</button>
-  <button class="btn btn-primary" id="infHoras">Informe Horas</button>
-  <button class="btn btn-primary" id="infCompras">Informe Compras</button>
-
-  <div class="row mt-5 p-3 mb-3 border">
-    <table id="presupuestoIndex">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Concepto</th>
-          <th>Precio und.</th>
-          <th>Unidades</th>
-          <th>Precio Coste</th>
-          <!-- <th>Beneficio</th>
-          <th>Beneficio Global</th> -->
-          <th>Precio Total (Coste+Iva)</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($obra[0]->presupuestos as $indice => $presupuesto)
-          <tr>
-            <td>{{$presupuesto->id}}</td>
-            <td>{{$presupuesto->concepto}}</td>
-            <td>{{$presupuesto->precio_total_unidad}}</td>
-            <td>{{$presupuesto->unidades}}</td>
-            <td>{{$presupuesto->precio_total}}</td>
-            <!-- @if ($presupuesto->uso_beneficio_global === 1)
-              <?php
-                $beneficio = $presupuesto->obra->beneficio;
-                $b_global = "Activado";
-              ?>
-            @else
-              <?php
-                $beneficio = $presupuesto->beneficio;
-                $b_global = "Desactivado";
-              ?>
+<div class="row">
+  <div class="col">
+    <h2>Información de la Obra</h2>
+    <table class="table mb-0">
+      <tr>
+        <th>Nombre</th>
+        <td>{{ $obra[0]->nombre }}</td>
+        <th>Versión</th>
+        <td>
+          @if($obra[0]->v_activa == 1)
+            <p>{{ $obra[0]->version }} - Activa</p>
+          @else
+            <p>{{ $obra[0]->version }} - No Activa</p>
+          @endif
+        </td>
+      </tr>
+      <tr>
+        <th>Fecha</th>
+        <td>{{ $obra[0]->fecha }}</td>
+        <th>Otras Versiones</th>
+        <td>
+          @foreach($obra[1] as $key => $version)
+            @if($version->id !== $obra[0]->id)
+              <h4 class="versiones"><a href="{{route('obras.show', ['id' => $version->id])}}">{{$version->version}}</a></h4>
             @endif
-            <td>{{$beneficio}}%</td> -->
-            <!-- <td>{{$b_global}}</td> -->
-            <td>{{$presupuesto->precio_con_iva  }}</td>
-            <td>
-              <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
-                <button class="btn btn-outline-primary btn-sm">Ver</button>
-              </a>
-              <button class="btn btn-outline-primary btn-sm" onclick="getDuplicateForm({{$presupuesto->id}})">Duplicar</button>
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
+          @endforeach
+        </td>
+      </tr>
+      <tr>
+        <th>Cliente</th>
+        <td>{{ $obra[0]->cliente->nombre }}</td>
+        <th>Acciones</th>
+        <td>
+          <button class="btn-sm btn-secondary" id="editarObra">Editar Obra</button>
+          <button class="btn-sm btn-secondary" id="infHoras">Informe Horas</button>
+          <button class="btn-sm btn-secondary" id="infCompras">Informe Compras</button>
+        </td>
+      </tr>
+      <tr>
+        <th>Identificador</th>
+        <td>{{ $obra[0]->id }}</td>
+      </tr>
     </table>
+
+  </div>
+
+</div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <h3>Parámetros de la Obra</h3>
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Valor Montaje</th>
+            <th scope="col">Porcentaje Montaje</th>
+            <th scope="col">Valor Transporte</th>
+            <th scope="col">Porcentaje Transporte</th>
+            <th scope="col">Margen Estructural</th>
+            <th scope="col">Margen Comercial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ $obra[0]->valor_montaje }}</td>
+            <td>{{ $obra[0]->porcentaje_montaje }}</td>
+            <td>{{ $obra[0]->valor_transporte }}</td>
+            <td>{{ $obra[0]->porcentaje_transporte }}</td>
+            <td>{{ $obra[0]->margen_estructural }}</td>
+            <td>{{ $obra[0]->margen_comercial }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 class="mt-1">Desglose de Precios</h3>
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Total Muebles</th>
+            <th scope="col">Total Muebles con IVA</th>
+            <th scope="col">Coste Montaje</th>
+            <th scope="col">Coste Transporte</th>
+            <th scope="col">Coste Base*</th>
+            <th scope="col">Total Estructural</th>
+            <th scope="col">Total Comercial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ $obra[0]->precio_total }}</td>
+            <td>{{ $obra[0]->total_IVA }}</td>
+            <td>{{ $obra[0]->total_montaje }}</td>
+            <td>{{ $obra[0]->total_transporte }}</td>
+            <td>{{ $obra[0]->coste_base }}</td>
+            <td>{{ $obra[0]->total_estructural }}</td>
+            <td>{{ $obra[0]->total_comercial }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>* Coste base = Total Mueble IVA + Montaje + Transporte</p>
+    </div>
+  </div>
+
+  <div class="row mt-3 p-3 mb-3 border">
+    <div class="col">
+      <h3>Muebles Presupuestados de la Obra</h3>
+      <button class="btn btn-primary mb-3" id="addPresupuesto">Nuevo Mueble</button>
+      <button class="btn btn-primary mb-3" id="addMuebleExistente">Añadir Muebles Existentes</button>
+
+      <table id="presupuestoIndex">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Concepto</th>
+            <th>Precio und.</th>
+            <th>Unidades</th>
+            <th>Precio Coste</th>
+            <th>Precio Total (Coste+Iva)</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($obra[0]->presupuestos as $indice => $presupuesto)
+            <tr>
+              <td>{{$presupuesto->id}}</td>
+              <td>{{$presupuesto->concepto}}</td>
+              <td>{{$presupuesto->precio_total_unidad}}</td>
+              <td>{{$presupuesto->unidades}}</td>
+              <td>{{$presupuesto->precio_total}}</td>
+              <td>{{$presupuesto->precio_con_iva  }}</td>
+              <td>
+                <a href="{{ route('presupuestos.show', ['id' => $presupuesto->id]) }}">
+                  <button class="btn btn-outline-primary btn-sm">Ver</button>
+                </a>
+                <button class="btn btn-outline-primary btn-sm" onclick="getDuplicateForm({{$presupuesto->id}})">Duplicar</button>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Modal form to add a post -->
