@@ -92,7 +92,6 @@ class PivotMaterialController extends Controller
         $materialparte = DB::table('material_parte')
         ->where('id', $materialparte_id)
         ->first();
-        // \Debugbar::info($materialparte);
         event(new MaterialParteModificado($materialparte->material_id, $materialparte->parte_id));
 
         $presupuesto = Presupuesto::find($presupuesto_id);
