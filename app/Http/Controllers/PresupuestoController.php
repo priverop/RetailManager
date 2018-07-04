@@ -1,4 +1,4 @@
-<?php
+º<?php
 
 namespace App\Http\Controllers;
 
@@ -93,7 +93,7 @@ class PresupuestoController extends Controller
 
       $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
 
-      return $pdf->download('Presupuesto-'.$presupuesto->id.'.pdf');
+      return $pdf->download($presupuesto->concepto.'.pdf');
 
     }
 

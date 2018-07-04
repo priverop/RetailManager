@@ -32,9 +32,7 @@
     height: 56px;
     vertical-align: middle;
   }
-  .header > div:first-child{
 
-  }
   .header > div:nth-child(2){
     margin-right: 100px;
   }
@@ -56,23 +54,6 @@
   /* == PRESUPUESTO - SHOW  ==*/
   /* ========================= */
 
-  .row .fullWidth{
-    width: 100%;
-  }
-
-  input:disabled{
-    outline: none !important;
-    background-color: white !important;
-    border: 0 !important;
-  }
-
-  /* Botones de Añadir Material */
-  .addMaterial{
-    margin: 5px;
-    font-size: 14px;
-    width: 200px;
-  }
-
   /* Cabecera de los Materiales */
   .head_material_especial{
     background-color: #dc3545 !important;
@@ -81,19 +62,6 @@
     padding: 2px !important;
   }
 
-  /* Input de la tabla más pequeños */
-  .editable .small-input{
-    width: 65px;
-  }
-
-  /* Galería de planos */
-  .gallery-container{
-    display: none;
-  }
-  .gallery-item{
-    max-width: 200px;
-    display: inline-block;
-  }
 
   /* ============================ */
   /* == FIN PRESUPUESTO - SHOW == */
@@ -161,8 +129,102 @@
 
   <div class="row mt-3">
     <div class="col">
-      <h3>Partes del Mueble</h3>
-      <p>A continuación se detallan las partes del mueble y sus materiales.</p>
+
+      @foreach($presupuesto->partes as $key => $value)
+
+      <?php
+      $tipoExiste = [
+        'madera' => false,
+        'electricidad' => false,
+        'herraje' => false,
+        'complemento' => false,
+        'piezaCompuesta' => false,
+        'embalaje' => false,
+        'acabado' => false
+      ];
+
+      $tiposMaterial = [
+        'Maderas' => 'madera',
+        'Electricidad' => 'electricidad',
+        'Herrajes' => 'herraje',
+        'Complementos' => 'complemento',
+        'Piezas Compuestas' => 'piezaCompuesta',
+        'Embalajes' => 'embalaje',
+        'Acabados' => 'acabado'
+      ];
+      ?>
+
+      <h3 class="mr-2">{{ $value->nombre }}</h3>
+
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Uds.</th>
+            <th scope="col">Material</th>
+            <th scope="col">Largo (mm)</th>
+            <th scope="col">Alto (mm)</th>
+            <th scope="col">Ancho (mm)</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Tamaño Total</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Precio Und.</th>
+            <th scope="col">Descuento</th>
+            <th scope="col">Precio Total</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        @foreach($tiposMaterial as $title => $type)
+          @foreach($value->materiales as $mkey => $mvalue)
+            @if($mvalue->tipo === $type)
+              @if(!$tipoExiste[$type])
+              <tr>
+                <td colspan="17" class="head_material_especial">
+                  {{$title}}
+                </td>
+              </tr>
+              <?php $tipoExiste[$type] = true; ?>
+              @endif
+            <tr>
+              <td>{{$mkey}}</td>
+              <td class="editable">
+                <p>{{$mvalue->pivot->unidades}}</p>
+              </td>
+              <td>{{$mvalue->nombre}}</td>
+              <td class="editable">
+                <p>{{$mvalue->pivot->largo}}</p>
+              </td>
+              <td class="editable">
+                <p>{{$mvalue->pivot->alto}}</p>
+              </td>
+              <td class="editable">
+                <p>{{$mvalue->pivot->ancho}}</p>
+              </td>
+              @if($mvalue->unidad == "m")
+                <td>{{$mvalue->pivot->m}} (m)</td>
+                <td>{{$mvalue->pivot->total_m}} (m)</td>
+              @elseif ($mvalue->unidad == "m2")
+                <td>{{$mvalue->pivot->m2}} (m2)</td>
+                <td>{{$mvalue->pivot->total_m2}} (m2)</td>
+              @elseif ($mvalue->unidad == "m3")
+                <td>{{$mvalue->pivot->m3}} (m3)</td>
+                <td>{{$mvalue->pivot->total_m3}} (m3)</td>
+              @else
+                <td>Unidad</td>
+                <td>Unidad</td>
+              @endif
+              <td>{{$mvalue->pivot->proveedors_nombre}}</td>
+              <td>{{$mvalue->precio}} € / {{$mvalue->unidad}}</td>
+              <td>{{$mvalue->pivot->descuento}}</td>
+              <td>{{$mvalue->pivot->precio_total}}</td>
+            </tr>
+            @endif
+          @endforeach
+        @endforeach
+        </tbody>
+      </table>
+      @endforeach
     </div>
   </div>
 
