@@ -7,7 +7,7 @@ use App\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Events\PresupuestoModificado;
+use App\Events\ObraModificada;
 
 use View;
 
@@ -110,6 +110,8 @@ class ObraController extends Controller
        } // Foreach partes
      } // Foreach presupuestos
 
+     event(new ObraModificada($nuevaObra));
+
      return response()->json(route('obras.show', ['id' => $nuevaObra->id]));
    }
 
@@ -190,6 +192,7 @@ class ObraController extends Controller
         $obra->v_id = $obra->id;
         $obra->version = 1;
         $obra->save();
+
         return response()->json(route('obras.show', ['id' => $obra->id]));
     }
 

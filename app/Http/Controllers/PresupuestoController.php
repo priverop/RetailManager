@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Presupuesto;
+use App\Obra;
 use Illuminate\Http\Request;
 use View;
 use Illuminate\Support\Facades\DB;
 
 use App\Events\PresupuestoModificado;
+use App\Events\ObraModificada;
 use App\Events\MaterialParteModificado;
 
 use Barryvdh\DomPDF\PDF;
@@ -161,6 +163,8 @@ class PresupuestoController extends Controller
 
       // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
+      $obra = Obra::find($nuevoPresupuesto->obra_id);
+      event(new ObraModificada($obra));
 
       if($obra_id == null){
         return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
@@ -234,6 +238,8 @@ class PresupuestoController extends Controller
       $presupuesto->save();
 
       event(new PresupuestoModificado($presupuesto));
+      $obra = Obra::find($presupuesto->obra_id);
+      event(new ObraModificada($obra));
 
       return response()->json($presupuesto);
     }
