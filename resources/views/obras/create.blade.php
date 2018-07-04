@@ -64,20 +64,6 @@
             </div>
           </div>
 
-          <!-- <div class="form-group">
-            <label class="control-label col-sm-2" for="beneficio"><strong>Beneficio:</strong></label>
-            <p>
-              Seleccione un porcentaje de beneficio para el presupuesto (puede modificarse posteriormente, puede dejarlo en 0 de momento).
-            </p>
-            <div class="col-sm-10">
-              @isset($obra)
-              <input type="text" class="form-control" name="beneficio" value="{{$obra->beneficio}}" placeholder="%">
-              @else
-              <input type="text" class="form-control" name="beneficio" value="30" placeholder="%">
-              @endisset
-            </div>
-          </div> -->
-
           <div class="form-group">
             <label class="control-label col-sm-2" for="beneficio"><strong>Coste de montaje:</strong></label>
             <p>
