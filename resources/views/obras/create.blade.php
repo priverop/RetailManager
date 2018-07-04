@@ -64,20 +64,6 @@
             </div>
           </div>
 
-          <!-- <div class="form-group">
-            <label class="control-label col-sm-2" for="beneficio"><strong>Beneficio:</strong></label>
-            <p>
-              Seleccione un porcentaje de beneficio para el presupuesto (puede modificarse posteriormente, puede dejarlo en 0 de momento).
-            </p>
-            <div class="col-sm-10">
-              @isset($obra)
-              <input type="text" class="form-control" name="beneficio" value="{{$obra->beneficio}}" placeholder="%">
-              @else
-              <input type="text" class="form-control" name="beneficio" value="30" placeholder="%">
-              @endisset
-            </div>
-          </div> -->
-
           <div class="form-group">
             <label class="control-label col-sm-2" for="beneficio"><strong>Coste de montaje:</strong></label>
             <p>
@@ -87,10 +73,10 @@
             <div class="col-sm-10">
               @isset($obra)
               <input type="text" class="form-control" name="porcentaje_montaje" value="{{$obra->porcentaje_montaje}}" placeholder="%">
-              <input type="text" class="form-control" name="coste_montaje" value="{{$obra->coste_montaje}}" placeholder="Valor">
+              <input type="text" class="form-control" name="valor_montaje" value="{{$obra->valor_montaje}}" placeholder="Valor">
               @else
               %:<input type="text" class="form-control" name="porcentaje_montaje" placeholder="%" value="0">
-              Valor:<input type="text" class="form-control" name="coste_montaje" placeholder="Valor" value="0">
+              Valor:<input type="text" class="form-control" name="valor_montaje" placeholder="Valor" value="0">
               @endisset
             </div>
           </div>
@@ -104,10 +90,10 @@
             <div class="col-sm-10">
               @isset($obra)
               <input type="text" class="form-control" name="porcentaje_transporte" value="{{$obra->porcentaje_transporte}}" placeholder="%">
-              <input type="text" class="form-control" name="coste_transporte" value="{{$obra->coste_transporte}}" placeholder="Valor">
+              <input type="text" class="form-control" name="valor_transporte" value="{{$obra->valor_transporte}}" placeholder="Valor">
               @else
               %: <input type="text" class="form-control" name="porcentaje_transporte" placeholder="%" value="0">
-              Valor: <input type="text" class="form-control" name="coste_transporte" placeholder="Valor" value="0">
+              Valor: <input type="text" class="form-control" name="valor_transporte" placeholder="Valor" value="0">
               @endisset
             </div>
           </div>

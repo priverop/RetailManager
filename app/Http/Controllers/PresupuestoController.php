@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Presupuesto;
+use App\Obra;
 use Illuminate\Http\Request;
 use View;
 use Illuminate\Support\Facades\DB;
 
 use App\Events\PresupuestoModificado;
+use App\Events\ObraModificada;
 use App\Events\MaterialParteModificado;
 
 use Barryvdh\DomPDF\PDF;
@@ -61,8 +63,6 @@ class PresupuestoController extends Controller
     {
         $presupuesto = Presupuesto::create([
           'concepto' => $request->input('concepto'),
-          // 'beneficio' => $request->input('beneficio'),
-          // 'uso_beneficio_global' => $request->input('uso_beneficio_global'),
           'obra_id' => $request->input('obra_id')
         ]);
         return response()->json($presupuesto);
@@ -81,16 +81,21 @@ class PresupuestoController extends Controller
         return View::make('presupuestos.show')->with('presupuesto', $presupuesto);
     }
 
+
+    /**
+     * Descarga el PDF del Presupuesto.
+     *
+     * @param  integer  $presupuesto_id
+     * @return \Illuminate\Http\Response
+     */
     public function getPDF($presupuesto_id){
       $presupuesto = Presupuesto::find($presupuesto_id);
 
       $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('presupuestos.pdf', array('presupuesto' => $presupuesto));
 
       return $pdf->download('Presupuesto-'.$presupuesto->id.'.pdf');
-      // return View::make('presupuestos.pdf')->with('presupuesto', $presupuesto);
 
     }
-
 
     /**
      * Duplicar presupuesto
@@ -158,6 +163,8 @@ class PresupuestoController extends Controller
 
       // Actualizamos la información del Nuevo Presupuesto
       event(new PresupuestoModificado($nuevoPresupuesto));
+      $obra = Obra::find($nuevoPresupuesto->obra_id);
+      event(new ObraModificada($obra));
 
       if($obra_id == null){
         return response()->json(route('presupuestos.show', ['id' => $nuevoPresupuesto->id]));
@@ -231,6 +238,8 @@ class PresupuestoController extends Controller
       $presupuesto->save();
 
       event(new PresupuestoModificado($presupuesto));
+      $obra = Obra::find($presupuesto->obra_id);
+      event(new ObraModificada($obra));
 
       return response()->json($presupuesto);
     }

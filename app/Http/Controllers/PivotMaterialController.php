@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use View;
 use App\Presupuesto;
+use App\Obra;
 use Illuminate\Support\Facades\DB;
 use App\Events\PresupuestoModificado;
 use App\Events\MaterialParteModificado;
+use App\Events\ObraModificada;
 
 /*
   This controller with manage MaterialParte & MaterialProveedor & Presupuesto Prize
@@ -60,6 +62,8 @@ class PivotMaterialController extends Controller
         $presupuesto = Presupuesto::find($presupuesto_id->presupuesto_id);
 
         event(new PresupuestoModificado($presupuesto));
+        $obra = Obra::find($presupuesto->obra_id);
+        event(new ObraModificada($obra));
 
       return response()->json($result);
     }
@@ -88,12 +92,13 @@ class PivotMaterialController extends Controller
         $materialparte = DB::table('material_parte')
         ->where('id', $materialparte_id)
         ->first();
-        // \Debugbar::info($materialparte);
         event(new MaterialParteModificado($materialparte->material_id, $materialparte->parte_id));
 
         $presupuesto = Presupuesto::find($presupuesto_id);
 
         event(new PresupuestoModificado($presupuesto));
+        $obra = Obra::find($presupuesto->obra_id);
+        event(new ObraModificada($obra));
 
         return response()->json($update);
     }
@@ -116,6 +121,8 @@ class PivotMaterialController extends Controller
       $presupuesto = Presupuesto::find($presupuesto_id);
 
       event(new PresupuestoModificado($presupuesto));
+      $obra = Obra::find($presupuesto->obra_id);
+      event(new ObraModificada($obra));
 
       return response()->json($delete);
     }

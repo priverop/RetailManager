@@ -15,11 +15,13 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\PresupuestoModificado' => [
             'App\Listeners\RefreshTotalPrizePresupuesto',
-            'App\Listeners\RefreshTotalPrizeObra',
         ],
         'App\Events\MaterialParteModificado' => [
             'App\Listeners\RefreshPropertiesMaterial',
-        ]
+        ],
+        'App\Events\ObraModificada' => [
+            'App\Listeners\RefreshTotalPrizeObra',
+        ],
     ];
 
     /**

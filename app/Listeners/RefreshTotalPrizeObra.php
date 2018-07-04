@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\PresupuestoModificado;
+use App\Events\ObraModificada;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\DB;
@@ -30,11 +30,9 @@ class RefreshTotalPrizeObra
      * @param  PresupuestoModificado  $event
      * @return void
      */
-    public function handle(PresupuestoModificado $event)
+    public function handle(ObraModificada $event)
     {
-        $presupuesto = $event->presupuesto;
-
-        $obra = Obra::find($presupuesto->obra_id);
+        $obra = $event->obra;
 
         $sumaPresupuestosTotal = 0;
         $sumaPresupuestosConIva = 0;
