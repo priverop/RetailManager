@@ -50,7 +50,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => '/var/www/vhosts/farmaciarubis.es/httpdocs/modifase-v2/storage/app',
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

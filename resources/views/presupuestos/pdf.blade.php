@@ -471,7 +471,13 @@
       <div class="col">
         <h3>Planos</h3>
         @foreach($presupuesto->planos as $key => $plano)
-          <img class="img-fluid" src="{{ Storage::url("$plano->filename") }}">
+
+        <?php
+          $url = asset('storage/app/' . $plano->filename);
+          $image_url = str_replace('modifase-v2/public/', 'modifase-v2/', $url);
+        ?>
+
+          <img class="img-fluid" src="{{ $image_url }}">
         @endforeach
       </div>
     </div>

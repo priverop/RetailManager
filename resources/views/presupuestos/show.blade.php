@@ -56,7 +56,7 @@
         <b>Estado: </b>
         <input type="text" id="estado" placeholder="Estado" name="estado" value="{{ $presupuesto->estado }} " class="infoPresupuesto"  disabled/>
       </div>
-      
+
       <div onclick="editar1('caracteristicas')">
         <b>Características: </b>
         <input type="text" id="caracteristicas" placeholder="Caracteristicas" name="caracteristicas" value="{{ $presupuesto->caracteristicas }} " class="infoPresupuesto"  disabled/>
@@ -89,8 +89,12 @@
     <div class="gallery-container mt-3">
       @foreach($presupuesto->planos as $key => $plano)
       <div class="gallery-item">
-        <a class="image-popup" href="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
-          <img class="img-fluid" src="{{URL::to('/')}}{{ Storage::url("$plano->filename") }}">
+        <?php
+        $url = asset('storage/app/' . $plano->filename);
+        $image_url = str_replace('modifase-v2/public/', 'modifase-v2/', $url);
+        ?>
+        <a class="image-popup" href="{{ $image_url }}">
+          <img class="img-fluid" src="{{ $image_url }}">
         </a>
         <button class="btn-sm btn-primary fullWidth" onclick="deletePlano({{$plano->id}})">Borrar</button>
       </div>
@@ -409,7 +413,13 @@ $tiposMaterial = [
           @if($value->archivo_presupuesto == "sin definir")
           <p>{{$value->archivo_presupuesto}}</p>
           @else
-          <p><a href="{{URL::to('/')}}{{ Storage::url($value->archivo_presupuesto) }}" target="_blank">ver</a></p>
+          <?php
+          $url = asset('storage/app/' . $value->archivo_presupuesto);
+          echo $url;
+          $pdf_url = str_replace('modifase-v2/public/', 'modifase-v2/', $url);
+          
+          ?>
+          <p><a href="{{ $pdf_url }}" target="_blank">Ver</a></p>
           @endif
         </td>
         <td  class="editable">
