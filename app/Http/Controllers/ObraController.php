@@ -184,8 +184,8 @@ class ObraController extends Controller
           'porcentaje_montaje' => $request->input('porcentaje_montaje'),
           'valor_transporte' => $request->input('valor_transporte'),
           'porcentaje_transporte' => $request->input('porcentaje_transporte'),
-          'margen_estructural' => $request->input('margen_estructural'),
-          'margen_comercial' => $request->input('margen_comercial'),
+          'margen_estructural' => str_replace(',', '.', $request->input('margen_estructural')),
+          'margen_comercial' => str_replace(',', '.', $request->input('margen_comercial')),
           'cliente_id'  => $cliente->id
         ]);
 
