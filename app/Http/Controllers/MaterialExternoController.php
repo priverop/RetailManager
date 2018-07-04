@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\MaterialExterno;
 use App\Presupuesto;
+use App\Obra;
 use Illuminate\Http\Request;
 
 use App\Events\PresupuestoModificado;
 use App\Events\MaterialParteModificado;
+use App\Events\ObraModificada;
 
 class MaterialExternoController extends Controller
 {
@@ -71,6 +73,8 @@ class MaterialExternoController extends Controller
     $presupuesto = Presupuesto::find($request->input('presupuesto_id'));
 
     event(new PresupuestoModificado($presupuesto));
+    $obra = Obra::find($presupuesto->obra_id);
+    event(new ObraModificada($obra));
 
     return response()->json($material_externo);
   }
@@ -90,13 +94,14 @@ class MaterialExternoController extends Controller
   public function destroyExterno(Request $request, $material)
   {
     $presupuesto_id = $request->input('presupuesto_id');
-    \Debugbar::info($material);
 
     MaterialExterno::find($material)->delete();
 
     $presupuesto = Presupuesto::find($presupuesto_id);
 
     event(new PresupuestoModificado($presupuesto));
+    $obra = Obra::find($presupuesto->obra_id);
+    event(new ObraModificada($obra));
 
     return response()->json(['done']);
   }
