@@ -224,12 +224,18 @@ class ObraController extends Controller
         $v_activa = 0;
 
 
-        if($request->input('select_v_activa') != NULL && $obra->v_activa == 0){
+        if($request->input('select_v_activa') != NULL){
             $v_activa = 1;
-            $update = DB::table('obras')
-            ->where('v_id', $obra->v_id)
-            ->update(['v_activa' => 0]);
+            if($obra->v_activa == 0){
+              $update = DB::table('obras')
+              ->where('v_id', $obra->v_id)
+              ->update(['v_activa' => 0]);
+            }
+
         }
+
+        $obra->v_activa = $v_activa;
+        $obra->save();
 
         $obra->update([
           'nombre'      => $request->input('nombre'),
