@@ -140,6 +140,8 @@
                   <button class="btn btn-outline-primary btn-sm">Ver</button>
                 </a>
                 <button class="btn btn-outline-primary btn-sm" onclick="getDuplicateForm({{$presupuesto->id}})">Duplicar</button>
+                <button class="btn btn-outline-primary btn-sm" onclick="eliminarPresupuesto(this)">Borrar</button>
+                <input type="hidden" value="{{route('presupuestos.destroy', ['id' => $presupuesto->id])}}">
               </td>
             </tr>
           @endforeach
@@ -316,6 +318,18 @@ function getDuplicateForm(presupuesto_id){
   }).done(function(data){
     $("#presupuestoIndex").parent().prepend(data);
     $("#duplicateModal").modal('show');
+  });
+}
+
+function eliminarPresupuesto(elemento){
+  var form_action = $(elemento).next().val();
+
+  $.ajax({
+    dataType: 'json',
+    type: 'DELETE',
+    url: form_action
+  }).done(function(data){
+    location.reload();
   });
 }
 </script>
