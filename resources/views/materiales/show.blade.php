@@ -5,17 +5,26 @@
 @section('content')
 <?php $location = 'materiales' ?>
 
-<div class="pt-5" id="clienteContainer">
-  <h1>{{ $material->nombre }}</h1>
-  <div class="row mt-5 p-3 border">
-    <div class="col-xs-12">
-      <p><b>Nombre:</b> {{ $material->nombre }}</p>
-      <p><b>ID:</b> {{ $material->id}}</p>
-    </div>
+<div class="row">
+  <div class="col">
+    <h2>Información del Material</h2>
+
+    <table class="table mb-0">
+      <tr>
+        <th>ID</th>
+        <td>{{ $material->id}}</td>
+        <th>Nombre</th>
+        <td>{{ $material->nombre }}</td>
+        <th>Tipo de Matrial</th>
+        <td>{{ $material->tipo}}</td>
+      </tr>
+    </table>
+
   </div>
 
-
 </div>
+
+
 
 
 

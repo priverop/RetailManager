@@ -10,7 +10,7 @@ class Proveedor extends Model
   * Obtiene los Materiales
   */
   public function materiales(){
-    return $this->belongsToMany('App\Material', 'material_proveedor');
+    return $this->belongsToMany('App\Material', 'material_proveedor')->withPivot('precio', 'unidad', 'descuento', 'min_unidades');
   }
 
   protected $fillable = [
