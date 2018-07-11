@@ -5,27 +5,39 @@
 @section('content')
 <?php $location = 'clientes' ?>
 
-<h1>{{ $cliente->nombre }}</h1>
-
 <div class="row">
+  <div class="col">
+    <h2>Información del Cliente</h2>
+    <h1>{{ $cliente->nombre }}</h1>
 
-  <div class=" mt-5 mb-5 p-3 border">
-    <div class="col-xs-12">
+    <table class="table mb-0">
+      <tr>
+        <th>ID</th>
+        <td>{{ $cliente-> id}}</td>
+        <th>NIF</th>
+        <td>{{ $cliente->nif }}</td>
+        <th>Dirección</th>
+        <td>{{ $cliente->direccion }}</td>
+      </tr>
+      <tr>
+        <th>Provincia</th>
+        <td>{{ $cliente->provincia }}</td>
+        <th>CP</th>
+        <td>{{ $cliente->cp }}</td>
+        <th>Teléfono</th>
+        <td>{{ $cliente->telefono }} </td>
 
-      <p><b>ID:</b> {{ $cliente-> id}}</p>
-      <p><b>Nombre:</b> {{ $cliente->nombre }}</p>
-      <p><b>Direccion:</b> {{ $cliente->direccion }}</p>
-      <p><b>Provincia:</b> {{ $cliente->provincia }}</p>
-      <p><b>Telefono:</b> {{ $cliente->telefono }}</p>
+      </tr>
+    </table>
 
-    </div>
   </div>
 
 </div>
+</br>
 
 <h2>Obras</h2>
 
-<div class="row mt-5">
+<div class="mt-3 p-3 mb-3 border">
 
   <div class="border p-3">
     <div class="col-xs-12">
@@ -35,11 +47,10 @@
           <tr>
             <th>#</th>
             <th>Nombre</th>
+            <th>Versión</th>
+            <th>Versión Activa</th>
             <th>Fecha</th>
-            <th>Cliente</th>
-            <th>Precio Coste</th>
-            <th>Beneficio</th>
-            <th>Precio Total</th>
+            <th>Total Comercial</th>
           </tr>
         </thead>
         <tbody>
@@ -47,11 +58,14 @@
           <tr>
               <td>{{ $value->id }}</td>
               <td><a href="{{ route('obras.show', ['id' => $value->id]) }}">{{ $value->nombre }}</a></td>
+              <td>{{ $value->version }} de {{ $value->v_ultima }}</td>
+              @if($value->v_activa == 1)
+                <td>Activa</td>
+              @else
+                <td>No Activa</td>
+              @endif
               <td>{{ $value->fecha }}</td>
-              <td>{{ $value->cliente->nombre }}</td>
-              <td>{{ $value->precio_total}}</td>
-              <td>{{ $value->beneficio }}%</td>
-              <td>{{ $value->precio_total_beneficio}}</td>
+              <td>{{ $value->total_comercial}} €</td>
             </tr>
           @endforeach
         </tbody>
