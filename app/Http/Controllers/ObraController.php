@@ -188,6 +188,8 @@ class ObraController extends Controller
           'cliente_id'  => $cliente->id
         ]);
 
+        $obra->valor_montaje = $request->input('valor_montaje');
+        $obra->valor_transporte = $request->input('valor_transporte');
         $obra->v_id = $obra->id;
         $obra->version = 1;
         $obra->save();
