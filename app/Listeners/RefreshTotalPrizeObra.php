@@ -49,18 +49,18 @@ class RefreshTotalPrizeObra
         $costeBase = $sumaPresupuestosConIva;
 
         // MONTAJE //
-        if($obra->coste_montaje == 0){
+        if($obra->valor_montaje == 0){
           $obra->total_montaje = $obra->total_IVA * ($obra->porcentaje_montaje * 0.01);
         }else{
-          $obra->total_montaje = $obra->coste_montaje;
+          $obra->total_montaje = $obra->valor_montaje;
         }
         $costeBase += $obra->total_montaje;
 
         // TRANSPORTE //
-        if($obra->coste_transporte == 0){
+        if($obra->valor_transporte == 0){
           $obra->total_transporte = $obra->total_IVA * ($obra->porcentaje_transporte * 0.01);
         }else{
-          $obra->total_transporte = $obra->coste_transporte;
+          $obra->total_transporte = $obra->valor_transporte;
         }
         $costeBase += $obra->total_transporte;
 

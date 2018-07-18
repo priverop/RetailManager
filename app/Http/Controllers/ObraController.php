@@ -135,7 +135,6 @@ class ObraController extends Controller
     public function create(Request $request)
     {
       $obra = Obra::find($request->input('id'));
-
       $html = view('obras.create', [
         'obra' => $obra,
       ])->render();
@@ -235,14 +234,14 @@ class ObraController extends Controller
         }
 
         $obra->v_activa = $v_activa;
+        $obra->valor_montaje = $request->input('valor_montaje');
+        $obra->valor_transporte = $request->input('valor_transporte');
         $obra->save();
 
         $obra->update([
           'nombre'      => $request->input('nombre'),
           'fecha'       => $request->input('fecha'),
-          'valor_montaje' => $request->input('valor_montaje'),
           'porcentaje_montaje' => $request->input('porcentaje_montaje'),
-          'valor_transporte' => $request->input('valor_transporte'),
           'porcentaje_transporte' => $request->input('porcentaje_transporte'),
           'margen_estructural' => $request->input('margen_estructural'),
           'margen_comercial' => $request->input('margen_comercial'),

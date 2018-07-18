@@ -162,6 +162,7 @@ $(function(){
 
   $("#addObraButton").click(function(event){
     event.preventDefault();
+
     var form_action = $("#addObrasForm").attr("action");
     var formulario = $("#addObrasForm").serialize();
     var error = false;
